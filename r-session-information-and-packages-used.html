@@ -11,7 +11,7 @@
   <meta property="og:title" content="Chapter8 R session information and packages used | Occupancy simulation and analysis" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="/images/venado_large.png" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
   <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
   <meta name="github-repo" content="dlizcano/OTS" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter8 R session information and packages used | Occupancy simulation and analysis" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
-  <meta name="twitter:image" content="/images/venado_large.png" />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
 
 <meta name="author" content="Diego J. Lizcano, Ph.D." />
 
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="bayesian.html"/>
 <link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.14/header-attrs.js"></script>
@@ -198,12 +198,16 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data<span></span></a></li>
 <li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian<span></span></a></li>
-<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used<span></span></a></li>
 <li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/dlizcano/IntroOccuBook" target="_blank">Publicado con bookdown</a></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -224,7 +228,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="r-session-information-and-packages-used" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number">Chapter8</span> R session information and packages used<a href="r-session-information-and-packages-used.html#r-session-information-and-packages-used" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="r-session-information-and-packages-used.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="r-session-information-and-packages-used.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.3 (2020-10-10)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## Running under: Windows 10 x64 (build 14393)
@@ -240,36 +244,39 @@ div.csl-indent {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] ggmcmc_1.5.1.1        ggplot2_3.3.6         tidyr_1.1.4          
-##  [4] dplyr_1.0.7           mcmcplots_0.4.3       coda_0.19-4          
-##  [7] jagsUI_1.5.2          spatstat_2.2-0        spatstat.linnet_2.3-0
-## [10] spatstat.core_2.3-0   spatstat.geom_2.2-2   rpart_4.1-15         
-## [13] nlme_3.1-152          spatstat.data_2.1-0   raster_3.5-15        
-## [16] sp_1.4-5              unmarked_1.1.1        Rcpp_1.0.8.3         
-## [19] lattice_0.20-44       knitr_1.39            bookdown_0.24        
+##  [1] ubms_1.1.0      knitr_1.39      ggmcmc_1.5.1.1  ggplot2_3.3.6  
+##  [5] tidyr_1.1.4     dplyr_1.0.7     mcmcplots_0.4.3 coda_0.19-4    
+##  [9] jagsUI_1.5.2    unmarked_1.1.1  lattice_0.20-44
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sass_0.4.0            sfsmisc_1.1-11        jsonlite_1.8.0       
-##  [4] splines_4.0.3         bslib_0.2.5.1         assertthat_0.2.1     
-##  [7] highr_0.9             yaml_2.3.5            pillar_1.7.0         
-## [10] glue_1.6.2            digest_0.6.29         RColorBrewer_1.1-3   
-## [13] polyclip_1.10-0       colorspace_2.0-3      htmltools_0.5.1.1    
-## [16] Matrix_1.3-4          plyr_1.8.7            spatstat.sparse_2.0-0
-## [19] pkgconfig_2.0.3       purrr_0.3.4           scales_1.2.0         
-## [22] rjags_4-13            tensor_1.5            terra_1.5-21         
-## [25] spatstat.utils_2.2-0  tibble_3.1.7          mgcv_1.8-36          
-## [28] generics_0.1.2        ellipsis_0.3.2        withr_2.5.0          
-## [31] cli_3.2.0             magrittr_2.0.3        crayon_1.5.1         
-## [34] deldir_1.0-2          evaluate_0.15         GGally_2.1.2         
-## [37] fansi_1.0.3           MASS_7.3-54           tools_4.0.3          
-## [40] lifecycle_1.0.1       stringr_1.4.0         munsell_0.5.0        
-## [43] compiler_4.0.3        jquerylib_0.1.4       rlang_1.0.2          
-## [46] grid_4.0.3            rstudioapi_0.13       goftest_1.2-2        
-## [49] rmarkdown_2.14        gtable_0.3.0          codetools_0.2-18     
-## [52] reshape_0.8.8         abind_1.4-5           DBI_1.1.2            
-## [55] R6_2.5.1              denstrip_1.5.4        utf8_1.2.2           
-## [58] stringi_1.7.6         parallel_4.0.3        vctrs_0.4.1          
-## [61] png_0.1-7             tidyselect_1.1.1      xfun_0.31</code></pre>
+##  [1] nlme_3.1-152        matrixStats_0.62.0  RColorBrewer_1.1-3 
+##  [4] rstan_2.26.10       tools_4.0.3         bslib_0.2.5.1      
+##  [7] utf8_1.2.2          R6_2.5.1            DBI_1.1.2          
+## [10] colorspace_2.0-3    raster_3.5-15       withr_2.5.0        
+## [13] sp_1.4-5            tidyselect_1.1.1    gridExtra_2.3      
+## [16] prettyunits_1.1.1   GGally_2.1.2        processx_3.5.3     
+## [19] curl_4.3.2          compiler_4.0.3      cli_3.2.0          
+## [22] denstrip_1.5.4      labeling_0.4.2      bookdown_0.24      
+## [25] sass_0.4.0          scales_1.2.0        sfsmisc_1.1-11     
+## [28] callr_3.7.0         pbapply_1.5-0       stringr_1.4.0      
+## [31] digest_0.6.29       StanHeaders_2.26.10 minqa_1.2.4        
+## [34] rmarkdown_2.14      pkgconfig_2.0.3     htmltools_0.5.1.1  
+## [37] lme4_1.1-29         highr_0.9           rlang_1.0.2        
+## [40] rstudioapi_0.13     jquerylib_0.1.4     farver_2.1.0       
+## [43] generics_0.1.2      jsonlite_1.8.0      inline_0.3.19      
+## [46] magrittr_2.0.3      loo_2.5.1           Matrix_1.3-4       
+## [49] Rcpp_1.0.8.3        munsell_0.5.0       fansi_1.0.3        
+## [52] lifecycle_1.0.1     terra_1.5-21        stringi_1.7.6      
+## [55] yaml_2.3.5          MASS_7.3-54         pkgbuild_1.3.1     
+## [58] plyr_1.8.7          grid_4.0.3          parallel_4.0.3     
+## [61] crayon_1.5.1        splines_4.0.3       ps_1.6.0           
+## [64] pillar_1.7.0        boot_1.3-28         codetools_0.2-18   
+## [67] stats4_4.0.3        rstantools_2.2.0    glue_1.6.2         
+## [70] evaluate_0.15       V8_4.1.0            RcppParallel_5.1.5 
+## [73] vctrs_0.4.1         nloptr_2.0.1        gtable_0.3.0       
+## [76] purrr_0.3.4         reshape_0.8.8       assertthat_0.2.1   
+## [79] xfun_0.31           RSpectra_0.16-1     rjags_4-13         
+## [82] tibble_3.1.7        ellipsis_0.3.2</code></pre>
 
 </div>
             </section>
@@ -309,7 +316,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/08-sesion.Rmd",
+"link": "https://github.com/dlizcano/occu_book/edit/master/08-sesion.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -320,7 +327,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["IntroOccuBook.pdf"],
+"download": ["Occu_Book.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

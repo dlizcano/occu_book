@@ -11,7 +11,7 @@
   <meta property="og:title" content="Chapter6 Occupancy analysis, ML method | Occupancy simulation and analysis" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="/images/venado_large.png" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
   <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
   <meta name="github-repo" content="dlizcano/OTS" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter6 Occupancy analysis, ML method | Occupancy simulation and analysis" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
-  <meta name="twitter:image" content="/images/venado_large.png" />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
 
 <meta name="author" content="Diego J. Lizcano, Ph.D." />
 
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="function1.html"/>
 <link rel="next" href="bayesian.html"/>
 <script src="libs/header-attrs-2.14/header-attrs.js"></script>
@@ -198,12 +198,16 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data<span></span></a></li>
 <li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian<span></span></a></li>
-<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used<span></span></a></li>
 <li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/dlizcano/IntroOccuBook" target="_blank">Publicado con bookdown</a></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -289,7 +293,7 @@ div.csl-indent {
 <p>The unmarked package allows us to graphically see how the data is arranged at the sampling sites with the plot function.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="unmarked.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (umf)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:umfplot"></span>
-<img src="IntroOccuBook_files/figure-html/umfplot-1.png" alt="Inspección grafica del objeto umf." width="672" />
+<img src="Occu_Book_files/figure-html/umfplot-1.png" alt="Inspección grafica del objeto umf." width="672" />
 <p class="caption">
 Figure 6.1: Inspección grafica del objeto umf.
 </p>
@@ -325,16 +329,56 @@ Figure 6.1: Inspección grafica del objeto umf.
 <span id="cb32-10"><a href="unmarked.html#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;p(temp+elev+elev:temp)psi(forest)&#39;</span> <span class="ot">=</span> fm8)</span>
 <span id="cb32-11"><a href="unmarked.html#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-12"><a href="unmarked.html#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">modSel</span>(models) <span class="co"># model selection procedure</span></span></code></pre></div>
-<pre><code>##                                   nPars     AIC  delta   AICwt cumltvWt
-## p(temp+elev+elev:temp)psi(elev)       6 1630.77   0.00 9.2e-01     0.92
-## p(temp+elev+elev:temp)psi(.)          5 1636.27   5.49 5.9e-02     0.98
-## p(temp+elev+elev:temp)psi(forest)     6 1638.24   7.47 2.2e-02     1.00
-## p(temp+elev)psi(.)                    4 1672.55  41.78 7.8e-10     1.00
-## p(elev)psi(elev)                      4 1741.34 110.57 9.0e-25     1.00
-## p(elev)psi(.)                         3 1746.83 116.06 5.8e-26     1.00
-## p(temp)psi(elev)                      4 1898.56 267.79 6.5e-59     1.00
-## p(temp)psi(forest)                    4 1906.03 275.26 1.6e-60     1.00
-## p(.)psi(.)                            2 1969.25 338.48 2.9e-74     1.00</code></pre>
+<pre><code>##                                   nPars
+## p(temp+elev+elev:temp)psi(elev)       6
+## p(temp+elev+elev:temp)psi(.)          5
+## p(temp+elev+elev:temp)psi(forest)     6
+## p(temp+elev)psi(.)                    4
+## p(elev)psi(elev)                      4
+## p(elev)psi(.)                         3
+## p(temp)psi(elev)                      4
+## p(temp)psi(forest)                    4
+## p(.)psi(.)                            2
+##                                       AIC
+## p(temp+elev+elev:temp)psi(elev)   1630.77
+## p(temp+elev+elev:temp)psi(.)      1636.27
+## p(temp+elev+elev:temp)psi(forest) 1638.24
+## p(temp+elev)psi(.)                1672.55
+## p(elev)psi(elev)                  1741.34
+## p(elev)psi(.)                     1746.83
+## p(temp)psi(elev)                  1898.56
+## p(temp)psi(forest)                1906.03
+## p(.)psi(.)                        1969.25
+##                                    delta
+## p(temp+elev+elev:temp)psi(elev)     0.00
+## p(temp+elev+elev:temp)psi(.)        5.49
+## p(temp+elev+elev:temp)psi(forest)   7.47
+## p(temp+elev)psi(.)                 41.78
+## p(elev)psi(elev)                  110.57
+## p(elev)psi(.)                     116.06
+## p(temp)psi(elev)                  267.79
+## p(temp)psi(forest)                275.26
+## p(.)psi(.)                        338.48
+##                                     AICwt
+## p(temp+elev+elev:temp)psi(elev)   9.2e-01
+## p(temp+elev+elev:temp)psi(.)      5.9e-02
+## p(temp+elev+elev:temp)psi(forest) 2.2e-02
+## p(temp+elev)psi(.)                7.8e-10
+## p(elev)psi(elev)                  9.0e-25
+## p(elev)psi(.)                     5.8e-26
+## p(temp)psi(elev)                  6.5e-59
+## p(temp)psi(forest)                1.6e-60
+## p(.)psi(.)                        2.9e-74
+##                                   cumltvWt
+## p(temp+elev+elev:temp)psi(elev)       0.92
+## p(temp+elev+elev:temp)psi(.)          0.98
+## p(temp+elev+elev:temp)psi(forest)     1.00
+## p(temp+elev)psi(.)                    1.00
+## p(elev)psi(elev)                      1.00
+## p(elev)psi(.)                         1.00
+## p(temp)psi(elev)                      1.00
+## p(temp)psi(forest)                    1.00
+## p(.)psi(.)                            1.00</code></pre>
 </div>
 <div id="prediction-in-graphs" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> Prediction in graphs<a href="unmarked.html#prediction-in-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -346,16 +390,24 @@ Figure 6.1: Inspección grafica del objeto umf.
 ## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
 ## 
 ## Occupancy (logit-scale):
-##             Estimate    SE     z  P(&gt;|z|)
-## (Intercept)     1.41 0.366  3.85 0.000117
-## elev           -1.63 0.656 -2.48 0.013082
+##             Estimate    SE     z
+## (Intercept)     1.41 0.366  3.85
+## elev           -1.63 0.656 -2.48
+##              P(&gt;|z|)
+## (Intercept) 0.000117
+## elev        0.013082
 ## 
 ## Detection (logit-scale):
-##             Estimate     SE     z  P(&gt;|z|)
-## (Intercept)     0.53 0.0698  7.60 3.04e-14
-## elev            1.80 0.1277 14.10 3.56e-45
-## temp            1.16 0.1209  9.57 1.08e-21
-## elev:temp       1.33 0.2211  6.00 1.96e-09
+##             Estimate     SE     z
+## (Intercept)     0.53 0.0698  7.60
+## elev            1.80 0.1277 14.10
+## temp            1.16 0.1209  9.57
+## elev:temp       1.33 0.2211  6.00
+##              P(&gt;|z|)
+## (Intercept) 3.04e-14
+## elev        3.56e-45
+## temp        1.08e-21
+## elev:temp   1.96e-09
 ## 
 ## AIC: 1630.771 
 ## Number of sites: 60
@@ -366,7 +418,7 @@ Figure 6.1: Inspección grafica del objeto umf.
 <pre><code>## t0 = 409.3793</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="unmarked.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (pb) <span class="co"># plot goodness of fit</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fit1"></span>
-<img src="IntroOccuBook_files/figure-html/fit1-1.png" alt="Graphical evaluation of the model fit fm7." width="672" />
+<img src="Occu_Book_files/figure-html/fit1-1.png" alt="Graphical evaluation of the model fit fm7." width="672" />
 <p class="caption">
 Figure 6.2: Graphical evaluation of the model fit fm7.
 </p>
@@ -380,7 +432,7 @@ Figure 6.2: Graphical evaluation of the model fit fm7.
 <span id="cb39-6"><a href="unmarked.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(lower<span class="sc">~</span>elev, pred_psi,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">col=</span><span class="fu">gray</span>(<span class="fl">0.5</span>))</span>
 <span id="cb39-7"><a href="unmarked.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(upper<span class="sc">~</span>elev, pred_psi,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">col=</span><span class="fu">gray</span>(<span class="fl">0.5</span>))</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:gpsi"></span>
-<img src="IntroOccuBook_files/figure-html/gpsi-1.png" alt="Plot of occupancy versus elevation." width="672" />
+<img src="Occu_Book_files/figure-html/gpsi-1.png" alt="Plot of occupancy versus elevation." width="672" />
 <p class="caption">
 Figure 6.3: Plot of occupancy versus elevation.
 </p>
@@ -411,7 +463,7 @@ Figure 6.3: Plot of occupancy versus elevation.
 <span id="cb40-20"><a href="unmarked.html#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="co"># lets plot the covs maps</span></span>
 <span id="cb40-21"><a href="unmarked.html#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mapdata.m)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:spat"></span>
-<img src="IntroOccuBook_files/figure-html/spat-1.png" alt="Simulated map of elevation, forest and temperature." width="672" />
+<img src="Occu_Book_files/figure-html/spat-1.png" alt="Simulated map of elevation, forest and temperature." width="672" />
 <p class="caption">
 Figure 6.4: Simulated map of elevation, forest and temperature.
 </p>
@@ -457,7 +509,7 @@ Figure 6.4: Simulated map of elevation, forest and temperature.
 <span id="cb45-3"><a href="unmarked.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(predmaps)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;psi_predicted&quot;</span>, <span class="st">&quot;p_predicted&quot;</span>) <span class="co"># put names</span></span>
 <span id="cb45-4"><a href="unmarked.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(predmaps)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:spatr"></span>
-<img src="IntroOccuBook_files/figure-html/spatr-1.png" alt="Spatially explicit detection and occupancy models." width="672" />
+<img src="Occu_Book_files/figure-html/spatr-1.png" alt="Spatially explicit detection and occupancy models." width="672" />
 <p class="caption">
 Figure 6.5: Spatially explicit detection and occupancy models.
 </p>
@@ -511,7 +563,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/06-unmarked.Rmd",
+"link": "https://github.com/dlizcano/occu_book/edit/master/06-unmarked.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -522,7 +574,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["IntroOccuBook.pdf"],
+"download": ["Occu_Book.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

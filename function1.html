@@ -11,7 +11,7 @@
   <meta property="og:title" content="Chapter5 Packing everything into a function | Occupancy simulation and analysis" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="/images/venado_large.png" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
   <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
   <meta name="github-repo" content="dlizcano/OTS" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter5 Packing everything into a function | Occupancy simulation and analysis" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
-  <meta name="twitter:image" content="/images/venado_large.png" />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
 
 <meta name="author" content="Diego J. Lizcano, Ph.D." />
 
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="example.html"/>
 <link rel="next" href="unmarked.html"/>
 <script src="libs/header-attrs-2.14/header-attrs.js"></script>
@@ -198,12 +198,16 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data<span></span></a></li>
 <li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian<span></span></a></li>
-<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used<span></span></a></li>
 <li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/dlizcano/IntroOccuBook" target="_blank">Publicado con bookdown</a></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -333,7 +337,7 @@ div.csl-indent {
 <span id="cb22-9"><a href="function1.html#cb22-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">beta1 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">beta2 =</span> <span class="dv">2</span>, <span class="at">beta3 =</span> <span class="dv">1</span>, </span>
 <span id="cb22-10"><a href="function1.html#cb22-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">mean.detection =</span> <span class="fl">0.25</span>, <span class="at">alpha1 =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
 <span id="cb22-11"><a href="function1.html#cb22-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alpha2 =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">alpha3 =</span> <span class="dv">0</span>, <span class="at">show.plot =</span> <span class="cn">TRUE</span>) <span class="co"># Explicit defaults</span></span></code></pre></div>
-<p><img src="IntroOccuBook_files/figure-html/fun_call1b-1.png" width="672" /><img src="IntroOccuBook_files/figure-html/fun_call1b-2.png" width="672" /></p>
+<p><img src="Occu_Book_files/figure-html/fun_call1b-1.png" width="672" /><img src="Occu_Book_files/figure-html/fun_call1b-2.png" width="672" /></p>
 <p>Perhaps the simplest possible use for this function is to experience the sampling error by firsthand: which is the natural variability from repeated runs (several data sets) of our stochastic process by which we compute the data sets. We are going to simulate 10,000 tapir data sets to see how they vary in terms of the true number of occupied sites (sumZ in the code) and the number of sites where tapirs were observed at least once. Note that the data generated in the 10,000 has default parameters in the mean.occupancy and mean.detection parameters.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="function1.html#cb23-1" aria-hidden="true" tabindex="-1"></a>simrep <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb23-2"><a href="function1.html#cb23-2" aria-hidden="true" tabindex="-1"></a>trueSumZ <span class="ot">&lt;-</span> obsSumZ <span class="ot">&lt;-</span> <span class="fu">numeric</span>(simrep)</span>
@@ -358,7 +362,7 @@ div.csl-indent {
 <span id="cb25-2"><a href="function1.html#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;True (red) and observed (blue) number of occupied sites&quot;</span>)</span>
 <span id="cb25-3"><a href="function1.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(obsSumZ[<span class="fu">order</span>(trueSumZ)], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fig7"></span>
-<img src="IntroOccuBook_files/figure-html/fig7-1.png" alt="Natural variability (sampling error) of the true number of occupied sites (ordered by size) in red and the observed number of occupied sites (in blue). The number of sites observed/total is also known as the naïve occupancy of deer occurrence at 60 sites in the simulation. The width of the blue area represents the error induced by imperfect detection. Note the importance of taking this error into account to get a better idea of the occupation." width="672" />
+<img src="Occu_Book_files/figure-html/fig7-1.png" alt="Natural variability (sampling error) of the true number of occupied sites (ordered by size) in red and the observed number of occupied sites (in blue). The number of sites observed/total is also known as the naïve occupancy of deer occurrence at 60 sites in the simulation. The width of the blue area represents the error induced by imperfect detection. Note the importance of taking this error into account to get a better idea of the occupation." width="672" />
 <p class="caption">
 Figure 5.1: Natural variability (sampling error) of the true number of occupied sites (ordered by size) in red and the observed number of occupied sites (in blue). The number of sites observed/total is also known as the naïve occupancy of deer occurrence at 60 sites in the simulation. The width of the blue area represents the error induced by imperfect detection. Note the importance of taking this error into account to get a better idea of the occupation.
 </p>
@@ -440,7 +444,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/05-all-in-function.Rmd",
+"link": "https://github.com/dlizcano/occu_book/edit/master/05-all-in-function.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -451,7 +455,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["IntroOccuBook.pdf"],
+"download": ["Occu_Book.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

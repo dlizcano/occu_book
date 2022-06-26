@@ -11,7 +11,7 @@
   <meta property="og:title" content="Chapter4 Our Example: | Occupancy simulation and analysis" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:image" content="/images/venado_large.png" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
   <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
   <meta name="github-repo" content="dlizcano/OTS" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter4 Our Example: | Occupancy simulation and analysis" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
-  <meta name="twitter:image" content="/images/venado_large.png" />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
 
 <meta name="author" content="Diego J. Lizcano, Ph.D." />
 
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="occu.html"/>
 <link rel="next" href="function1.html"/>
 <script src="libs/header-attrs-2.14/header-attrs.js"></script>
@@ -198,12 +198,16 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data<span></span></a></li>
 <li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian<span></span></a></li>
-<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used<span></span></a></li>
 <li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/dlizcano/IntroOccuBook" target="_blank">Publicado con bookdown</a></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
 
 </ul>
 
@@ -297,7 +301,7 @@ logit(p _{ij}) = \alpha  _{0} + \alpha  _{1} \ast Elevation _{i} + \alpha  _{2}\
 <span id="cb6-15"><a href="example.html#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forest, psi, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
 <span id="cb6-16"><a href="example.html#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">0.95</span>, <span class="st">&quot;D&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fig2"></span>
-<img src="IntroOccuBook_files/figure-html/fig2-1.png" alt="Two ways to show the relationship between the probability of occurrence of tapir and the covariates. (A) Relationship between psi and elevation for a constant value (mean equal to zero) of forest cover. (B) Relationship between psi and elevation in an observed value of forest cover. (C) Forest cover psi ratio for a constant elevation (at mean zero). (D) Relationship psi forest cover for the observed value of elevation." width="672" />
+<img src="Occu_Book_files/figure-html/fig2-1.png" alt="Two ways to show the relationship between the probability of occurrence of tapir and the covariates. (A) Relationship between psi and elevation for a constant value (mean equal to zero) of forest cover. (B) Relationship between psi and elevation in an observed value of forest cover. (C) Forest cover psi ratio for a constant elevation (at mean zero). (D) Relationship psi forest cover for the observed value of elevation." width="672" />
 <p class="caption">
 Figure 4.1: Two ways to show the relationship between the probability of occurrence of tapir and the covariates. (A) Relationship between psi and elevation for a constant value (mean equal to zero) of forest cover. (B) Relationship between psi and elevation in an observed value of forest cover. (C) Forest cover psi ratio for a constant elevation (at mean zero). (D) Relationship psi forest cover for the observed value of elevation.
 </p>
@@ -326,7 +330,7 @@ Figure 4.1: Two ways to show the relationship between the probability of occurre
 <span id="cb8-19"><a href="example.html#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(<span class="at">x =</span> cov1, <span class="at">y =</span> cov2, <span class="at">z =</span> psi.matrix, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
 <span id="cb8-20"><a href="example.html#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">matpoints</span>(elev, forest, <span class="at">pch=</span><span class="st">&quot;+&quot;</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fig3"></span>
-<img src="IntroOccuBook_files/figure-html/fig3-1.png" alt="Relationship constructed between the simulated data of the expected occurrence (occupation) of tapir (psi) represented with the color scale from gray to red, against elevation and forest cover simultaneously. In this case the interaction between the two covariates is given by the value of beta3 = 1 that we have established previously." width="672" />
+<img src="Occu_Book_files/figure-html/fig3-1.png" alt="Relationship constructed between the simulated data of the expected occurrence (occupation) of tapir (psi) represented with the color scale from gray to red, against elevation and forest cover simultaneously. In this case the interaction between the two covariates is given by the value of beta3 = 1 that we have established previously." width="672" />
 <p class="caption">
 Figure 4.2: Relationship constructed between the simulated data of the expected occurrence (occupation) of tapir (psi) represented with the color scale from gray to red, against elevation and forest cover simultaneously. In this case the interaction between the two covariates is given by the value of beta3 = 1 that we have established previously.
 </p>
@@ -372,7 +376,7 @@ Figure 4.2: Relationship constructed between the simulated data of the expected 
 <span id="cb16-12"><a href="example.html#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;p&quot;</span>)</span>
 <span id="cb16-13"><a href="example.html#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">1.05</span>, <span class="st">&quot;D&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fig4"></span>
-<img src="IntroOccuBook_files/figure-html/fig4-1.png" alt="Two ways to show the relationships between the expected detection probability of the tapir (_p_) and the two variables elevation and temperature. (A) Relationship _p_ and elevation for constant temperature (at the mean value, which is equal to zero). (B) Relationship between _p_ and elevation in the observed value of temperature quantity. (C) Relationship between _p_ and temperature for a constant value of elevation (at mean elevation equal to zero). (D) Relationship between _p_ and temperature for an observed value of elevation." width="672" />
+<img src="Occu_Book_files/figure-html/fig4-1.png" alt="Two ways to show the relationships between the expected detection probability of the tapir (_p_) and the two variables elevation and temperature. (A) Relationship _p_ and elevation for constant temperature (at the mean value, which is equal to zero). (B) Relationship between _p_ and elevation in the observed value of temperature quantity. (C) Relationship between _p_ and temperature for a constant value of elevation (at mean elevation equal to zero). (D) Relationship between _p_ and temperature for an observed value of elevation." width="672" />
 <p class="caption">
 Figure 4.3: Two ways to show the relationships between the expected detection probability of the tapir (<em>p</em>) and the two variables elevation and temperature. (A) Relationship <em>p</em> and elevation for constant temperature (at the mean value, which is equal to zero). (B) Relationship between <em>p</em> and elevation in the observed value of temperature quantity. (C) Relationship between <em>p</em> and temperature for a constant value of elevation (at mean elevation equal to zero). (D) Relationship between <em>p</em> and temperature for an observed value of elevation.
 </p>
@@ -395,7 +399,7 @@ Figure 4.3: Two ways to show the relationships between the expected detection pr
 <span id="cb17-15"><a href="example.html#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(<span class="at">x =</span> cov1, <span class="at">y =</span> cov2, <span class="at">z =</span> p.matrix, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
 <span id="cb17-16"><a href="example.html#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">matpoints</span>(elev, temp, <span class="at">pch=</span><span class="st">&quot;+&quot;</span>, <span class="at">cex=</span><span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fig5"></span>
-<img src="IntroOccuBook_files/figure-html/fig5-1.png" alt="Relationship constructed between the simulated data of the expected probability of detection (detectability) of tapir (p) represented with the color scale from gray to red, against elevation and temperature simultaneously. In this case, the interaction between the two covariates has a linear relationship that is given by the value of alpha3 = 0 that we have previously established." width="672" />
+<img src="Occu_Book_files/figure-html/fig5-1.png" alt="Relationship constructed between the simulated data of the expected probability of detection (detectability) of tapir (p) represented with the color scale from gray to red, against elevation and temperature simultaneously. In this case, the interaction between the two covariates has a linear relationship that is given by the value of alpha3 = 0 that we have previously established." width="672" />
 <p class="caption">
 Figure 4.4: Relationship constructed between the simulated data of the expected probability of detection (detectability) of tapir (p) represented with the color scale from gray to red, against elevation and temperature simultaneously. In this case, the interaction between the two covariates has a linear relationship that is given by the value of alpha3 = 0 that we have previously established.
 </p>
@@ -690,7 +694,7 @@ Figure 4.4: Relationship constructed between the simulated data of the expected 
 <span id="cb20-8"><a href="example.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(y, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">600</span>), <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
 <span id="cb20-9"><a href="example.html#cb20-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Detection/Nondetection (y)&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:fig6"></span>
-<img src="IntroOccuBook_files/figure-html/fig6-1.png" alt="Relationship between observed (jittered) tapir occupancy (y) and the three standardized covariates. Elevation (A). Forest cover (B). Temperature (C) and the frequency of distribution of the observed occurrence (y) in a data set of 60 sites with 30 samples each (D)." width="672" />
+<img src="Occu_Book_files/figure-html/fig6-1.png" alt="Relationship between observed (jittered) tapir occupancy (y) and the three standardized covariates. Elevation (A). Forest cover (B). Temperature (C) and the frequency of distribution of the observed occurrence (y) in a data set of 60 sites with 30 samples each (D)." width="672" />
 <p class="caption">
 Figure 4.5: Relationship between observed (jittered) tapir occupancy (y) and the three standardized covariates. Elevation (A). Forest cover (B). Temperature (C) and the frequency of distribution of the observed occurrence (y) in a data set of 60 sites with 30 samples each (D).
 </p>
@@ -752,7 +756,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/04-example.Rmd",
+"link": "https://github.com/dlizcano/occu_book/edit/master/04-example.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -763,7 +767,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["IntroOccuBook.pdf"],
+"download": ["Occu_Book.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

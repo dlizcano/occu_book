@@ -1,20 +1,19 @@
 
-# Simulación y análisis de ocupación
+# Occupancy simulation and analysis
 ## Diego J. Lizcano
 
-Libro Curso Introductorio a Análisis de Ocupación
+Book Introductory Course to Occupancy Analysis
 
-Ver el libro tutorial en:
-https://dlizcano.github.io/IntroOccuBook
+See the tutorial book at: https://dlizcano.github.io/occu_book
 
+In this book - tutorial we will perform data simulations of occupancy models, under the static model (MacKenzie et al. 2002) for the mountain tapir in the Nevados National Park.
 
-En este libro - tutorial realizaremos simulaciones de datos de modelos de ocupación, bajo el modelo estático (MacKenzie et al. 2002) para el venado de cola blanca en el Parque Nacional Machalilla.
+The objective of this document is to understand the versatility and power of simulations with R.
 
-El objetivo de este documento es entender la versatilidad y el poder de las simulaciones con R.
+This book has been written in RMarkdown using the bookdown package and is available in the Github repository: dlizcano/introR.
 
+An aditional book (compiled)  is available online at dlizcano.github.io/introR.
 
-Este libro ha sido escrito en [RMarkdown](http://rmarkdown.rstudio.com) empleando el paquete [`bookdown`](https://bookdown.org/yihui/bookdown/) y está disponible en el repositorio Github: [dlizcano/introR](https://github.com/dlizcano/introR). 
+To generate the book (compile) it may be advisable to install the latest version of RStudio and the R package bookdown.
 
-El libro (compilado) está disponible online en [dlizcano.github.io/introR](https://dlizcano.github.io/IntroR).
-
-Para generar el libro (compilar) puede ser recomendable instalar la última versión de [RStudio]((https://www.rstudio.com/products/rstudio/download/)) y el paquete de R `bookdown`. 
+After compile copy the file _book to the gh-pages branch

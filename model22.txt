@@ -1,0 +1,62 @@
+
+model {
+#
+ # Priors
+ mean.p ~ dunif(0, 1)        # Detection intercept on prob. scale
+ alpha0 <- logit(mean.p)     # same on logit scale
+ mean.psi ~ dunif(0, 1)      # Occupancy intercept on prob. scale
+ beta0 <- logit(mean.psi)    # same on logit scale
+ for(k in 1:3){              # 2 detection covariates + 1 interact
+     alpha[k] ~ dnorm(0, 0.01) # Covariates on logit(detection)
+ #   alpha[k] ~ dnorm(0, 0.05) # Covariates on logit(detection)
+ #   alpha[k] ~ dunif(-10, 10) # Covariates on logit(detection)
+ }
+
+ for(k in 1:1){                # 2 occupancy covariates + 1 interact
+     beta[k] ~ dnorm(0, 0.01)  # Covariates on logit(occupancy)
+ #   beta[k] ~ dnorm(0, 0.05)  # Covariates on logit(occupancy)
+ #   beta[k] ~ dunif(-10, 10)  # Covariates on logit(occupancy)
+ }
+
+ # Translation of the occupancy parameters in unmarked into those for BUGS:
+ # (Intercept)         (beta0 in BUGS)
+ # elev                (beta[1])
+ # forest              (beta[2])
+ # temp                (beta[3])
+ # elev:forest         (beta[4])
+ # elev:temp           (beta[5])
+ # forest:temp         (beta[6])
+ # elev:forest:temp    (beta[7])
+
+
+ # Likelihood
+ for (i in 1:M) {
+   # True state model for the partially observed true state
+   z[i] ~ dbern(psi[i])                      # True occupancy z at site i
+   logit(psi[i]) <- beta0 +                  # occupancy (psi) intercept
+     beta[1] * elev[i] #+                     # elev
+     #beta[2] * forest[i] #+                  # forest
+     #beta[3] * elev[i] * forest[i]          # elev:forest
+     #beta[4] * elev[i] * temp[i] +          # elev:temp
+     #beta[5] * temp[i] +                    # temp
+     #beta[6] * forest[i] * temp[i] +        # forest:temp
+     #beta[7] * elev[i] * forest[i] * temp[i]   # elev:forest:temp
+
+    for (j in 1:J) {
+       # Observation model for the actual observations
+       y[i,j] ~ dbern(p.eff[i,j])      # Detection-nondetection at i and j
+       p.eff[i,j] <- z[i] * p[i,j]
+       logit(p[i,j]) <- alpha0 +             # detection (p) intercept
+          alpha[1] * elev[i] +               # effect of elevation on p
+          alpha[2] * temp[i,j] +             # effect of temp on p
+          alpha[3] * elev[i] * temp[i,j]     # effect of elev:temp on p
+    }
+ }
+
+ # Derived quantities
+ sumZ <- sum(z[])      # Number of occupied sites among those studied
+ occ.fs <- sum(z[])/M  # proportion of occupied sites among those studied
+ logit.psi <- beta0    # For comparison with unmarked
+ logit.p <- alpha0     # For comparison with unmarked
+ }
+ 

@@ -1,0 +1,28 @@
+\select@language {spanish}
+\contentsline {chapter}{\numberline {1}Prerequisitos}{5}{chapter.1}
+\contentsline {chapter}{\numberline {2}Introducción}{7}{chapter.2}
+\contentsline {subsubsection}{\numberline {2.0.0.1}Créditos}{7}{subsubsection.2.0.0.1}
+\contentsline {chapter}{\numberline {3}Por qué simular?}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}por qué son útiles las simulaciones:}{9}{section.3.1}
+\contentsline {chapter}{\numberline {4}La ocupación de hábitat}{11}{chapter.4}
+\contentsline {chapter}{\numberline {5}Nuestro ejemplo:}{13}{chapter.5}
+\contentsline {subsection}{\numberline {5.0.1}Modelo Ecológico:}{15}{subsection.5.0.1}
+\contentsline {subsection}{\numberline {5.0.2}Modelo de Observación:}{15}{subsection.5.0.2}
+\contentsline {section}{\numberline {5.1}Pasos iniciales: tamaño de la muestra y valores de las co-variables}{16}{section.5.1}
+\contentsline {section}{\numberline {5.2}Simulando el proceso ecológico y su resultado: la ocurrencia del venado}{17}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Por qué Bernoulli?}{19}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}Simulando el proceso de observación y su resultado: la detección}{19}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Uniendo los dos procesos el ecológico y el de observación}{21}{subsection.5.3.1}
+\contentsline {chapter}{\numberline {6}Empacando todo en una función}{25}{chapter.6}
+\contentsline {chapter}{\numberline {7}Análisis de ocupación, metodo ML}{31}{chapter.7}
+\contentsline {subsection}{\numberline {7.0.1}Limpiando la memoria de R}{31}{subsection.7.0.1}
+\contentsline {section}{\numberline {7.1}Generando los datos}{31}{section.7.1}
+\contentsline {section}{\numberline {7.2}Poniendo los datos en unmarked}{33}{section.7.2}
+\contentsline {section}{\numberline {7.3}Ajustando los modelos}{33}{section.7.3}
+\contentsline {section}{\numberline {7.4}Selección de modelos}{34}{section.7.4}
+\contentsline {section}{\numberline {7.5}Predicción en graficas}{34}{section.7.5}
+\contentsline {section}{\numberline {7.6}Predicción espacialmente explicita}{36}{section.7.6}
+\contentsline {chapter}{\numberline {8}Análisis Bayesiano}{39}{chapter.8}
+\contentsline {section}{\numberline {8.1}Generando los datos}{39}{section.8.1}
+\contentsline {section}{\numberline {8.2}Comparando los valores reales y los estimados de ML y Bayesiano}{45}{section.8.2}
+\contentsline {chapter}{\numberline {9}Información de la sesión de R y los paquetes usados}{47}{chapter.9}

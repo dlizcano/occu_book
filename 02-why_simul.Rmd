@@ -1,0 +1,12 @@
+# Why to do simulations? {#why}
+
+## why simulations are useful:
+
+1. When doing simulations, the true parameters are known, so we can ensure that the code we execute (R or BUGS) estimates what we want, and that the estimates are equal to or close to the true parameters, allowing us to debug errors in the code.
+  2. We can calibrate a derived and/or more complex model more easily. Simulations can be viewed as a controlled experiment, or as simplified versions of a real system, in which we can test how certain parameters vary and affect estimates of other parameters. Conducting controlled experiments in the real world is often impractical or impossible in ecology, so simulation is the most consistent way to study the ecological system.
+  3. Sampling error is experienced firsthand and becomes a fantastic learning process.
+  4. We can check the quality (frequentist) of the estimates, as well as the precision and the effect of sample size, by computing the difference between the mean of the estimate and the true value (bias) and the variance of the estimates (the precision).
+  5. It is the most flexible and direct way to carry out power analysis, solving the great problem of determining the sample size necessary to detect an effect of a certain magnitude, with a given probability.
+  6. We can visualize how identifiable the parameters are in more complex models.
+  7. We can check how robust the model is to violations of the assumptions.
+  8. Being able to simulate data under a particular model ensures that one understands the model, its constraints, and limitations.

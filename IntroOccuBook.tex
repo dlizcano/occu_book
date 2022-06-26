@@ -1,0 +1,1569 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Simulación y análisis de ocupación},
+  pdfauthor={Diego J. Lizcano, Ph.D.},
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=Blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{spanish}
+  % Tabla en lugar de cuadro
+  \gappto\captionsspanish{\renewcommand{\tablename}{Tabla}
+          \renewcommand{\listtablename}{Índice de tablas}}
+
+\else
+  \usepackage[spanish,es-tabla]{babel}
+\fi
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+
+\title{Simulación y análisis de ocupación}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Entendiendo las simulaciones y el modelo básico de ocupación}
+\author{Diego J. Lizcano, Ph.D.}
+\date{2020-04-20}
+
+\begin{document}
+\maketitle
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{prerequisitos}{%
+\chapter{Prerequisitos}\label{prerequisitos}}
+
+Este es un \emph{libro-tutorial} escrito con \textbf{Markdown}
+
+\begin{flushleft}\includegraphics[width=2.78in]{images/rmd} \end{flushleft}
+
+Desde R y \href{https://www.rstudio.com/}{R studio}, usando los paquetes `bookdown', `knitr'y 'rmarkdown'.
+
+\begin{flushleft}\includegraphics[width=2.78in]{images/R} \end{flushleft}
+
+Este \emph{libro-tutorial} hace parte del \href{http://dlizcano.github.io/2016/06/24/Abundancia-y-metodos-de-ocupacion.html}{mini curso de métodos de ocupación con R.}
+
+Antes de comenzar por favor instale el programa JAGS en su computadora, posteriormente desde R studio instale los paquetes unmarked, raster, spatstat, jagsUI, mcmcplots y ggmcmc
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"unmarked"}\NormalTok{, }\DataTypeTok{dependencies =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"raster"}\NormalTok{, }\StringTok{"spatstat"}\NormalTok{, }\StringTok{"jagsUI"}\NormalTok{, }\StringTok{"mcmcplots"}\NormalTok{, }\StringTok{"ggmcmc"}\NormalTok{, }\DataTypeTok{dependencies =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Esta obra está bajo una licencia de \href{https://creativecommons.org/licenses/by-sa/4.0/deed.es}{Creative Commons Reconocimiento-Compartir Igual 4.0 Internacional}.
+
+\begin{flushleft}\includegraphics[width=1.22in]{images/by-sa-88x31} \end{flushleft}
+
+\hypertarget{intro}{%
+\chapter{Introducción}\label{intro}}
+
+En este libro-tutorial realizaremos simulaciones de datos para modelos de ocupación, bajo el modelo estático de una sola estación, desarrollado originalmente por Daryl MacKenzie \citep{MacKenzie2002}. El modelo básico de ocupación, es la piedra angular del muestreo y monitoreo biológico moderno!.
+
+El objetivo de este documento es entender la versatilidad y el poder de las simulaciones con R en el capítulo \ref{why}. Aprenderemos el principio biologico y el mecanismo bajo el cual funciona el modelo básico de ocupación en el capítulo \ref{occu}. Realizaremos un ejemplo sencillo en el capítulo \ref{example} para un venado del Parque Nacional Machalilla. Posteriormente empacaremos el código que genera los datos de ocupación, en una sola función en el Capítulo \ref{function1}. Esta función nos permitirá simular datos bajo diferentes escenarios, los cuales analizaremos con los estimadores de máxima verosimilitud de la función occu del paquete unmarked en el Capítulo \ref{unmarked}. Posteriormente analizaremos los mismos datos bajo estimadores bayesianos en el Capítulo \ref{bayesian}, para al final comparar la precisión de ambas aproximaciones, máxima verosimilitud y bayesiana.
+
+\hypertarget{cruxe9ditos}{%
+\subsubsection{Créditos}\label{cruxe9ditos}}
+
+Gran parte del concepto de este documento, el código y el texto han sido adaptados de los libros de \href{http://store.elsevier.com/Marc-Kery/ELS_1059944/}{Marc Kery} \citep{Kery2012, Kery2010, kery2015applied}.
+
+\hypertarget{why}{%
+\chapter{Por qué simular?}\label{why}}
+
+\hypertarget{por-quuxe9-son-uxfatiles-las-simulaciones}{%
+\section{por qué son útiles las simulaciones:}\label{por-quuxe9-son-uxfatiles-las-simulaciones}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Al hacer simulaciones se conocen los parámetros verdaderos, así que podremos asegurarnos que el código que ejecutamos (R o BUGS) estima lo que queremos, y que los estimados son iguales o se acercan a los parámetros verdaderos, permitiendo depurar errores en el código.
+\item
+  Podemos calibrar un modelo derivado y/o más complejo más fácilmente. Las simulaciones pueden ser vistas como un experimento controlado, o como versiones simplificadas de un sistema real, en el cual podemos probar como varían ciertos parámetros que afectan los estimados de otros parámetros. Realizar experimentos controlados en el mundo real es muchas veces impráctico o imposible en ecología, así que la simulación es la forma más coherente de estudiar el sistema ecológico.
+\item
+  Se experimenta de primera mano el error de muestreo y se convierte en un fantástico proceso de aprendizaje.
+\item
+  Podemos verificar la calidad (frecuentista) de los estimados, así como la precisión y el efecto del tamaño muestreal, computando la diferencia entre la media del estimado y el valor real (sesgo) y la varianza del estimado (la precisión).
+\item
+  Es la forma más flexible y directa de realizar un análisis de poder, resolviendo el gran problema de determinar el tamaño de la muestra necesario para detectar un efecto de cierta magnitud, con una probabilidad dada.\\
+\item
+  Podemos visualizar que tan identificables son los parámetros en modelos más complejos.
+\item
+  Podemos verificar que tan robusto es el modelo a violaciones de lo que se asume.
+\item
+  Al ser capaces de simular datos bajo cierto modelo, se garantiza que uno entiende el modelo, sus restricciones y limitaciones.
+\end{enumerate}
+
+\hypertarget{occu}{%
+\chapter{La ocupación de hábitat}\label{occu}}
+
+Obtener datos para estudios de poblaciones animales, es costoso y dispendioso, y no siempre se puede medir la densidad poblacional o parámetros demográficos como natalidad o mortalidad. Es por eso que la estimación de ocupación de hábitat (\(\psi\)) es una buena herramienta de estudio, ya que es un reflejo de otros parámetros poblacionales importantes como la abundancia y densidad, que requieren de un elevado número de registros, con los costos económicos y logísticos que conlleva. Adicionalmente y debido a que la detectabilidad (\emph{p}) en animales silvestres no es completa, el uso de los datos crudos genera subestimaciones de la ocupación de hábitat. Con el empleo de muestreos repetidos, es posible generar estimaciones de detectabilidad y, con esta estimación, obtener valores no sesgados de la ocupación del hábitat. Los métodos de análisis de la ocupación fueron inicialmente desarrollados por \citep{MacKenzie2002} y posteriormente expandidos por otros autores \citep{MACKENZIE2005, MacKenzie2006, Kery2008, Royle2007a, Royle2005, Royle2006}. Este tipo de modelos permiten realizar inferencias acerca de los efectos de variables continuas y categóricas sobre la ocupación de hábitat. Además, sí los muestreos se realizan a través de períodos largos de tiempo, también es posible estimar tasas de extinción y recolonización, que son útiles en estudios de metapoblaciones \citep{MacKenzie2003}. Este es un campo de gran desarrollo en bioestadística que ha producido una gran explosión de estudios que usan la ocupación teniendo en cuenta la detectabilidad \citep{Guillera-Arroita2010a, Guillera-Arroita2015, Guillera-Arroita2011, Guillera-Arroita2012, Guillera-Arroita2014a, Kery2013}.
+
+\hypertarget{example}{%
+\chapter{Nuestro ejemplo:}\label{example}}
+
+El set de datos que vamos a simular, imita la forma espacial y temporal como imaginamos se originan las medidas repetidas de presencia ausencia en ecología. Las cuales son una combinación de un proceso ecológico y un proceso de observación. El primer proceso contiene los mecanismos bajo los cuales se originan patrones espacio-temporales de distribución, mientras que el segundo proceso contiene las diferentes facetas en las cuales se originan fuentes de error al tomar los datos.
+
+Para ser más concretos vamos a llamar a nuestra especie imaginaria con un nombre real. La llamaremos el venado de cola blanca (\emph{Odocoileus virginianus}), un mamífero grande y común, ampliamente distribuido en el continente Americano, y de preocupación menor en términos de \href{http://www.iucnredlist.org/details/42394}{conservación}.
+
+\includegraphics{venado_large.jpg}
+El Venado de cola blanca (\emph{Odocoileus virginianus}) nuestra especie de interes para este ejemplo. Foto del proyecto fauna de Manabi \url{http://faunamanabi.github.io}
+
+El set de datos contiene \emph{J} datos replicados de detección o no detección de la especie en \emph{M} sitios, teniendo en cuenta que asumimos que es una población cerrada (`closure' assumption). Es decir que durante el muestreo no ocurrieron cambios por nacimientos, muertes inmigración o emigración. En otras palabras, el muestreo fue corto en tiempo y la ocurrencia de la especie \emph{z} no cambió por efectos demográficos.
+
+Claramente debemos distinguir dos procesos, el primero es el proceso ecológico, el cual genera (parcialmente) un estado latente de la ocurrencia \emph{z}. El segundo es el proceso de observación, el cual produce los datos observados de detección o no detección del venado. Aquí asumimos que el proceso de observación está gobernado por un mecanismo de detección imperfecta. Es decir algunos venados pudieron haberse escapado a mi observación, lo cual genera falsos negativos. También asumimos que los falsos positivos están ausentes, es decir que todo lo que identifico como venado, es efectivamente un venado. Para hacer más realista el ejemplo incluimos los efectos de la altitud y la cobertura de bosque en la ocurrencia, como factores que afectan la ocurrencia linealmente, disminuyéndola para el caso de la elevación y que incrementan la ocupación linealmente para el caso de la cobertura de bosques. Al final las dos variables interactúan negativamente entre sí. Esos efectos se introducen en la ocurrencia en escala logarítmica como tradicionalmente se hace un modelo lineal generalizado (GLM).
+
+En nuestra simulación vamos a hacer explícito que no es posible detectar a la totalidad de los venados de un sitio de muestreo, así que estamos enfrentando un tipo de error que nos hace sub-estimar la abundancia de la población. Hay muchas razones por las cuales fallamos en detectar un individuo en la naturaleza, porque nos distrajimos mientras el venado pasó, porque los binoculares no tenían el aumento suficiente, o simplemente porque el venado se escondió detrás de un árbol al sentir nuestro olor, o por alguna otra razón. De esta forma nosotros vamos a registrar la presencia (\emph{z}=1) con una probabilidad de detección \emph{p} la cual también vamos a hacerla dependiente (en la escala logarítmica) de la altitud y de una co-variable que afecta la detección, la temperatura. En términos generales los animales son más difíciles de observar cuando la temperatura es más alta y por lo general entre más altitud la temperatura disminuye. De esta forma asumimos que la detección está relacionada negativamente con la altitud y la temperatura. Pero también hay que tener en cuenta que el efecto negativo en \emph{p} también puede ser mediado por una disminución en la abundancia con la altitud, el cual también causa que la probabilidad de ocupación disminuya con la altitud. Tenga en cuenta que una co-variable, la altitud afecta a ambos procesos, el ecológico (la ocurrencia) y al proceso de observación (la probabilidad de detección). Esto tiene un propósito, y es probable que pase en la naturaleza muchas veces. Los modelos de ocupación tienen una base ``mecanicista'' produciendo variación espacial en la abundancia. Es decir tendremos sitios con mayor abundancia y otros con menor abundancia. Pero los modelos jerárquicos cómo el que estamos por construir, son capaces de desentrañar esas relaciones complejas entre ocurrencia y probabilidad de detección \citep{Kery2008, KERY2008, Kery2012}. Finalmente para este primer ejemplo vamos a dejar por fuera el efecto de la interacción entre la altitud y la temperatura, ajustándolo a cero. Luego podremos variar este parámetro para considerar ese efecto. En resumen vamos a generar datos bajo el siguiente modelo, donde los sitios son indexados cómo \emph{i} y los conteos repetidos en el sitio van a ser referidos cómo \emph{j}.
+
+\hypertarget{modelo-ecoluxf3gico}{%
+\subsection{Modelo Ecológico:}\label{modelo-ecoluxf3gico}}
+
+\begin{equation}
+z _{i} = Bernoulli (\psi _{i})
+  \label{eq:binom}
+\end{equation}
+
+\begin{equation}
+logit(\psi _{i}) = \beta _{0} + \beta _{1} \ast Altitud _{i} + \beta _{2}\ast CovBosque _{i} + \beta _{3} \ast Altitud _{i} \ast CovBosque _{i}
+  \label{eq:binom}
+\end{equation}
+
+\hypertarget{modelo-de-observaciuxf3n}{%
+\subsection{Modelo de Observación:}\label{modelo-de-observaciuxf3n}}
+
+\begin{equation}
+y _{ij} = Bernoulli (z _{i} * p _{ij})
+  \label{eq:binom}
+\end{equation}
+
+\begin{equation}
+logit(p _{ij}) = \alpha  _{0} + \alpha  _{1} \ast Altitud _{i} + \alpha  _{2}\ast Temperatura _{ij} + \alpha _{3} \ast Altitud _{i} \ast Temperatura _{ij}
+  \label{eq:binom}
+\end{equation}
+
+Donde \(\psi\) es la ocupación y \emph{p} la probabilidad de detección. Con \(\beta\) como el coeficiente de la regresión para las co-variables de la ocupación y \(\alpha\) el coeficiente de regresión para las co-variables de la detección.
+
+Vamos a generar datos desde ``dentro hacia afuera'' y desde arriba hacia abajo. Para esto, primero escogemos el tamaño de la muestra y creamos los valores para las co-variables. Segundo, seleccionamos los valores de los parámetros del modelo ecológico (la ocupación) y ensamblamos la ocurrencia esperada (el parámetro \(\psi\), ocupación) y posteriormente obtenemos la variable al azar \emph{z} la cual tiene distribución Bernoulli. Tercero, seleccionamos los valores de los parámetros del modelo de observación (la detección), para ensamblar la probabilidad de detección \emph{p} y obtener el segundo set de una variable al azar \emph{y} (detección observada o no observada de un venado) la cual también tiene distribución Bernoulli.
+
+Para simular los datos usaremos el lenguaje de programación estadística R \citep{RCoreTeam2016}, el cual provee una gran variedad de técnicas gráficas y estadísticas de modelación y un gran ecosistema de paquetes para análisis estadístico y ecológico. Si aún no lo ha hecho, baje e instale \href{http://www.r-project.org/}{R} en su computadora, posteriormente haga lo mismo con \href{http://www.rstudio.com/}{RStudio.}
+
+\hypertarget{pasos-iniciales-tamauxf1o-de-la-muestra-y-valores-de-las-co-variables}{%
+\section{Pasos iniciales: tamaño de la muestra y valores de las co-variables}\label{pasos-iniciales-tamauxf1o-de-la-muestra-y-valores-de-las-co-variables}}
+
+Inicie \href{http://www.rstudio.com/}{RStudio}, copie, pegue y ejecute los comandos de la ventana gris.
+
+Primero escogemos el tamaño de la muestra, el número de sitios y el número de medidas repetidas (número de visitas) de presencia/ausencia en cada sitio.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M <-}\StringTok{ }\DecValTok{60}  \CommentTok{# Número de réplicas espaciales (sitios)}
+\NormalTok{J <-}\StringTok{ }\DecValTok{30}  \CommentTok{# Número de réplicas temporales (conteos repetidos)}
+\end{Highlighting}
+\end{Shaded}
+
+Luego creamos los valores para las co-variables. Tenemos altitud y cobertura de bosque como co-variables de cada sitio. Ellas difieren de sitio a sitio pero para cada muestreo son las mismas. Mientras que la temperatura es una co-variable de la observación, así que si varía en cada muestreo y también en cada sitio. Recuerde que el sub índice \emph{i} se refiere al sitio y el \emph{j} a cada muestreo. Para simplificar las cosas nuestras co-variables van a tener una distribución normal con una media centrada en cero y no se van a extender muy lejos en cada lado del cero. En análisis de datos reales tendremos que estandarizar las co-variables para evitar problemas numéricos de diferencia en las escalas de las co-variables y poder calcular el valor de máxima verosimilitud (ML), así como también para obtener convergencia en las cadenas de Markov del modelo Bayesiano. Aquí vamos a ignorar un hecho de la vida real, y es que las co-variables no son totalmente independientes la una de la otra, es decir en la naturaleza la cobertura boscosa puede estar relacionada con la altitud, pero esto no va a ser relevante, por ahora.
+
+Para inicializar el generador de números aleatorios y obtener siempre los mismos resultados podemos adicionar la siguiente línea:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{24}\NormalTok{) }\CommentTok{# Can choose seed of your choice}
+\end{Highlighting}
+\end{Shaded}
+
+De esta forma podremos obtener siempre los mismos estimados. Pero luego cuando queramos obtener el error de muestreo deberemos remover esa línea. Para este ejemplo generaremos valores para las covariables centrados en cero y variando de -1 a 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{elev <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{)             }\CommentTok{# Scaled elevation of a site}
+\NormalTok{forest <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{)           }\CommentTok{# Scaled forest cover at each site}
+\NormalTok{temp <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M}\OperatorTok{*}\NormalTok{J, }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(M, J)) }\CommentTok{# Scaled temperature}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{simulando-el-proceso-ecoluxf3gico-y-su-resultado-la-ocurrencia-del-venado}{%
+\section{Simulando el proceso ecológico y su resultado: la ocurrencia del venado}\label{simulando-el-proceso-ecoluxf3gico-y-su-resultado-la-ocurrencia-del-venado}}
+
+Para simular la ocurrencia del venado en cada sitio, escogemos los valores para los parámetros que gobiernan la variación espacial en la ocurrencia \(\beta _{0}\) a \(\beta _{3}\). El primer parámetro es la ocurrencia promedio esperada del venado (probabilidad de ocupación) cuando todas las co-variables tienen un valor de cero, en otras palabras el intercepto del modelo de ocurrencia. Preferimos pensar en los venados en términos de su ocurrencia en lugar de logit(ocurrencia). Aquí nosotros escogemos el intercepto de la ocupación primero y luego lo transformamos de la escala logarítmica con la función de enlace logit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean.occupancy <-}\StringTok{ }\FloatTok{0.60}         \CommentTok{# Mean expected occurrence of deer}
+\NormalTok{beta0 <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(mean.occupancy) }\CommentTok{# Same on logit scale (= logit-scale intercept)}
+\NormalTok{beta1 <-}\StringTok{ }\DecValTok{-2}                    \CommentTok{# Effect (slope) of elevation}
+\NormalTok{beta2 <-}\StringTok{ }\DecValTok{2}                     \CommentTok{# Effect (slope) of forest cover}
+\NormalTok{beta3 <-}\StringTok{ }\DecValTok{1}                     \CommentTok{# Interaction effect (slope) of elev and forest}
+\end{Highlighting}
+\end{Shaded}
+
+Aquí aplicamos el modelo lineal (a la escala logarítmica) y obtenemos la transformación logit de la probabilidad de ocupación, la cual invertimos con la transformación logit para obtener la ocupación del venado y graficar todo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit.psi <-}\StringTok{ }\NormalTok{beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{beta1 }\OperatorTok{*}\StringTok{ }\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{beta2 }\OperatorTok{*}\StringTok{ }\NormalTok{forest }\OperatorTok{+}\StringTok{ }\NormalTok{beta3 }\OperatorTok{*}\StringTok{ }\NormalTok{elev }\OperatorTok{*}\StringTok{ }\NormalTok{forest}
+\NormalTok{psi <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(logit.psi)      }\CommentTok{# Inverse link transformation}
+
+\CommentTok{# par()              # view current settings}
+\NormalTok{opar <-}\StringTok{ }\KeywordTok{par}\NormalTok{()      }\CommentTok{# make a copy of current settings}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\DataTypeTok{cex.main =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{beta1}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"psi"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.95}\NormalTok{, }\StringTok{"A"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(elev, psi, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.95}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{beta2}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+      \DataTypeTok{xlab =} \StringTok{"Forest cover"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"psi"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\OperatorTok{-}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.95}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(forest, psi, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Forest cover"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\OperatorTok{-}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.95}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{IntroOccuBook_files/figure-latex/fig2-1.pdf}
+\caption{\label{fig:fig2}Dos formas de mostrar la relación entre la probabilidad de ocurrencia de los venados y las co-variables. (A) Relación entre psi y altitud para un valor constante (media igual a cero) de cobertura boscosa. (B) Relación entre psi y la altitud en un valor observado de cobertura boscosa. (C) relación psi cobertura boscosa para una altitud constante (en la media de cero). (D) Relación psi cobertura boscosa para el valor observado de altitud.}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# dev.off()}
+\KeywordTok{par}\NormalTok{(opar)          }\CommentTok{# restore original par settings}
+\end{Highlighting}
+\end{Shaded}
+
+Para mostrar mejor la relación conjunta entre las dos covariables y psi, debemos realizar un diagrama de superficie. Aquí no hemos cambiado nada de la simulación, solo le hemos agregado más datos para visualizar mejor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Compute expected occurrence for a grid of elevation and forest cover}
+\NormalTok{cov1 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, , }\DecValTok{100}\NormalTok{)                       }\CommentTok{# Values for elevation}
+\NormalTok{cov2 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, , }\DecValTok{100}\NormalTok{)                       }\CommentTok{# Values for forest cover}
+\NormalTok{psi.matrix <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{))      }\CommentTok{# Prediction matrix, for every }
+\CommentTok{# combination of values of elevation and forest cover}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
+   \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{      psi.matrix[i, j] <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(beta0 }\OperatorTok{+}\StringTok{ }
+\StringTok{                                   }\NormalTok{beta1 }\OperatorTok{*}\StringTok{ }\NormalTok{cov1[i] }\OperatorTok{+}\StringTok{ }
+\StringTok{                                   }\NormalTok{beta2 }\OperatorTok{*}\StringTok{ }\NormalTok{cov2[j] }\OperatorTok{+}\StringTok{ }
+\StringTok{                                   }\NormalTok{beta3 }\OperatorTok{*}\StringTok{ }\NormalTok{cov1[i] }\OperatorTok{*}\StringTok{ }\NormalTok{cov2[j] )}
+\NormalTok{   \}}
+\NormalTok{\}}
+
+\NormalTok{mapPalette <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"grey"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{, }\StringTok{"orange"}\NormalTok{, }\StringTok{"red"}\NormalTok{))}
+\KeywordTok{image}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cov1, }\DataTypeTok{y =}\NormalTok{ cov2, }\DataTypeTok{z =}\NormalTok{ psi.matrix, }\DataTypeTok{col =} \KeywordTok{mapPalette}\NormalTok{(}\DecValTok{100}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }
+      \DataTypeTok{ylab =} \StringTok{"Forest cover"}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.2}\NormalTok{)}
+\KeywordTok{contour}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cov1, }\DataTypeTok{y =}\NormalTok{ cov2, }\DataTypeTok{z =}\NormalTok{ psi.matrix, }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{matpoints}\NormalTok{(elev, forest, }\DataTypeTok{pch=}\StringTok{"+"}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/fig3-1} \caption[fig3]{Relación construida ente los datos simulados de la ocurrencia esperada (ocupación) del venado (psi) representada con la escala de color de gris a rojo, contra la altitud y la cobertura boscosa simultáneamente. En este caso la interacción entre las dos covariables está dada por el valor de beta3 = 1 que hemos establecido anteriormente.}\label{fig:fig3}
+\end{figure}
+
+Hasta ahora no hemos introducido ninguna variación estocástica en la relación entre la ocurrencia del venado y las covariables. Para hacer esto debemos hacer uso de algunos modelos estadísticos o distribuciones estadísticas, para describir la variabilidad al azar alrededor del valor esperado de psi. La forma típica de introducir esta variación al azar es obtener la ocurrencia de venados en cada sitio \emph{i}, \(z _{i}\), de una distribución Bernoulli con los valores esperados (\(\psi _{i}\)).
+
+\hypertarget{por-quuxe9-bernoulli}{%
+\subsection{Por qué Bernoulli?}\label{por-quuxe9-bernoulli}}
+
+En el proceso ecológico \(z _{i}\) la ocurrencia del venado esta representado por una distribución de tipo Bernoulli donde el venado esté presente en un sitio representado como la ocupación \(\psi\) en un sitio en que esta presente, o no esta presente 1-\(\psi\). La distribución Bernoulli es un caso especial de la distribución binomial, y su mejor ejemplo es el lanzamiento de una moneda una sola vez. Si requiere una explicación más extensa, básica, detallada y con más ejemplos le recomiendo visitar \href{https://es.khanacademy.org/math/probability/statistics-inferential/margin-of-error/v/mean-and-variance-of-bernoulli-distribution-example}{khanacademy.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =}\NormalTok{ psi)  }\CommentTok{# Realised occurrence. A Bernoulli}
+\KeywordTok{sum}\NormalTok{(z)                                    }\CommentTok{# Total number of occupied sites}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 40
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{table}\NormalTok{(z)                                  }\CommentTok{# Frequency distribution of deer occurrence}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## z
+##  0  1
+## 20 40
+\end{verbatim}
+
+Aquí hemos creado el resultado del proceso ecológico: ocurrencia específica para cada sitio \(z _{1}\). Vemos que 20 sitios no están ocupados y que los restantes 40 si están ocupados.
+
+\hypertarget{simulando-el-proceso-de-observaciuxf3n-y-su-resultado-la-detecciuxf3n}{%
+\section{Simulando el proceso de observación y su resultado: la detección}\label{simulando-el-proceso-de-observaciuxf3n-y-su-resultado-la-detecciuxf3n}}
+
+La ocurrencia \emph{z} no es lo que normalmente vemos, ya que hay un chance de que fallemos en observar un individuo. De ahí que haya una medida binaria de error cuando medimos la ocurrencia (lo observamos o no lo observamos). Nosotros asumimos que podemos hacer únicamente una de las dos posibles observaciones (si, no), pero pudimos haber perdido la observación de un venado en algún sitio, entonces la probabilidad de detección es menor que uno y la medida de error es afectada por la cobertura de bosque y la temperatura. Hay que tener en cuenta que nunca vamos a registrar la presencia de un venado cuando en realidad no hay venados. En otras palabras estamos asumiendo que no tenemos falsos positivos. Para hacer explícito que tenemos un efecto de interacción entre dos co-variables en nuestros datos, vamos a permitir un efecto de la interacción en el código, pero ajustado a cero y de esta forma sin efecto en el modelo que genera los datos. Primero seleccionamos los valores para \(\alpha _{0}\) hasta \(\alpha _{3}\), donde el primero es la probabilidad de detección para el venado, en la escala logit, cuando todas las co-variables de la detección tienen un valor de cero. Hemos escogido el intercepto del modelo de detección y luego lo transformamos con la función de enlace plogis. Esto no es lo mismo que la probabilidad de detección media, la cual es más alta en nuestro modelo de simulación, como veremos más adelante.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean.detection <-}\StringTok{ }\FloatTok{0.3}            \CommentTok{# Mean expected detection}
+\NormalTok{alpha0 <-}\StringTok{ }\KeywordTok{qlogis}\NormalTok{(mean.detection) }\CommentTok{# same on logit scale (intercept)}
+\NormalTok{alpha1 <-}\StringTok{ }\DecValTok{-1}                     \CommentTok{# Effect (slope) of elevation}
+\NormalTok{alpha2 <-}\StringTok{ }\DecValTok{-3}                     \CommentTok{# Effect (slope) of temperature}
+\NormalTok{alpha3 <-}\StringTok{ }\DecValTok{0}                      \CommentTok{# Interaction effect (slope) of elevevation and temperature}
+\end{Highlighting}
+\end{Shaded}
+
+Aplicando el modelo lineal, tenemos el logit de la probabilidad de detección del venado para cada sitio y muestreo, y aplicándole la transformación inversa (plogis), obtenemos una matriz de las dimensiones 60 por 30 con la probabilidad de detección para cada sitio \emph{i} y muestreo \emph{j}. Finalmente, graficamos las relaciones para la probabilidad de detección en los datos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit.p <-}\StringTok{ }\NormalTok{alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha1 }\OperatorTok{*}\StringTok{ }\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{alpha2 }\OperatorTok{*}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{alpha3 }\OperatorTok{*}\StringTok{ }\NormalTok{elev }\OperatorTok{*}\StringTok{ }\NormalTok{temp}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(logit.p)             }\CommentTok{# Inverse link transform }
+\KeywordTok{mean}\NormalTok{(p)                          }\CommentTok{# average per-site p is about 0.39}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3928068
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\DataTypeTok{cex.main =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha1}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{1.1}\NormalTok{), }
+      \DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"p"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\OperatorTok{-}\FloatTok{0.9}\NormalTok{, }\FloatTok{1.05}\NormalTok{, }\StringTok{"A"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\KeywordTok{matplot}\NormalTok{(elev, p, }\DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{1.1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }
+        \DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\OperatorTok{-}\FloatTok{0.9}\NormalTok{, }\FloatTok{1.05}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha2}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{1.1}\NormalTok{), }
+      \DataTypeTok{xlab =} \StringTok{"Temperature"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"p"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\OperatorTok{-}\FloatTok{0.9}\NormalTok{, }\FloatTok{1.05}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\KeywordTok{matplot}\NormalTok{(temp, p, }\DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{1.1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Temperature"}\NormalTok{, }
+        \DataTypeTok{ylab =} \StringTok{"p"}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\OperatorTok{-}\FloatTok{0.9}\NormalTok{, }\FloatTok{1.05}\NormalTok{, }\StringTok{"D"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbackslash begin\{figure\}
+\includegraphics{IntroOccuBook_files/figure-latex/fig4-1} \textbackslash caption{[}fig4{]}\{Dos formas de mostrar las relaciones entre la probabilidad de detección esperada del venado (\emph{p}) y las dos variables altitud y temperatura. (A) Relación \emph{p} y altitud para temperatura constante (en el valor medio, que es igual a cero). (B) Relación entre \emph{p} y la altitud en el valor observado de cantidad de temperatura. (C) Relación entre \emph{p} y temperatura para un valor constante de altitud (en la altitud media igual a cero). (D) Relación entre \emph{p} y temperatura para un valor observado de altitud.\}\label{fig:fig4}
+\textbackslash end\{figure\}
+
+De forma similar vamos a producir una gráfica de una superficie con la relación conjunta entre la altitud, la temperatura y la probabilidad de detección del venado (\emph{p}), actuando simultáneamente. La relación en la escala logarítmica es representada por un plano con pendiente que representa la interacción entre la elevación y la cobertura de bosque.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Compute expected detection probability for a grid of elevation and temperature}
+\NormalTok{cov1 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{,,}\DecValTok{100}\NormalTok{)                  }\CommentTok{# Values of elevation}
+\NormalTok{cov2 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,,}\DecValTok{100}\NormalTok{)                   }\CommentTok{# Values of temperature}
+\NormalTok{p.matrix <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{)) }\CommentTok{# Prediction matrix which combines }
+\CommentTok{# every value in cov 1 with every other in cov2}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
+   \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{      p.matrix[i, j] <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha1 }\OperatorTok{*}\StringTok{ }\NormalTok{cov1[i] }\OperatorTok{+}\StringTok{ }
+\StringTok{                                 }\NormalTok{alpha2 }\OperatorTok{*}\StringTok{ }\NormalTok{cov2[j] }\OperatorTok{+}\StringTok{ }
+\StringTok{                                 }\NormalTok{alpha3 }\OperatorTok{*}\StringTok{ }\NormalTok{cov1[i] }\OperatorTok{*}\StringTok{ }\NormalTok{cov2[j])}
+\NormalTok{   \}}
+\NormalTok{\}}
+\KeywordTok{image}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cov1, }\DataTypeTok{y =}\NormalTok{ cov2, }\DataTypeTok{z =}\NormalTok{ p.matrix, }\DataTypeTok{col =} \KeywordTok{mapPalette}\NormalTok{(}\DecValTok{100}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }
+      \DataTypeTok{ylab =} \StringTok{"Temperature"}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.2}\NormalTok{)}
+\KeywordTok{contour}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cov1, }\DataTypeTok{y =}\NormalTok{ cov2, }\DataTypeTok{z =}\NormalTok{ p.matrix, }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{matpoints}\NormalTok{(elev, temp, }\DataTypeTok{pch=}\StringTok{"+"}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{0.7}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/fig5-1} \caption[fig5]{Relación construida ente los datos simulados de la probabilidad de detección esperada (detectabilidad) del venado (p) representada con la escala de color de gris a rojo, contra la altitud y la temperatura simultáneamente. En este caso la interacción entre las dos covariables tiene una relación lineal que esta dada por el valor de alpha3 = 0 que hemos establecido anteriormente.}\label{fig:fig5}
+\end{figure}
+
+Hasta acá hemos modelado los dos procesos el ecológico \(z\) y el de observación \emph{p} por aparte. Ahora tendremos que ponerlos juntos, y para esto multiplicamos el resultado del proceso ecológico por la probabilidad de detección dentro de una distribución Bernoulli.
+
+\hypertarget{uniendo-los-dos-procesos-el-ecoluxf3gico-y-el-de-observaciuxf3n}{%
+\subsection{Uniendo los dos procesos el ecológico y el de observación}\label{uniendo-los-dos-procesos-el-ecoluxf3gico-y-el-de-observaciuxf3n}}
+
+Cuando ``medimos'' la ocurrencia, la detección imperfecta, representa una fuente de error con una distribución de tipo Bernoulli (por ejemplo la presencia del venado en un sitio en que es detectado con una probabilidad \emph{p}, o no es detectado como 1-\emph{p}). Al aplicar este proceso de observación producimos medidas repetidas de la presencia o ausencia (1 o 0) del venado en cada sitio. Recuerde que la distribución Bernoulli es un caso especial de la distribución binomial, y su mejor ejemplo es el lanzamiento de una moneda una sola vez.
+
+En este momento estamos estableciendo la jerarquía en el modelo jerárquico. Aca estamos anidando el proceso ecológico ``dentro'' del proceso de observación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DataTypeTok{nrow =}\NormalTok{ M, }\DataTypeTok{ncol =}\NormalTok{ J)      }\CommentTok{# Prepare array for counts}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{J)\{                          }\CommentTok{# Generate counts}
+\NormalTok{   y[,i] <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =}\NormalTok{ z}\OperatorTok{*}\NormalTok{p[,i])   }\CommentTok{# this is the Bernoulli}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Hasta acá hemos simulado la presencia/ausencia del venado de cola blanca en 60 sitios durante 30 sesiones de muestreo. Veamos que contienen las tablas. Recuerde que los sitios están en las filas y los muestreos repetidos en las columnas. Para comparar, mostraremos la verdadera ocurrencia en la primera columna para 30 sitios y solo cinco muestreos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(knitr)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{head}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\StringTok{"True Presence/Absence"}\NormalTok{ =}\StringTok{ }\NormalTok{z, }
+           \StringTok{"1st survey"}\NormalTok{ =}\StringTok{ }\NormalTok{y[,}\DecValTok{1}\NormalTok{], }
+           \StringTok{"2nd survey"}\NormalTok{ =}\StringTok{ }\NormalTok{y[,}\DecValTok{2}\NormalTok{], }
+           \StringTok{"3rd survey"}\NormalTok{ =}\StringTok{ }\NormalTok{y[,}\DecValTok{3}\NormalTok{],}
+           \StringTok{"4th survey"}\NormalTok{ =}\StringTok{ }\NormalTok{y[,}\DecValTok{4}\NormalTok{],}
+           \StringTok{"5th survey"}\NormalTok{ =}\StringTok{ }\NormalTok{y[,}\DecValTok{5}\NormalTok{]), }\DecValTok{30}\NormalTok{)) )   }\CommentTok{# First 30 rows (= sites)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r|r|r}
+\hline
+True Presence/Absence & 1st survey & 2nd survey & 3rd survey & 4th survey & 5th survey\\
+\hline
+1 & 0 & 1 & 0 & 1 & 0\\
+\hline
+1 & 0 & 0 & 0 & 1 & 1\\
+\hline
+1 & 0 & 1 & 0 & 1 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 1 & 1 & 1 & 0 & 0\\
+\hline
+1 & 0 & 1 & 0 & 0 & 0\\
+\hline
+1 & 0 & 0 & 1 & 0 & 1\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 0 & 0 & 0 & 1 & 1\\
+\hline
+1 & 1 & 0 & 0 & 0 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 1 & 0 & 0 & 0 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 0 & 0 & 1 & 1 & 0\\
+\hline
+1 & 1 & 1 & 1 & 1 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 0 & 0 & 0 & 1 & 1\\
+\hline
+1 & 1 & 1 & 1 & 1 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 1 & 0 & 0 & 0 & 1\\
+\hline
+1 & 0 & 0 & 0 & 1 & 1\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+1 & 1 & 1 & 0 & 1 & 0\\
+\hline
+1 & 0 & 1 & 1 & 0 & 0\\
+\hline
+1 & 1 & 1 & 0 & 0 & 0\\
+\hline
+1 & 0 & 1 & 0 & 0 & 1\\
+\hline
+\end{tabular}
+
+Ahora finalmente visualizaremos gráficamente los datos de unos y ceros que hemos simulado para nuestro muestreo. Recuerde que se trata de valores de unos que representan si hemos detectado, o no hemos detectado al venado, en cada uno de los sitios de muestreo en cada una de las visitas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\DataTypeTok{cex.main =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{matplot}\NormalTok{(elev, }\KeywordTok{jitter}\NormalTok{(y), }\DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+        \DataTypeTok{xlab =} \StringTok{"Altitud"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Detection/Nondetection (y)"}\NormalTok{)}
+\KeywordTok{matplot}\NormalTok{(forest, }\KeywordTok{jitter}\NormalTok{(y), }\DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+        \DataTypeTok{xlab =} \StringTok{"Forest cover"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Detection/Nondetection (y)"}\NormalTok{)}
+\KeywordTok{matplot}\NormalTok{(temp, }\KeywordTok{jitter}\NormalTok{(y), }\DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+        \DataTypeTok{xlab =} \StringTok{"Temperature"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Detection/Nondetection (y)"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(y, }\DataTypeTok{breaks =} \DecValTok{50}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{600}\NormalTok{), }\DataTypeTok{main =} \StringTok{""}\NormalTok{, }
+     \DataTypeTok{xlab =} \StringTok{"Detection/Nondetection (y)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/fig6-1} \caption[fig6]{Relación entre la ocupación observada (jittered) de venados (y) y las tres covariables estandarizadas. Altitud (A). Cobertura de bosque (B). Temperatura (C) y la frecuencia de distribución de la ocurrencia observada (y) en un set de datos de 60 sitios con 30 muestreos cada uno (D).}\label{fig:fig6}
+\end{figure}
+
+Hasta aquí hemos creado un set de datos donde la detección/no detección del venado esta negativamente correlacionado con la temperatura y positivamente relacionado con la cobertura de bosque. Hay una razón por la cual esta correlación entre variables es diferente. La ocurrencia por sitio, el objetivo de la inferencia ecológica, está afectado por la cobertura de bosque y la altitud, pero no por la temperatura, mientras que la probabilidad de detección, el parámetro caracterizando la medida del proceso de error cuando tomamos medidas de ocurrencia, es también afectado por la altitud y adicionalmente por la temperatura. Por lo tanto, como se puede notar, hay un gran reto para poder desenredar la razón de la variación espacio-temporal en la observación de los datos de detección/no detección, dado que pueden ser afectados por dos procesos totalmente diferentes: el ecológico y el observacional, que también la misma covariable puede afectar los dos procesos y que también pueden existir interacciones entre covariables.
+
+\hypertarget{function1}{%
+\chapter{Empacando todo en una función}\label{function1}}
+
+Podría ser de mucha utilidad empacar todo lo que hemos hecho en una sola función que nos permita hacer lo mismo muchas veces repetidamente. Esto hará que podamos diseñar simulaciones de una forma más concisa y flexible y hace más transparente la generación de parámetros usados para generar datos. Asi que vamos a definir una función (que llamaremos data.fn) para generar el mismo tipo de datos que acabamos de crear, asignando argumentos a la función, tales como tamaño de la muestra, efectos de las covariables y direcciones y magnitudes de la interacción de los términos del error de detección y ocupación. Esto hará que nuestro código sea más flexible y eficiente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{###############################}
+\CommentTok{## The function starts here }\AlertTok{###}
+\CommentTok{###############################}
+
+\CommentTok{# Function definition with set of default values}
+\NormalTok{data.fn <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{M =} \DecValTok{60}\NormalTok{, }\DataTypeTok{J =} \DecValTok{30}\NormalTok{, }\DataTypeTok{mean.occupancy =} \FloatTok{0.6}\NormalTok{, }
+                    \DataTypeTok{beta1 =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{beta2 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{beta3 =} \DecValTok{1}\NormalTok{, }\DataTypeTok{mean.detection =} \FloatTok{0.3}\NormalTok{, }
+                    \DataTypeTok{alpha1 =} \DecValTok{-1}\NormalTok{, }\DataTypeTok{alpha2 =} \DecValTok{-3}\NormalTok{, }\DataTypeTok{alpha3 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{show.plot =} \OtherTok{TRUE}\NormalTok{)\{}
+\CommentTok{# Function to simulate occupancy measurements replicated at M sites during J occasions.}
+\CommentTok{# Population closure is assumed for each site.}
+\CommentTok{# Expected occurrence may be affected by elevation (elev), }
+\CommentTok{# forest cover (forest) and their interaction.}
+\CommentTok{# Expected detection probability may be affected by elevation, }
+\CommentTok{# temperature (temp) and their interaction.}
+\CommentTok{# Function arguments:}
+\CommentTok{#     M: Number of spatial replicates (sites)}
+\CommentTok{#     J: Number of temporal replicates (occasions)}
+\CommentTok{#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates}
+\CommentTok{#     beta1: Main effect of elevation on occurrence}
+\CommentTok{#     beta2: Main effect of forest cover on occurrence}
+\CommentTok{#     beta3: Interaction effect on occurrence of elevation and forest cover}
+\CommentTok{#     mean.detection: Mean detection prob. at value 0 of detection covariates}
+\CommentTok{#     alpha1: Main effect of elevation on detection probability}
+\CommentTok{#     alpha2: Main effect of temperature on detection probability}
+\CommentTok{#     alpha3: Interaction effect on detection of elevation and temperature}
+\CommentTok{#     show.plot: if TRUE, plots of the data will be displayed; }
+\CommentTok{#               set to FALSE if you are running simulations.}
+
+\CommentTok{# Create covariates}
+\NormalTok{elev <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{)                         }\CommentTok{# Scaled elevation}
+\NormalTok{forest <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{)                       }\CommentTok{# Scaled forest cover}
+\NormalTok{temp <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M}\OperatorTok{*}\NormalTok{J, }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(M, J)) }\CommentTok{# Scaled temperature}
+
+\CommentTok{# Model for occurrence}
+\NormalTok{beta0 <-}\StringTok{ }\KeywordTok{qlogis}\NormalTok{(mean.occupancy)               }\CommentTok{# Mean occurrence on link scale}
+\NormalTok{psi <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{beta1}\OperatorTok{*}\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{beta2}\OperatorTok{*}\NormalTok{forest }\OperatorTok{+}\StringTok{ }\NormalTok{beta3}\OperatorTok{*}\NormalTok{elev}\OperatorTok{*}\NormalTok{forest)}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =}\NormalTok{ psi)      }\CommentTok{# Realised occurrence}
+
+\CommentTok{# Plots}
+\ControlFlowTok{if}\NormalTok{(show.plot)\{}
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{cex.main =} \DecValTok{1}\NormalTok{)}
+  \KeywordTok{devAskNewPage}\NormalTok{(}\DataTypeTok{ask =} \OtherTok{TRUE}\NormalTok{)}
+  \KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{beta1}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }
+      \DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Elevation"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"psi"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+  \KeywordTok{plot}\NormalTok{(elev, psi, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Elevation"}\NormalTok{, }
+     \DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+  \KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{beta2}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }
+      \DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Forest cover"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"psi"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{)}
+  \KeywordTok{plot}\NormalTok{(forest, psi, }\DataTypeTok{frame.plot =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{xlab =} \StringTok{"Forest cover"}\NormalTok{, }
+     \DataTypeTok{ylab =} \StringTok{""}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{# Model for observations}
+\NormalTok{y <-}\StringTok{ }\NormalTok{p <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DataTypeTok{nrow =}\NormalTok{ M, }\DataTypeTok{ncol =}\NormalTok{ J)}\CommentTok{# Prepare matrix for y and p}
+\NormalTok{alpha0 <-}\StringTok{ }\KeywordTok{qlogis}\NormalTok{(mean.detection)        }\CommentTok{# mean detection on link scale}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{J)\{                         }\CommentTok{# Generate counts by survey}
+\NormalTok{   p[,j] <-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha1}\OperatorTok{*}\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{alpha2}\OperatorTok{*}\NormalTok{temp[,j] }\OperatorTok{+}\StringTok{ }\NormalTok{alpha3}\OperatorTok{*}\NormalTok{elev}\OperatorTok{*}\NormalTok{temp[,j])}
+\NormalTok{   y[,j] <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ M, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =}\NormalTok{ z }\OperatorTok{*}\StringTok{ }\NormalTok{p[,j])}
+\NormalTok{\}}
+
+\CommentTok{# True and observed measures of 'distribution'}
+\NormalTok{sumZ <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(z)                     }\CommentTok{# Total occurrence (all sites)}
+\NormalTok{sumZ.obs <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{apply}\NormalTok{(y,}\DecValTok{1}\NormalTok{,max))    }\CommentTok{# Observed number of occ sites}
+\NormalTok{psi.fs.true <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(z) }\OperatorTok{/}\StringTok{ }\NormalTok{M          }\CommentTok{# True proportion of occ. sites in sample}
+\NormalTok{psi.fs.obs <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{apply}\NormalTok{(y,}\DecValTok{1}\NormalTok{,max)) }\CommentTok{# Observed proportion of occ. sites in sample}
+
+\CommentTok{# More plots}
+\ControlFlowTok{if}\NormalTok{(show.plot)\{}
+  \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+  \KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha1}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }
+      \DataTypeTok{main =} \StringTok{"Relationship p-elevation }\CharTok{\textbackslash{}n}\StringTok{at average temperature"}\NormalTok{, }
+      \DataTypeTok{xlab =} \StringTok{"Scaled elevation"}\NormalTok{, }\DataTypeTok{frame.plot =}\NormalTok{ F)}
+  \KeywordTok{matplot}\NormalTok{(elev, p, }\DataTypeTok{xlab =} \StringTok{"Scaled elevation"}\NormalTok{, }
+        \DataTypeTok{main =} \StringTok{"Relationship p-elevation}\CharTok{\textbackslash{}n}\StringTok{ at observed temperature"}\NormalTok{, }
+        \DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =}\NormalTok{ F)}
+  \KeywordTok{curve}\NormalTok{(}\KeywordTok{plogis}\NormalTok{(alpha0 }\OperatorTok{+}\StringTok{ }\NormalTok{alpha2}\OperatorTok{*}\NormalTok{x), }\DecValTok{-1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }
+      \DataTypeTok{main =} \StringTok{"Relationship p-temperature }\CharTok{\textbackslash{}n}\StringTok{ at average elevation"}\NormalTok{, }
+      \DataTypeTok{xlab =} \StringTok{"Scaled temperature"}\NormalTok{, }\DataTypeTok{frame.plot =}\NormalTok{ F)}
+  \KeywordTok{matplot}\NormalTok{(temp, p, }\DataTypeTok{xlab =} \StringTok{"Scaled temperature"}\NormalTok{, }
+        \DataTypeTok{main =} \StringTok{"Relationship p-temperature }\CharTok{\textbackslash{}n}\StringTok{at observed elevation"}\NormalTok{, }
+        \DataTypeTok{pch =} \StringTok{"*"}\NormalTok{, }\DataTypeTok{frame.plot =}\NormalTok{ F)}
+\NormalTok{\}}
+
+\CommentTok{# Output}
+\KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{M =}\NormalTok{ M, }\DataTypeTok{J =}\NormalTok{ J, }\DataTypeTok{mean.occupancy =}\NormalTok{ mean.occupancy, }
+            \DataTypeTok{beta0 =}\NormalTok{ beta0, }\DataTypeTok{beta1 =}\NormalTok{ beta1, }\DataTypeTok{beta2 =}\NormalTok{ beta2, }\DataTypeTok{beta3 =}\NormalTok{ beta3, }
+            \DataTypeTok{mean.detection =}\NormalTok{ mean.detection, }
+            \DataTypeTok{alpha0 =}\NormalTok{ alpha0, }\DataTypeTok{alpha1 =}\NormalTok{ alpha1, }\DataTypeTok{alpha2 =}\NormalTok{ alpha2, }\DataTypeTok{alpha3 =}\NormalTok{ alpha3, }
+            \DataTypeTok{elev =}\NormalTok{ elev, }\DataTypeTok{forest =}\NormalTok{ forest, }\DataTypeTok{temp =}\NormalTok{ temp, }
+            \DataTypeTok{psi =}\NormalTok{ psi, }\DataTypeTok{z =}\NormalTok{ z, }\DataTypeTok{p =}\NormalTok{ p, }\DataTypeTok{y =}\NormalTok{ y, }\DataTypeTok{sumZ =}\NormalTok{ sumZ, }\DataTypeTok{sumZ.obs =}\NormalTok{ sumZ.obs, }
+            \DataTypeTok{psi.fs.true =}\NormalTok{ psi.fs.true, }\DataTypeTok{psi.fs.obs =}\NormalTok{ psi.fs.obs))}
+\NormalTok{\}}
+
+\CommentTok{###############################}
+\CommentTok{## The function ends  here  }\AlertTok{###}
+\CommentTok{###############################}
+\end{Highlighting}
+\end{Shaded}
+
+Una vez que hayamos definido la función y ejecutado su código, podremos llamarla repetidamente y enviar los resultados a la pantalla o asignarlos a un objeto en R. De forma tal que podamos usar el set de datos almacenado en el objeto para un análisis detallado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Run this part line by line, taking note of the meaning of the }
+\CommentTok{# model in the comment and hitting Enter after each graph.}
+\CommentTok{# Take in to account that if you do not override all the parameters}
+\CommentTok{# with another value, the function will use the default values.}
+
+\KeywordTok{data.fn}\NormalTok{()                  }\CommentTok{# Execute function with default arguments}
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{show.plot =} \OtherTok{FALSE}\NormalTok{) }\CommentTok{# same, without plots}
+\NormalTok{objeto1 <-}\StringTok{ }\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{30}\NormalTok{, }\DataTypeTok{J =} \DecValTok{10}\NormalTok{, }\DataTypeTok{mean.occupancy =} \FloatTok{0.5}\NormalTok{, }
+                   \DataTypeTok{beta1 =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{beta2 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{beta3 =} \DecValTok{1}\NormalTok{, }
+                   \DataTypeTok{mean.detection =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{alpha1 =} \DecValTok{-1}\NormalTok{,}
+                   \DataTypeTok{alpha2 =} \DecValTok{-3}\NormalTok{, }\DataTypeTok{alpha3 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{show.plot =} \OtherTok{TRUE}\NormalTok{) }\CommentTok{# Explicit defaults}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroOccuBook_files/figure-latex/fun_call1b-1.pdf} \includegraphics{IntroOccuBook_files/figure-latex/fun_call1b-2.pdf}
+
+Tal vez el uso más sencillo posible para esta función es experimentar de primera mano el error de muestreo: el cuál es la variabilidad natural de realizaciones repetidas (varios sets de datos) de nuestro proceso estocástico por el cual calculamos los set de datos. Vamos a simular 10.000 sets de datos del venado para ver como varían en términos del verdadero número de sitios ocupados (sumZ en el código) y el número de sitios en los que los venados fueron observados al menos una vez. Tenga en cuenta que los datos generados en las 10.000 tienen los parámetros por defecto en los parámetros mean.occupancy y mean.detection.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simrep <-}\StringTok{ }\DecValTok{10000}
+\NormalTok{trueSumZ <-}\StringTok{ }\NormalTok{obsSumZ <-}\StringTok{ }\KeywordTok{numeric}\NormalTok{(simrep)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{simrep)\{}
+   \ControlFlowTok{if}\NormalTok{(i }\OperatorTok{%%}\StringTok{ }\DecValTok{1000} \OperatorTok{==}\DecValTok{0}\NormalTok{ )                        }\CommentTok{# report progress}
+   \KeywordTok{cat}\NormalTok{(}\StringTok{"iter"}\NormalTok{, i, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{   data <-}\StringTok{ }\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{60}\NormalTok{,}\DataTypeTok{J =} \DecValTok{3}\NormalTok{,}\DataTypeTok{show.plot =} \OtherTok{FALSE}\NormalTok{) }\CommentTok{# 60 sitios, 3 muestreos, p=0.3}
+\NormalTok{   trueSumZ[i] <-}\StringTok{ }\NormalTok{data}\OperatorTok{$}\NormalTok{sumZ}
+\NormalTok{   obsSumZ[i] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{apply}\NormalTok{(data}\OperatorTok{$}\NormalTok{y, }\DecValTok{1}\NormalTok{, max))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## iter 1000
+## iter 2000
+## iter 3000
+## iter 4000
+## iter 5000
+## iter 6000
+## iter 7000
+## iter 8000
+## iter 9000
+## iter 10000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{sort}\NormalTok{(trueSumZ), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(obsSumZ), }\KeywordTok{max}\NormalTok{(trueSumZ)), }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"Simulation"}\NormalTok{,}
+     \DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"True (red) and observed (blue) number of occupied sites"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(obsSumZ[}\KeywordTok{order}\NormalTok{(trueSumZ)], }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/fig7-1} \caption[fig7]{Variabilidad natural (error de muestreo) del verdadero número de sitios ocupados (ordenados por tamaño) en color rojo y el número observado de sitios ocupados (en azul). El número de sitios observados/total también se conoce como la ocupación ingenua o (naïve) de la ocurrencia de los venados en 60 sitios en la simulación. El ancho del área azul representa el error inducido por la detección imperfecta. Note la importancia de tener en cuenta este error para tener una mejor idea de la ocupación.}\label{fig:fig7}
+\end{figure}
+
+Como ejercicio, cambie el código para generar otras vez las 10.000 simulaciones con una detección media (mean.detection =0.5), alta (mean.detection =0.8), y perfecta (mean.detection =1). Compare las gráficas resultantes.
+
+Ahora podemos usar esta función para generar datos bajo diferentes esquemas de muestreo, variando el número de sitios y el número de muestreos repetidos. Así como también bajo diferentes características ecológicas y de detección, y considerando posibles interacciones entre covariables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Run this part line by line, taking note of the meaning of the }
+\CommentTok{# model in the comment and hitting Enter after each graph.}
+\CommentTok{# Take in to account that if you do not override all the parameters}
+\CommentTok{# with another value, the function will use the default values.}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{J =} \DecValTok{1}\NormalTok{, }\DataTypeTok{show.plot =}\NormalTok{ T)  }\CommentTok{# Only 1 survey (no temporal replicate)}
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{J =} \DecValTok{2}\NormalTok{, }\DataTypeTok{show.plot =}\NormalTok{ T)  }\CommentTok{# Only 2 surveys (sites)}
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{5}\NormalTok{, }\DataTypeTok{J =} \DecValTok{3}\NormalTok{)          }\CommentTok{# Only 5 sites, 3 counts (repeted visits)}
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{1}\NormalTok{, }\DataTypeTok{J =} \DecValTok{100}\NormalTok{)        }\CommentTok{# No spatial replicates, but 100 counts}
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{J =} \DecValTok{100}\NormalTok{)     }\CommentTok{# Very intensive sampling. 1000 sites, 100 visits}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{mean.occupancy =} \FloatTok{0.6}\NormalTok{,   }\CommentTok{# psi = 0.6 and}
+        \DataTypeTok{mean.detection =} \DecValTok{1}\NormalTok{,     }\CommentTok{# p = 1 (perfect detection!!!)}
+        \DataTypeTok{show.plot =}\NormalTok{ T)}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{mean.occupancy =} \FloatTok{0.95}\NormalTok{,  }\CommentTok{# psi = 1 a really coomon sp.}
+        \DataTypeTok{mean.detection =} \DecValTok{1}\NormalTok{,     }\CommentTok{# p = 1 (perfect detection!!!)}
+        \DataTypeTok{show.plot =}\NormalTok{ T)}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{mean.occupancy =} \FloatTok{0.05}\NormalTok{,  }\CommentTok{# psi = 0.05 a really rare sp.}
+        \DataTypeTok{mean.detection =} \FloatTok{0.05}\NormalTok{,  }\CommentTok{# p = 0.05 and very hard to detect !!!}
+        \DataTypeTok{show.plot =}\NormalTok{ T)}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{beta3 =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{show.plot =} \OtherTok{TRUE}\NormalTok{) }\CommentTok{# With interaction elev-temp on p}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{mean.occupancy =} \FloatTok{0.6}\NormalTok{, }\DataTypeTok{beta1 =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{beta2 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{beta3 =} \DecValTok{1}\NormalTok{, }
+        \DataTypeTok{mean.detection =} \FloatTok{0.1}\NormalTok{, }\DataTypeTok{show.plot =} \OtherTok{TRUE}\NormalTok{)  }\CommentTok{# p = 1 (low detectability)}
+
+\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{267}\NormalTok{, }\DataTypeTok{J =} \DecValTok{5}\NormalTok{, }\DataTypeTok{mean.occupancy =} \FloatTok{0.6}\NormalTok{, }\DataTypeTok{beta1 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{beta2 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{beta3 =} \DecValTok{0}\NormalTok{, }
+        \DataTypeTok{mean.detection =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{alpha1 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{alpha2 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{alpha3 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{show.plot =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# Simplest case with occupancy (0.6) and detection (0.4) constant, no covariate effects}
+\CommentTok{# observe betas = 0, and alphas = 0. This correspond to a kind of null model.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\textbf{FELICITACIONES!!!, si llego hasta acá, y si entendió la simulación de datos y su procedimiento, entonces Ud. entendió totalmente el modelo básico de ocupación, el cual es la piedra angular del muestreo y monitoreo biológico moderno.}
+\end{quote}
+
+\hypertarget{unmarked}{%
+\chapter{Análisis de ocupación, metodo ML}\label{unmarked}}
+
+Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked \citep{Fiske2011}. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cuál de los dos estimadores, Máxima Verosimilitud o Bayesiano, se acerca más a los parámetros verdaderos.
+
+\hypertarget{limpiando-la-memoria-de-r}{%
+\subsection{Limpiando la memoria de R}\label{limpiando-la-memoria-de-r}}
+
+Antes de continuar, y como ya hemos generado una gran cantidad de datos y modelos en los pasos previos, vamos a borrar la memoria de R antes de comenzar. Esto lo hacemos con el comando:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list =} \KeywordTok{ls}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+Una vez hayamos hecho esto debemos volver a correr el código de la función que genera los datos que hemos creado el Capítulo \ref{function1}.
+
+\hypertarget{generando-los-datos}{%
+\section{Generando los datos}\label{generando-los-datos}}
+
+Esta vez recurriremos a un diseño tipo TEAM (\url{http://www.teamnetwork.org}) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las cámaras permanecen activas en campo. De nuevo nuestra especie es el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupación 0.8 y las interacciones son mucho más sencillas con la altitud como la única covariable que explica la ocupación. Sin embargo para la detección hay una relación más compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactúan entre sí. También observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Data generation}
+\CommentTok{# Lets build a model were elevation explain occupancy and p has interactions}
+\NormalTok{datos2<-}\KeywordTok{data.fn}\NormalTok{(}\DataTypeTok{M =} \DecValTok{60}\NormalTok{, }\DataTypeTok{J =} \DecValTok{30}\NormalTok{, }\DataTypeTok{show.plot =} \OtherTok{FALSE}\NormalTok{,}
+                \DataTypeTok{mean.occupancy =} \FloatTok{0.8}\NormalTok{, }\DataTypeTok{beta1 =} \FloatTok{-1.5}\NormalTok{, }\DataTypeTok{beta2 =} \DecValTok{0}\NormalTok{, }\DataTypeTok{beta3 =} \DecValTok{0}\NormalTok{,  }
+                \DataTypeTok{mean.detection =} \FloatTok{0.6}\NormalTok{, }\DataTypeTok{alpha1 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{alpha2 =} \DecValTok{1}\NormalTok{, }\DataTypeTok{alpha3 =} \FloatTok{1.5}
+\NormalTok{                )}
+
+\CommentTok{# Function to simulate occupancy measurements replicated at M sites during J occasions.}
+\CommentTok{# Population closure is assumed for each site.}
+\CommentTok{# Expected occurrence may be affected by elevation (elev), }
+\CommentTok{# forest cover (forest) and their interaction.}
+\CommentTok{# Expected detection probability may be affected by elevation, }
+\CommentTok{# temperature (temp) and their interaction.}
+\CommentTok{# Function arguments:}
+\CommentTok{#     M: Number of spatial replicates (sites)}
+\CommentTok{#     J: Number of temporal replicates (occasions)}
+\CommentTok{#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates}
+\CommentTok{#     beta1: Main effect of elevation on occurrence}
+\CommentTok{#     beta2: Main effect of forest cover on occurrence}
+\CommentTok{#     beta3: Interaction effect on occurrence of elevation and forest cover}
+\CommentTok{#     mean.detection: Mean detection prob. at value 0 of detection covariates}
+\CommentTok{#     alpha1: Main effect of elevation on detection probability}
+\CommentTok{#     alpha2: Main effect of temperature on detection probability}
+\CommentTok{#     alpha3: Interaction effect on detection of elevation and temperature}
+\CommentTok{#     show.plot: if TRUE, plots of the data will be displayed; }
+\CommentTok{#               set to FALSE if you are running simulations.}
+
+
+\CommentTok{#To make the objects inside the list directly accessible to R, without having to address }
+\CommentTok{#them as data$C for instance, you can attach datos2 to the search path.}
+
+\KeywordTok{attach}\NormalTok{(datos2)         }\CommentTok{# Make objects inside of 'datos2' accessible directly}
+
+\CommentTok{#Remember to detach the data after use, and in particular before attaching a new data }
+\CommentTok{#object, because more than one data set attached in the search path will cause confusion.}
+
+\CommentTok{# detach(datos2)         # Make clean up}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{poniendo-los-datos-en-unmarked}{%
+\section{Poniendo los datos en unmarked}\label{poniendo-los-datos-en-unmarked}}
+
+\href{http://cran.r-project.org/web/packages/unmarked/index.html}{Unmarked} es el paquete de R que usamos para analizar los datos de ocupación \citep{Fiske2011}. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la función unmarkedFrameOccu que es específica para análisis de ocupación de una sola época o estación. Más sobre unkarked en: \url{https://sites.google.com/site/unmarkedinfo/home}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(unmarked)}
+\NormalTok{siteCovs <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(forest,elev)) }\CommentTok{# occupancy covariates }
+\NormalTok{obselev<-}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rep}\NormalTok{(elev,J),}\DataTypeTok{ncol =}\NormalTok{ J) }\CommentTok{# make elevetion per observation}
+\NormalTok{obsCovs <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{temp=}\NormalTok{ temp,}\DataTypeTok{elev=}\NormalTok{obselev) }\CommentTok{# detection covariates}
+
+\CommentTok{# umf is the object joining observations (y), occupancy covariates (siteCovs)}
+\CommentTok{# and detection covariates (obsCovs). Note that obsCovs should be a list of }
+\CommentTok{# matrices or dataframes.}
+
+\NormalTok{umf <-}\StringTok{ }\KeywordTok{unmarkedFrameOccu}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ y, }\DataTypeTok{siteCovs =}\NormalTok{ siteCovs, }\DataTypeTok{obsCovs =}\NormalTok{ obsCovs)}
+\end{Highlighting}
+\end{Shaded}
+
+El paquete unmarked nos permite ver gráficamente como están dispuestos los datos en los sitios de muestreo con la función plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{ (umf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/umfplot-1} \caption[fig]{Inspección grafica del objeto umf.}\label{fig:umfplot}
+\end{figure}
+
+\hypertarget{ajustando-los-modelos}{%
+\section{Ajustando los modelos}\label{ajustando-los-modelos}}
+
+El siguiente paso es ajustar los modelos que se requerían variando las co-variables. Esto se logra con la \href{http://www.rdocumentation.org/packages/unmarked/versions/0.11-0/topics/occu}{función occu()}.
+
+Tenga en cuenta que en el proceso de construcción de modelos su modelo debe tener un significado biológico.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# detection first, occupancy next}
+\NormalTok{fm0 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\DecValTok{1} \OperatorTok{~}\DecValTok{1}\NormalTok{, umf) }\CommentTok{# Null model}
+\NormalTok{fm1 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{elev }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, umf) }\CommentTok{# elev explaining detection}
+\NormalTok{fm2 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{elev }\OperatorTok{~}\StringTok{ }\NormalTok{elev, umf) }\CommentTok{# elev explaining detection and occupancy}
+\NormalTok{fm3 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{temp }\OperatorTok{~}\StringTok{ }\NormalTok{elev, umf)}
+\NormalTok{fm4 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{temp }\OperatorTok{~}\StringTok{ }\NormalTok{forest, umf)}
+\NormalTok{fm5 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, umf)}
+\NormalTok{fm6 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{elev}\OperatorTok{:}\NormalTok{temp }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, umf)}
+\NormalTok{fm7 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{elev}\OperatorTok{:}\NormalTok{temp }\OperatorTok{~}\StringTok{ }\NormalTok{elev, umf)}
+\NormalTok{fm8 <-}\StringTok{ }\KeywordTok{occu}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{elev }\OperatorTok{+}\StringTok{ }\NormalTok{temp }\OperatorTok{+}\StringTok{ }\NormalTok{elev}\OperatorTok{:}\NormalTok{temp }\OperatorTok{~}\StringTok{ }\NormalTok{forest, umf)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{selecciuxf3n-de-modelos}{%
+\section{Selección de modelos}\label{selecciuxf3n-de-modelos}}
+
+Unmarked permite hacer selección de modelos basándose en el AIC de cada uno. De forma tal que el menor AIC es el modelo más parsimonioso de acuerdo a nuestros datos \citep{Burnham2004}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{models <-}\StringTok{ }\KeywordTok{fitList}\NormalTok{( }\CommentTok{# here e put names to the models}
+  \StringTok{'p(.)psi(.)'}\NormalTok{                        =}\StringTok{ }\NormalTok{fm0,}
+  \StringTok{'p(elev)psi(.)'}\NormalTok{                     =}\StringTok{ }\NormalTok{fm1,}
+  \StringTok{'p(elev)psi(elev)'}\NormalTok{                  =}\StringTok{ }\NormalTok{fm2,}
+  \StringTok{'p(temp)psi(elev)'}\NormalTok{                  =}\StringTok{ }\NormalTok{fm3,}
+  \StringTok{'p(temp)psi(forest)'}\NormalTok{                =}\StringTok{ }\NormalTok{fm4,}
+  \StringTok{'p(temp+elev)psi(.)'}\NormalTok{                =}\StringTok{ }\NormalTok{fm5,}
+  \StringTok{'p(temp+elev+elev:temp)psi(.)'}\NormalTok{      =}\StringTok{ }\NormalTok{fm6,}
+  \StringTok{'p(temp+elev+elev:temp)psi(elev)'}\NormalTok{   =}\StringTok{ }\NormalTok{fm7,}
+  \StringTok{'p(temp+elev+elev:temp)psi(forest)'}\NormalTok{ =}\StringTok{ }\NormalTok{fm8)}
+
+\KeywordTok{modSel}\NormalTok{(models) }\CommentTok{# model selection procedure}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                   nPars     AIC  delta
+## p(temp+elev+elev:temp)psi(elev)       6 1630.77   0.00
+## p(temp+elev+elev:temp)psi(.)          5 1636.27   5.49
+## p(temp+elev+elev:temp)psi(forest)     6 1638.24   7.47
+## p(temp+elev)psi(.)                    4 1672.55  41.78
+## p(elev)psi(elev)                      4 1741.34 110.57
+## p(elev)psi(.)                         3 1746.83 116.06
+## p(temp)psi(elev)                      4 1898.56 267.79
+## p(temp)psi(forest)                    4 1906.03 275.26
+## p(.)psi(.)                            2 1969.25 338.48
+##                                     AICwt cumltvWt
+## p(temp+elev+elev:temp)psi(elev)   9.2e-01     0.92
+## p(temp+elev+elev:temp)psi(.)      5.9e-02     0.98
+## p(temp+elev+elev:temp)psi(forest) 2.2e-02     1.00
+## p(temp+elev)psi(.)                7.8e-10     1.00
+## p(elev)psi(elev)                  9.0e-25     1.00
+## p(elev)psi(.)                     5.8e-26     1.00
+## p(temp)psi(elev)                  6.5e-59     1.00
+## p(temp)psi(forest)                1.6e-60     1.00
+## p(.)psi(.)                        2.9e-74     1.00
+\end{verbatim}
+
+\hypertarget{predicciuxf3n-en-graficas}{%
+\section{Predicción en graficas}\label{predicciuxf3n-en-graficas}}
+
+El modelo con menor AIC puede ser usado para predecir resultados esperados de acuerdo a un nuevo set de datos. Por ejemplo, uno podría preguntar la abundancia de venados que se espera encontrar en un sitio con mayor altitud. Las predicciones también son otra forma de presentar los resultados de un análisis. Aquí ilustraremos como se ve la predicción de \(\psi\) y \emph{p} sobre el rango de las covariables estudiadas. Note que estamos usando covariables estandarizadas. Si estuviéramos usando covariables en su escala real, tendríamos que tener en cuenta que hay que transformarlas usando la media y la desviación estándar.
+
+Antes de usar el modelo para predecir es buena idea verificar los parámetros del modelo y sus errores, posteriormente verificar gráficamente que el modelo ajusta bien con la función parboot, la cual hace un remuestreo del modelo. Esta grafica se interpreta como que el modelo tiene buen ajuste, cuando la media (línea punteada) está entre los intervalos del histograma. Si la línea se encuentra muy lejos del histograma el modelo no podría ser bueno para predecir.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(fm7) }\CommentTok{# see the model parameters}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##
+## Call:
+## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
+##
+## Occupancy (logit-scale):
+##             Estimate    SE     z  P(>|z|)
+## (Intercept)     1.41 0.366  3.85 0.000117
+## elev           -1.63 0.656 -2.48 0.013082
+##
+## Detection (logit-scale):
+##             Estimate     SE     z  P(>|z|)
+## (Intercept)     0.53 0.0698  7.60 3.04e-14
+## elev            1.80 0.1277 14.10 3.56e-45
+## temp            1.16 0.1209  9.57 1.08e-21
+## elev:temp       1.33 0.2211  6.00 1.96e-09
+##
+## AIC: 1630.771
+## Number of sites: 60
+## optim convergence code: 0
+## optim iterations: 31
+## Bootstrap iterations: 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pb <-}\StringTok{ }\KeywordTok{parboot}\NormalTok{(fm7, }\DataTypeTok{nsim=}\DecValTok{250}\NormalTok{, }\DataTypeTok{report=}\DecValTok{10}\NormalTok{) }\CommentTok{# goodness of fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## t0 = 409.3793
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{ (pb) }\CommentTok{# plot goodness of fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/fit1-1} \caption[fig]{Evaluación grafica del ajuste del modelo fm7.}\label{fig:fit1}
+\end{figure}
+
+Ahora que sabemos que nuestro mejor modelo tiene buen ajuste, podemos usarlo para predecir la ocupación en el rango de la altitud para ver su comportamiento en una gráfica.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{elevrange<-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{elev=}\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(datos2}\OperatorTok{$}\NormalTok{elev),}\KeywordTok{max}\NormalTok{(datos2}\OperatorTok{$}\NormalTok{elev),}\DataTypeTok{length=}\DecValTok{100}\NormalTok{)) }\CommentTok{# newdata}
+\NormalTok{pred_psi <-}\KeywordTok{predict}\NormalTok{(fm7,}\DataTypeTok{type=}\StringTok{"state"}\NormalTok{,}\DataTypeTok{newdata=}\NormalTok{elevrange,}\DataTypeTok{appendData=}\OtherTok{TRUE}\NormalTok{) }
+\KeywordTok{plot}\NormalTok{(Predicted}\OperatorTok{~}\NormalTok{elev, pred_psi,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{,}\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{,}
+       \DataTypeTok{xlab=}\StringTok{"elev"}\NormalTok{,}
+       \DataTypeTok{ylab=}\StringTok{"psi"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(lower}\OperatorTok{~}\NormalTok{elev, pred_psi,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{,}\DataTypeTok{col=}\KeywordTok{gray}\NormalTok{(}\FloatTok{0.5}\NormalTok{))}
+\KeywordTok{lines}\NormalTok{(upper}\OperatorTok{~}\NormalTok{elev, pred_psi,}\DataTypeTok{type=}\StringTok{"l"}\NormalTok{,}\DataTypeTok{col=}\KeywordTok{gray}\NormalTok{(}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/gpsi-1} \caption[fig.]{Grafica de la ocupación con respecto a la elevación.}\label{fig:gpsi}
+\end{figure}
+
+\hypertarget{predicciuxf3n-espacialmente-explicita}{%
+\section{Predicción espacialmente explicita}\label{predicciuxf3n-espacialmente-explicita}}
+
+Podemos también usar el mejor modelo para predecir de forma espacialmente explicita sí tenemos los mapas. Como ilustración vamos a construir mapas simulados para cada una de nuestras covariables. Los mapas surgen de un patrón aleatorio de puntos con distribución Poisson. Luego estos puntos los convertimos en una superficie interpolada.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# lets make random maps for the three covariates}
+\KeywordTok{library}\NormalTok{(raster)}
+\KeywordTok{library}\NormalTok{(spatstat)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{24}\NormalTok{) }\CommentTok{# Remove for random simulations}
+
+\CommentTok{# CONSTRUCT ANALYSIS WINDOW USING THE FOLLOWING:}
+\NormalTok{xrange=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\FloatTok{2.5}\NormalTok{, }\FloatTok{1002.5}\NormalTok{)}
+\NormalTok{yrange=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\FloatTok{2.5}\NormalTok{, }\FloatTok{502.5}\NormalTok{)}
+\NormalTok{window<-}\KeywordTok{owin}\NormalTok{(xrange, yrange)}
+
+\CommentTok{# Build maps from random points and interpole in same line}
+\NormalTok{elev   <-}\StringTok{ }\KeywordTok{density}\NormalTok{(}\KeywordTok{rpoispp}\NormalTok{(}\DataTypeTok{lambda=}\FloatTok{0.6}\NormalTok{, }\DataTypeTok{win=}\NormalTok{window)) }\CommentTok{# }
+\NormalTok{forest <-}\StringTok{ }\KeywordTok{density}\NormalTok{(}\KeywordTok{rpoispp}\NormalTok{(}\DataTypeTok{lambda=}\FloatTok{0.2}\NormalTok{, }\DataTypeTok{win=}\NormalTok{window)) }\CommentTok{# }
+\NormalTok{temp   <-}\StringTok{ }\KeywordTok{density}\NormalTok{(}\KeywordTok{rpoispp}\NormalTok{(}\DataTypeTok{lambda=}\FloatTok{0.5}\NormalTok{, }\DataTypeTok{win=}\NormalTok{window)) }\CommentTok{# }
+
+\CommentTok{# Convert covs to raster and Put in the same stack }
+\NormalTok{mapdata.m<-}\KeywordTok{stack}\NormalTok{(}\KeywordTok{raster}\NormalTok{(elev),}\KeywordTok{raster}\NormalTok{(forest), }\KeywordTok{raster}\NormalTok{(temp)) }
+\KeywordTok{names}\NormalTok{(mapdata.m)<-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"elev"}\NormalTok{, }\StringTok{"forest"}\NormalTok{, }\StringTok{"temp"}\NormalTok{) }\CommentTok{# put names to raster}
+
+\CommentTok{# lets plot the covs maps}
+\KeywordTok{plot}\NormalTok{(mapdata.m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/spat-1} \caption[fig]{Mapa simulado de elevación, bosque y temperatura.}\label{fig:spat}
+\end{figure}
+
+Una vez tenemos nuestros mapas de covariables, los usamos para predecir con el mejor modelo. De esta forma podemos tener un mapa con predicciones de la ocupación y la probabilidad de detección.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# make the predictions }
+\NormalTok{predictions_psi <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fm7, }\DataTypeTok{type=}\StringTok{"state"}\NormalTok{, }\DataTypeTok{newdata=}\NormalTok{mapdata.m) }\CommentTok{# predict psi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   doing row 1000 of 16384
+##   doing row 2000 of 16384
+##   doing row 3000 of 16384
+##   doing row 4000 of 16384
+##   doing row 5000 of 16384
+##   doing row 6000 of 16384
+##   doing row 7000 of 16384
+##   doing row 8000 of 16384
+##   doing row 9000 of 16384
+##   doing row 10000 of 16384
+##   doing row 11000 of 16384
+##   doing row 12000 of 16384
+##   doing row 13000 of 16384
+##   doing row 14000 of 16384
+##   doing row 15000 of 16384
+##   doing row 16000 of 16384
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predictions_p   <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(fm7, }\DataTypeTok{type=}\StringTok{"det"}\NormalTok{,   }\DataTypeTok{newdata=}\NormalTok{mapdata.m) }\CommentTok{# predict p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   doing row 1000 of 16384
+##   doing row 2000 of 16384
+##   doing row 3000 of 16384
+##   doing row 4000 of 16384
+##   doing row 5000 of 16384
+##   doing row 6000 of 16384
+##   doing row 7000 of 16384
+##   doing row 8000 of 16384
+##   doing row 9000 of 16384
+##   doing row 10000 of 16384
+##   doing row 11000 of 16384
+##   doing row 12000 of 16384
+##   doing row 13000 of 16384
+##   doing row 14000 of 16384
+##   doing row 15000 of 16384
+##   doing row 16000 of 16384
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# put in the same stack}
+\NormalTok{predmaps<-}\KeywordTok{stack}\NormalTok{(predictions_psi}\OperatorTok{$}\NormalTok{Predicted,predictions_p}\OperatorTok{$}\NormalTok{Predicted) }
+\KeywordTok{names}\NormalTok{(predmaps)<-}\KeywordTok{c}\NormalTok{(}\StringTok{"psi_predicted"}\NormalTok{, }\StringTok{"p_predicted"}\NormalTok{) }\CommentTok{# put names}
+\KeywordTok{plot}\NormalTok{(predmaps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics{IntroOccuBook_files/figure-latex/spatr-1} \caption[fig.]{Modelos de ocupación y detección espacialmente explícitos.}\label{fig:spatr}
+\end{figure}
+
+\hypertarget{bayesian}{%
+\chapter{Análisis Bayesiano}\label{bayesian}}
+
+En esta parte vamos a estimar los mismos parámetros de un modelo igual al ``mejor modelo'' el cual fue seleccionado en el procedimiento de selección de modelos de unmarked en el capitulo anterior. Recordemos que este modelo tiene beta1 y alpha1, alpha2, alpha3. Los parámetros que estimaremos con el método Bayesiano los vamos a comparar con los parámetros que ya estimamos con ML en unmarked y también los compararemos con los parámetros reales que definimos al establecer los datos (datos2) con la función data.fn, para ver cual de los dos métodos de estimación (ML o Bayesiano) se acerca más a los parámetros reales.
+
+\hypertarget{generando-los-datos-1}{%
+\section{Generando los datos}\label{generando-los-datos-1}}
+
+De nuevo usaremos un diseño tipo TEAM (\url{http://www.teamnetwork.org}) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las camaras permenecen activas en campo. Nuestra especie sigue siendo la misma, el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupacion 0.8 y las interacciones son sencillas con la altitud como la unica covariable que explica la ocupación. Pero para la deteccion hay una relación más compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactuan entre si. Tambien observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# }\AlertTok{###}\CommentTok{ Generate a new data set or use the same}
+\CommentTok{# # ****************************************}
+\CommentTok{# set.seed(148)}
+\CommentTok{# data <- data.fn(show.plot = T)    # Default arguments}
+\CommentTok{# str(data)                         # Look at the object}
+\CommentTok{# we are oing to use the data from datos2 object}
+
+\CommentTok{### Fit same model with JAGS, using library jagsUI}
+\CommentTok{# ************************************************}
+\CommentTok{# Bundle data}
+\NormalTok{win.data <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ datos2}\OperatorTok{$}\NormalTok{y, }
+                 \DataTypeTok{M =} \KeywordTok{nrow}\NormalTok{(datos2}\OperatorTok{$}\NormalTok{y), }
+                 \DataTypeTok{J =} \KeywordTok{ncol}\NormalTok{(datos2}\OperatorTok{$}\NormalTok{y), }
+                 \DataTypeTok{elev =}\NormalTok{ datos2}\OperatorTok{$}\NormalTok{elev, }
+                 \DataTypeTok{forest =}\NormalTok{ datos2}\OperatorTok{$}\NormalTok{forest, }
+                 \DataTypeTok{temp =}\NormalTok{ datos2}\OperatorTok{$}\NormalTok{temp)}
+\CommentTok{# str(win.data)}
+
+
+\CommentTok{# # Specify model in BUGS language}
+\CommentTok{# sink("model22.txt")}
+\CommentTok{# cat("}
+\CommentTok{# model \{}
+\CommentTok{# }
+\CommentTok{# # Priors}
+\CommentTok{# mean.p ~ dunif(0, 1)        # Detection intercept on prob. scale}
+\CommentTok{# alpha0 <- logit(mean.p)     # same on logit scale}
+\CommentTok{# mean.psi ~ dunif(0, 1)      # Occupancy intercept on prob. scale}
+\CommentTok{# beta0 <- logit(mean.psi)    # same on logit scale}
+\CommentTok{# for(k in 1:3)\{              # 2 detection covariates + 1 interact}
+\CommentTok{#     alpha[k] ~ dnorm(0, 0.01) # Covariates on logit(detection)}
+\CommentTok{# #   alpha[k] ~ dnorm(0, 0.05) # Covariates on logit(detection)}
+\CommentTok{# #   alpha[k] ~ dunif(-10, 10) # Covariates on logit(detection)}
+\CommentTok{# \}}
+\CommentTok{# }
+\CommentTok{# for(k in 1:1)\{                # 2 occupancy covariates + 1 interact}
+\CommentTok{#     beta[k] ~ dnorm(0, 0.01)  # Covariates on logit(occupancy)}
+\CommentTok{# #   beta[k] ~ dnorm(0, 0.05)  # Covariates on logit(occupancy)}
+\CommentTok{# #   beta[k] ~ dunif(-10, 10)  # Covariates on logit(occupancy)}
+\CommentTok{# \}}
+\CommentTok{# }
+\CommentTok{# # Translation of the occupancy parameters in unmarked into those for BUGS:}
+\CommentTok{# # (Intercept)         (beta0 in BUGS)}
+\CommentTok{# # elev                (beta[1])}
+\CommentTok{# # forest              (beta[2])}
+\CommentTok{# # temp                (beta[3])}
+\CommentTok{# # elev:forest         (beta[4])}
+\CommentTok{# # elev:temp           (beta[5])}
+\CommentTok{# # forest:temp         (beta[6])}
+\CommentTok{# # elev:forest:temp    (beta[7])}
+\CommentTok{# }
+\CommentTok{# }
+\CommentTok{# # Likelihood}
+\CommentTok{# for (i in 1:M) \{}
+\CommentTok{#   # True state model for the partially observed true state}
+\CommentTok{#   z[i] ~ dbern(psi[i])                      # True occupancy z at site i}
+\CommentTok{#   logit(psi[i]) <- beta0 +                  # occupancy (psi) intercept}
+\CommentTok{#     beta[1] * elev[i] #+                     # elev}
+\CommentTok{#     #beta[2] * forest[i] #+                  # forest}
+\CommentTok{#     #beta[3] * elev[i] * forest[i]          # elev:forest}
+\CommentTok{#     #beta[4] * elev[i] * temp[i] +          # elev:temp}
+\CommentTok{#     #beta[5] * temp[i] +                    # temp}
+\CommentTok{#     #beta[6] * forest[i] * temp[i] +        # forest:temp}
+\CommentTok{#     #beta[7] * elev[i] * forest[i] * temp[i]   # elev:forest:temp}
+\CommentTok{# }
+\CommentTok{#    for (j in 1:J) \{}
+\CommentTok{#       # Observation model for the actual observations}
+\CommentTok{#       y[i,j] ~ dbern(p.eff[i,j])      # Detection-nondetection at i and j}
+\CommentTok{#       p.eff[i,j] <- z[i] * p[i,j]}
+\CommentTok{#       logit(p[i,j]) <- alpha0 +             # detection (p) intercept}
+\CommentTok{#          alpha[1] * elev[i] +               # effect of elevation on p}
+\CommentTok{#          alpha[2] * temp[i,j] +             # effect of temp on p}
+\CommentTok{#          alpha[3] * elev[i] * temp[i,j]     # effect of elev:temp on p}
+\CommentTok{#    \}}
+\CommentTok{# \}}
+\CommentTok{# }
+\CommentTok{# # Derived quantities}
+\CommentTok{# sumZ <- sum(z[])      # Number of occupied sites among those studied}
+\CommentTok{# occ.fs <- sum(z[])/M  # proportion of occupied sites among those studied}
+\CommentTok{# logit.psi <- beta0    # For comparison with unmarked}
+\CommentTok{# logit.p <- alpha0     # For comparison with unmarked}
+\CommentTok{# \}}
+\CommentTok{# ",fill = TRUE)}
+\CommentTok{# sink()}
+
+
+\KeywordTok{library}\NormalTok{(jagsUI)}
+\CommentTok{# library(R2jags)}
+\CommentTok{# Initial values}
+\NormalTok{zst <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(datos2}\OperatorTok{$}\NormalTok{y, }\DecValTok{1}\NormalTok{, max)}
+\NormalTok{inits <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}\KeywordTok{list}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ zst, }
+                         \DataTypeTok{mean.psi =} \KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{), }
+                         \DataTypeTok{mean.p =} \KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{), }
+                         \DataTypeTok{alpha =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{), }\CommentTok{# adjust here}
+                         \DataTypeTok{beta =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{))\} }\CommentTok{# adjust here}
+
+\CommentTok{# Parameters monitored}
+\NormalTok{params <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"sumZ"}\NormalTok{, }\StringTok{"occ.fs"}\NormalTok{, }\StringTok{"logit.psi"}\NormalTok{, }\StringTok{"logit.p"}\NormalTok{, }\StringTok{"alpha"}\NormalTok{, }\StringTok{"beta"}\NormalTok{)}
+
+\CommentTok{# MCMC settings}
+\CommentTok{# ni <- 100000   ;   nt <- 10   ;   nb <- 1000   ;   nc <- 3}
+\NormalTok{ ni <-}\StringTok{ }\DecValTok{10000}\NormalTok{   ;   nt <-}\StringTok{ }\DecValTok{10}\NormalTok{   ;   nb <-}\StringTok{ }\DecValTok{500}\NormalTok{   ;   nc <-}\StringTok{ }\DecValTok{3}
+
+\CommentTok{# Call JAGS from R (ART 260 sec with norm(), 480 with unif(-10,10)) }
+\CommentTok{# and summarize posteriors}
+\KeywordTok{system.time}\NormalTok{(out22 <-}\StringTok{ }\KeywordTok{jags}\NormalTok{(win.data, inits, }\DataTypeTok{parameters.to.save =}\NormalTok{ params,}
+                      \DataTypeTok{model.file =} \StringTok{"D:/BoxFiles/Box Sync/CodigoR/Toshiba/IntroOccuBook/bookdown-demo-master/model22.txt"}\NormalTok{, }
+                          \DataTypeTok{n.chains =}\NormalTok{ nc, }
+                          \DataTypeTok{n.thin =}\NormalTok{ nt, }
+                          \DataTypeTok{n.iter =}\NormalTok{ ni, }
+                          \DataTypeTok{n.burnin =}\NormalTok{ nb, }
+                          \DataTypeTok{parallel =}\NormalTok{ T))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##
+## Processing function input.......
+##
+## Done.
+##
+## Beginning parallel processing using 3 cores. Console output will be suppressed.
+##
+## Parallel processing completed.
+##
+## Calculating statistics.......
+##
+## Done.
+\end{verbatim}
+
+\begin{verbatim}
+##    user  system elapsed
+##    0.08    0.02  225.25
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# See model diagnistics and convergence }
+\KeywordTok{library}\NormalTok{(mcmcplots)}
+\KeywordTok{library}\NormalTok{(ggmcmc)}
+\NormalTok{fit22.mcmc <-}\StringTok{ }\KeywordTok{as.mcmc.list}\NormalTok{(out22}\OperatorTok{$}\NormalTok{samples)}
+\NormalTok{bayes.mod.fit.gg <-}\StringTok{ }\KeywordTok{ggs}\NormalTok{(fit22.mcmc) }\CommentTok{#convert to ggmcmc}
+\KeywordTok{ggs_running}\NormalTok{(bayes.mod.fit.gg)}\CommentTok{# check if chains approach target distrib. }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroOccuBook_files/figure-latex/bayesian-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# denplot(fit22.mcmc, parms = c("beta", }
+\CommentTok{#                               "alpha[1]", "alpha[2]", "alpha[3]", }
+\CommentTok{#                               "logit.psi", "logit.p" ))}
+\CommentTok{# traplot(fit22.mcmc)}
+\CommentTok{# ggs_density(bayes.mod.fit.gg)}
+
+\KeywordTok{xyplot}\NormalTok{(out22)        }\CommentTok{# assess within-chain convergence}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroOccuBook_files/figure-latex/bayesian-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{densityplot}\NormalTok{(out22)  }\CommentTok{# shape of the posterior distribution}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{IntroOccuBook_files/figure-latex/bayesian-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# see model result and estimates  }
+\KeywordTok{print}\NormalTok{(out22, }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## JAGS output for model 'D:/BoxFiles/Box Sync/CodigoR/Toshiba/IntroOccuBook/bookdown-demo-master/model22.txt', generated by jagsUI.
+## Estimates based on 3 chains of 10000 iterations,
+## adaptation = 100 iterations (sufficient),
+## burn-in = 500 iterations and thin rate = 10,
+## yielding 2850 total samples from the joint posterior.
+## MCMC ran in parallel for 3.753 minutes at time 2020-04-20 00:43:14.
+##
+##               mean    sd     2.5%      50%    97.5% overlap0
+## sumZ        46.029 0.168   46.000   46.000   47.000    FALSE
+## occ.fs       0.767 0.003    0.767    0.767    0.783    FALSE
+## logit.psi    1.173 0.324    0.562    1.163    1.825    FALSE
+## logit.p      0.408 0.074    0.263    0.407    0.560    FALSE
+## alpha[1]     2.147 0.152    1.853    2.143    2.445    FALSE
+## alpha[2]     0.902 0.126    0.657    0.903    1.155    FALSE
+## alpha[3]     1.686 0.247    1.208    1.682    2.180    FALSE
+## beta        -1.475 0.632   -2.769   -1.458   -0.329    FALSE
+## deviance  1589.362 3.508 1585.504 1588.480 1599.696    FALSE
+##               f  Rhat n.eff
+## sumZ      1.000 1.000  2850
+## occ.fs    1.000 1.000  2850
+## logit.psi 1.000 1.000  2850
+## logit.p   1.000 1.001  2372
+## alpha[1]  1.000 1.000  2850
+## alpha[2]  1.000 1.000  2850
+## alpha[3]  1.000 1.000  2850
+## beta      0.995 1.000  2850
+## deviance  1.000 1.000  2850
+##
+## Successful convergence based on Rhat values (all < 1.1).
+## Rhat is the potential scale reduction factor (at convergence, Rhat=1).
+## For each parameter, n.eff is a crude measure of effective sample size.
+##
+## overlap0 checks if 0 falls in the parameter's 95% credible interval.
+## f is the proportion of the posterior with the same sign as the mean;
+## i.e., our confidence that the parameter is positive or negative.
+##
+## DIC info: (pD = var(deviance)/2)
+## pD = 6.2 and DIC = 1595.517
+## DIC is an estimate of expected predictive error (lower is better).
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# store in tmp coefficients from best ML model}
+\NormalTok{tmp <-}\StringTok{ }\KeywordTok{summary}\NormalTok{(fm7)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##
+## Call:
+## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
+##
+## Occupancy (logit-scale):
+##             Estimate    SE     z  P(>|z|)
+## (Intercept)     1.18 0.326  3.62 0.000291
+## elev           -1.41 0.624 -2.26 0.023548
+##
+## Detection (logit-scale):
+##             Estimate     SE     z  P(>|z|)
+## (Intercept)    0.407 0.0735  5.54 3.03e-08
+## elev           2.140 0.1494 14.32 1.66e-46
+## temp           0.900 0.1262  7.14 9.68e-13
+## elev:temp      1.680 0.2514  6.68 2.34e-11
+##
+## AIC: 1656.533
+## Number of sites: 60
+## optim convergence code: 0
+## optim iterations: 37
+## Bootstrap iterations: 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modestimates <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(tmp}\OperatorTok{$}\NormalTok{state[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], tmp}\OperatorTok{$}\NormalTok{det[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{]), }
+                \DataTypeTok{Post.mean =}\NormalTok{ out22}\OperatorTok{$}\NormalTok{summary[}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{4}\OperatorTok{:}\DecValTok{7}\NormalTok{), }\DecValTok{1}\NormalTok{],}
+                \DataTypeTok{Post.sd   =}\NormalTok{ out22}\OperatorTok{$}\NormalTok{summary[}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{4}\OperatorTok{:}\DecValTok{7}\NormalTok{), }\DecValTok{2}\NormalTok{] )}
+
+\CommentTok{# fix the(logit-scale) in unmarked }
+\NormalTok{modestimates[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]<-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(modestimates[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+\NormalTok{modestimates[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{]<-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(modestimates[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+
+\CommentTok{# fix the(logit-scale) in Bayes in logit.psi  logit.p}
+\NormalTok{modestimates[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{]<-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(modestimates[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+\NormalTok{modestimates[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{]<-}\StringTok{ }\KeywordTok{plogis}\NormalTok{(modestimates[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+
+\CommentTok{# get real values from datos2 object}
+\NormalTok{real<-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(datos2}\OperatorTok{$}\NormalTok{mean.occupancy, datos2}\OperatorTok{$}\NormalTok{beta1, datos2}\OperatorTok{$}\NormalTok{mean.detection,}
+\NormalTok{             datos2}\OperatorTok{$}\NormalTok{alpha1, datos2}\OperatorTok{$}\NormalTok{alpha2, datos2}\OperatorTok{$}\NormalTok{alpha3)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano}{%
+\section{Comparando los valores reales y los estimados de ML y Bayesiano}\label{comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano}}
+
+Veamos qué tan cerca están los estimados de los valores reales, comparando el valor real con el estimado de Máxima Verosimilitud (columnas 2 y 3) y el estimado Bayesiano (columnas 4 y 5).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{### see if the values are close to real values}
+\NormalTok{compare <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(real, modestimates) }\CommentTok{# put both in same table}
+\CommentTok{# put names to rows}
+\KeywordTok{rownames}\NormalTok{(compare) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"psi"}\NormalTok{,}\StringTok{"beta"}\NormalTok{,}\StringTok{"p"}\NormalTok{,}\StringTok{"alpha1"}\NormalTok{,}\StringTok{"alpha2"}\NormalTok{, }\StringTok{"alpha3"}\NormalTok{)}
+
+\CommentTok{# print comparing table}
+\KeywordTok{library}\NormalTok{(knitr)}
+\KeywordTok{kable}\NormalTok{(compare)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & real & Estimate & SE & Post.mean & Post.sd\\
+\hline
+psi & 0.8 & 0.7653197 & 0.3262574 & 0.7637476 & 0.3244823\\
+\hline
+beta & -1.5 & -1.4129006 & 0.6239572 & -1.4747848 & 0.6319201\\
+\hline
+p & 0.6 & 0.6004304 & 0.0735178 & 0.6005410 & 0.0744655\\
+\hline
+alpha1 & 2.0 & 2.1395071 & 0.1494144 & 2.1470247 & 0.1515634\\
+\hline
+alpha2 & 1.0 & 0.9003900 & 0.1261927 & 0.9021164 & 0.1257829\\
+\hline
+alpha3 & 1.5 & 1.6801587 & 0.2513946 & 1.6858529 & 0.2468270\\
+\hline
+\end{tabular}
+
+\hypertarget{informaciuxf3n-de-la-sesiuxf3n-de-r-y-los-paquetes-usados}{%
+\chapter{Información de la sesión de R y los paquetes usados}\label{informaciuxf3n-de-la-sesiuxf3n-de-r-y-los-paquetes-usados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sessionInfo}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R version 3.6.1 (2019-07-05)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 14393)
+##
+## Matrix products: default
+##
+## locale:
+## [1] LC_COLLATE=Spanish_Colombia.1252
+## [2] LC_CTYPE=Spanish_Colombia.1252
+## [3] LC_MONETARY=Spanish_Colombia.1252
+## [4] LC_NUMERIC=C
+## [5] LC_TIME=Spanish_Colombia.1252
+##
+## attached base packages:
+## [1] parallel  stats     graphics  grDevices utils
+## [6] datasets  methods   base
+##
+## other attached packages:
+##  [1] ggmcmc_1.4.1        ggplot2_3.2.1
+##  [3] tidyr_1.0.2         dplyr_0.8.5
+##  [5] mcmcplots_0.4.3     coda_0.19-3
+##  [7] jagsUI_1.5.1        spatstat_1.63-3
+##  [9] rpart_4.1-15        nlme_3.1-144
+## [11] spatstat.data_1.4-3 raster_3.0-12
+## [13] sp_1.4-0            unmarked_0.13-2
+## [15] Rcpp_1.0.3          lattice_0.20-38
+## [17] knitr_1.28          bookdown_0.18
+##
+## loaded via a namespace (and not attached):
+##  [1] tufte_0.5             sfsmisc_1.1-5
+##  [3] splines_3.6.1         StanHeaders_2.21.0-1
+##  [5] assertthat_0.2.1      highr_0.8
+##  [7] stats4_3.6.1          yaml_2.2.1
+##  [9] pillar_1.4.3          glue_1.3.1
+## [11] digest_0.6.24         RColorBrewer_1.1-2
+## [13] polyclip_1.10-0       colorspace_1.4-1
+## [15] htmltools_0.4.0       Matrix_1.2-18
+## [17] plyr_1.8.5            pkgconfig_2.0.3
+## [19] rstan_2.19.3          purrr_0.3.3
+## [21] scales_1.1.0          processx_3.4.2
+## [23] rjags_4-10            tensor_1.5
+## [25] spatstat.utils_1.17-0 tibble_2.1.3
+## [27] mgcv_1.8-31           farver_2.0.3
+## [29] ellipsis_0.3.0        withr_2.1.2
+## [31] lazyeval_0.2.2        cli_2.0.1
+## [33] magrittr_1.5          crayon_1.3.4
+## [35] deldir_0.1-25         evaluate_0.14
+## [37] ps_1.3.2              GGally_1.5.0
+## [39] fansi_0.4.1           MASS_7.3-51.5
+## [41] pkgbuild_1.0.6        rsconnect_0.8.16
+## [43] tools_3.6.1           loo_2.2.0
+## [45] prettyunits_1.1.1     lifecycle_0.1.0
+## [47] matrixStats_0.55.0    stringr_1.4.0
+## [49] munsell_0.5.0         callr_3.4.2
+## [51] packrat_0.5.0         compiler_3.6.1
+## [53] tinytex_0.19          rlang_0.4.4
+## [55] grid_3.6.1            rstudioapi_0.11
+## [57] goftest_1.2-2         labeling_0.3
+## [59] rmarkdown_2.1         gtable_0.3.0
+## [61] codetools_0.2-16      reshape_0.8.8
+## [63] inline_0.3.15         abind_1.4-5
+## [65] reshape2_1.4.3        R6_2.4.1
+## [67] gridExtra_2.3         denstrip_1.5.4
+## [69] rgdal_1.4-8           stringi_1.4.6
+## [71] vctrs_0.2.2           png_0.1-7
+## [73] tidyselect_1.0.0      xfun_0.12
+\end{verbatim}
+
+  \bibliography{book.bib,packages.bib,refs.bib}
+
+\end{document}

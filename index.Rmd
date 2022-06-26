@@ -1,0 +1,64 @@
+--- 
+title: "Occupancy simulation and analysis"
+author: "Diego J. Lizcano, Ph.D."
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+description: This is an R example to get occupancy data and analize it.
+cover-image: "images/Mountain_Tapir_large.png"
+favicon: "images/favicon.ico"
+documentclass: book
+github-repo: dlizcano/OTS
+link-citations: true
+linkcolor: blue
+csl: D:/BoxFiles/Box Sync/CodigoR/Toshiba/IntroOccuBook/journal-of-ecology.csl
+subtitle: Understanding the simulations and the basic occupancy model
+bibliography: [book.bib, packages.bib, refs.bib]
+
+---
+
+# Prerequisites
+
+This is a tutorial book written with **Markdown**
+
+```{r echo=FALSE, fig.align='left', fig.width=2}
+knitr::include_graphics("images/rmd.png")
+```
+
+
+Using  R y [R studio](https://www.rstudio.com/), using the 'bookdown', 'knitr' and 'rmarkdown' packages.
+
+```{r echo=FALSE, fig.align='left', fig.width=2}
+knitr::include_graphics("images/R.png")
+```
+
+
+This _book-tutorial_ is part of the [mini course on occupation methods with R.](http://dlizcano.github.io/OTS)
+
+Before starting please install the JAGS program on your computer, then from R studio install the unmarked, raster, spatstat, jagsUI, mcmcplots and ggmcmc packages.
+
+```{r eval=FALSE}
+install.packages("unmarked", dependencies = TRUE)
+install.packages("raster", "spatstat", "jagsUI", "mcmcplots", "ggmcmc", dependencies = TRUE)
+```
+
+
+## Please cite this work as:
+
+Lizcano D.J.
+  <a itemprop="sameAs" content="https://orcid.org/0000-0002-9648-0576" href="https://orcid.org/0000-0002-9648-0576" target="orcid.widget" rel="me noopener noreferrer" style="horizontal-align:left;">
+  <img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">
+  </a> (2019). Simulación y análisis de ocupación. Entendiendo las simulaciones y el modelo básico de ocupación (Version 1). Zenodo. http://doi.org/10.5281/zenodo.4028019  
+This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International] license(https://creativecommons.org/licenses/by-sa/4.0/deed.en).
+
+```{r echo=FALSE, fig.align='left', fig.width=3}
+knitr::include_graphics("images/by-sa-88x31.png")
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

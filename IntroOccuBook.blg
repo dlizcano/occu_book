@@ -1,0 +1,34 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: IntroOccuBook.aux
+The style file: plainnat.bst
+Case mismatch error between cite keys KERY2008 and Kery2008
+---line 54 of file IntroOccuBook.aux
+ : \citation{Kery2008,KERY2008
+ :                            ,Kery2012}
+I'm skipping whatever remains of this command
+I couldn't open database file book.bib.bib
+---line 132 of file IntroOccuBook.aux
+ : \bibdata{book.bib
+ :                  ,packages.bib,refs.bib}
+I'm skipping whatever remains of this command
+I found no database files---while reading file IntroOccuBook.aux
+Warning--I didn't find a database entry for "MacKenzie2002"
+Warning--I didn't find a database entry for "Kery2012"
+Warning--I didn't find a database entry for "Kery2010"
+Warning--I didn't find a database entry for "kery2015applied"
+Warning--I didn't find a database entry for "MACKENZIE2005"
+Warning--I didn't find a database entry for "MacKenzie2006"
+Warning--I didn't find a database entry for "Kery2008"
+Warning--I didn't find a database entry for "Royle2007a"
+Warning--I didn't find a database entry for "Royle2005"
+Warning--I didn't find a database entry for "Royle2006"
+Warning--I didn't find a database entry for "MacKenzie2003"
+Warning--I didn't find a database entry for "Guillera-Arroita2010a"
+Warning--I didn't find a database entry for "Guillera-Arroita2015"
+Warning--I didn't find a database entry for "Guillera-Arroita2011"
+Warning--I didn't find a database entry for "Guillera-Arroita2012"
+Warning--I didn't find a database entry for "Guillera-Arroita2014a"
+Warning--I didn't find a database entry for "Kery2013"
+Warning--I didn't find a database entry for "RCoreTeam2016"
+Warning--I didn't find a database entry for "Fiske2011"
+Warning--I didn't find a database entry for "Burnham2004"
+(There were 3 error messages)

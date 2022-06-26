@@ -1,0 +1,343 @@
+# Bayesian analysis {#bayesian}
+
+In this part we are going to estimate the same parameters of a model equal to the "best model" which was selected in the unmarked model selection procedure in the previous chapter. Recall that this model has beta1 and alpha1, alpha2, alpha3. The parameters that we will estimate with the Bayesian method are going to be compared with the parameters that we already estimated with ML in unmarked and we will also compare them with the real parameters that we defined when establishing the data (data2) with the function data.fn, to see which of the two estimation methods (ML or Bayesian) are closer to the real parameters.
+ 
+
+## Generating the data
+
+Again we will use a TEAM-type design (https://www.wildlifeinsights.org/team-network) with 60 sampling sites and 30 repeated visits, which is equivalent to the 30 days that the cameras remain active in the field. Our species remains the same, the white-tailed deer. For this example we will assume that detection is 0.6, occupancy is 0.8, and the interactions are simple with altitude as the only covariate explaining occupancy. But for detection there is a more complex relationship, assuming there is a slight interaction between the observation covariates. For observation, altitude and temperature interact with each other. Also note how altitude influences in opposite directions with a positive altitude sign for detection and a negative sign for occupancy. 
+
+
+```{r fun_ch7, warning=FALSE, echo=FALSE, message=FALSE}
+###############################
+## The function starts here ###
+###############################
+set.seed(24) # Can choose seed of your choice
+# Function definition with set of default values
+data.fn <- function(M = 60, J = 30, mean.occupancy = 0.8, 
+                    beta1 = -1.5, beta2 = 0, beta3 = 0, mean.detection = 0.6, 
+                    alpha1 = 2, alpha2 = 1, alpha3 = 1.5, show.plot = FALSE){
+# Function to simulate occupancy measurements replicated at M sites during J occasions.
+# Population closure is assumed for each site.
+# Expected occurrence may be affected by elevation (elev), 
+# forest cover (forest) and their interaction.
+# Expected detection probability may be affected by elevation, 
+# temperature (temp) and their interaction.
+# Function arguments:
+#     M: Number of spatial replicates (sites)
+#     J: Number of temporal replicates (occasions)
+#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates
+#     beta1: Main effect of elevation on occurrence
+#     beta2: Main effect of forest cover on occurrence
+#     beta3: Interaction effect on occurrence of elevation and forest cover
+#     mean.detection: Mean detection prob. at value 0 of detection covariates
+#     alpha1: Main effect of elevation on detection probability
+#     alpha2: Main effect of temperature on detection probability
+#     alpha3: Interaction effect on detection of elevation and temperature
+#     show.plot: if TRUE, plots of the data will be displayed; 
+#               set to FALSE if you are running simulations.
+
+# Create covariates
+elev <- runif(n = M, -1, 1)                         # Scaled elevation
+forest <- runif(n = M, -1, 1)                       # Scaled forest cover
+temp <- array(runif(n = M*J, -1, 1), dim = c(M, J)) # Scaled temperature
+
+# Model for occurrence
+beta0 <- qlogis(mean.occupancy)               # Mean occurrence on link scale
+psi <- plogis(beta0 + beta1*elev + beta2*forest + beta3*elev*forest)
+z <- rbinom(n = M, size = 1, prob = psi)      # Realised occurrence
+
+# Plots
+if(show.plot){
+  par(mfrow = c(2, 2), cex.main = 1)
+  devAskNewPage(ask = TRUE)
+  curve(plogis(beta0 + beta1*x), -1, 1, col = "red", frame.plot = FALSE, 
+      ylim = c(0, 1), xlab = "Elevation", ylab = "psi", lwd = 2)
+  plot(elev, psi, frame.plot = FALSE, ylim = c(0, 1), xlab = "Elevation", 
+     ylab = "")
+  curve(plogis(beta0 + beta2*x), -1, 1, col = "red", frame.plot = FALSE, 
+      ylim = c(0, 1), xlab = "Forest cover", ylab = "psi", lwd = 2)
+  plot(forest, psi, frame.plot = FALSE, ylim = c(0, 1), xlab = "Forest cover", 
+     ylab = "")
+}
+
+# Model for observations
+y <- p <- matrix(NA, nrow = M, ncol = J)# Prepare matrix for y and p
+alpha0 <- qlogis(mean.detection)        # mean detection on link scale
+for (j in 1:J){                         # Generate counts by survey
+   p[,j] <- plogis(alpha0 + alpha1*elev + alpha2*temp[,j] + alpha3*elev*temp[,j])
+   y[,j] <- rbinom(n = M, size = 1, prob = z * p[,j])
+}
+
+# True and observed measures of 'distribution'
+sumZ <- sum(z)                     # Total occurrence (all sites)
+sumZ.obs <- sum(apply(y,1,max))    # Observed number of occ sites
+psi.fs.true <- sum(z) / M          # True proportion of occ. sites in sample
+psi.fs.obs <- mean(apply(y,1,max)) # Observed proportion of occ. sites in sample
+
+# More plots
+if(show.plot){
+  par(mfrow = c(2, 2))
+  curve(plogis(alpha0 + alpha1*x), -1, 1, col = "red", 
+      main = "Relationship p-elevation \nat average temperature", 
+      xlab = "Scaled elevation", frame.plot = F)
+  matplot(elev, p, xlab = "Scaled elevation", 
+        main = "Relationship p-elevation\n at observed temperature", 
+        pch = "*", frame.plot = F)
+  curve(plogis(alpha0 + alpha2*x), -1, 1, col = "red", 
+      main = "Relationship p-temperature \n at average elevation", 
+      xlab = "Scaled temperature", frame.plot = F)
+  matplot(temp, p, xlab = "Scaled temperature", 
+        main = "Relationship p-temperature \nat observed elevation", 
+        pch = "*", frame.plot = F)
+}
+
+# Output
+return(list(M = M, J = J, mean.occupancy = mean.occupancy, 
+            beta0 = beta0, beta1 = beta1, beta2 = beta2, beta3 = beta3, 
+            mean.detection = mean.detection, 
+            alpha0 = alpha0, alpha1 = alpha1, alpha2 = alpha2, alpha3 = alpha3, 
+            elev = elev, forest = forest, temp = temp, 
+            psi = psi, z = z, p = p, y = y, sumZ = sumZ, sumZ.obs = sumZ.obs, 
+            psi.fs.true = psi.fs.true, psi.fs.obs = psi.fs.obs))
+}
+
+###############################
+## The function ends  here  ###
+###############################
+
+```
+
+
+
+```{r unmark_umf1_ch7, cache=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
+
+datos2<-data.fn(M = 60, J = 30, show.plot = FALSE,
+                mean.occupancy = 0.8, beta1 = -1.5, beta2 = 0, beta3 = 0,  
+                mean.detection = 0.6, alpha1 = 2, alpha2 = 1, alpha3 = 1.5
+                )
+attach(datos2) 
+
+library(unmarked)
+siteCovs <- as.data.frame(cbind(forest,elev))
+obselev<-matrix(rep(elev,J),ncol = J) #make elevetion per observation
+obsCovs <- list(temp= temp,elev=obselev)
+umf <- unmarkedFrameOccu(y = y, siteCovs = siteCovs, obsCovs = obsCovs)
+
+
+fm7 <- occu(~ elev + temp + elev:temp ~ elev, umf)
+
+```
+
+
+```{r bayesian, eval=TRUE, cache=TRUE, warning=FALSE, message=FALSE, fig.height=8}
+
+# ### Generate a new data set or use the same
+# # ****************************************
+# set.seed(148)
+# data <- data.fn(show.plot = T)    # Default arguments
+# str(data)                         # Look at the object
+# we are oing to use the data from datos2 object
+
+### Fit same model with JAGS, using library jagsUI
+# ************************************************
+# Bundle data
+win.data <- list(y = datos2$y, 
+                 M = nrow(datos2$y), 
+                 J = ncol(datos2$y), 
+                 elev = datos2$elev, 
+                 forest = datos2$forest, 
+                 temp = datos2$temp)
+# str(win.data)
+
+
+# # Specify model in BUGS language
+# sink("model22.txt")
+# cat("
+# model {
+# 
+# # Priors
+# mean.p ~ dunif(0, 1)        # Detection intercept on prob. scale
+# alpha0 <- logit(mean.p)     # same on logit scale
+# mean.psi ~ dunif(0, 1)      # Occupancy intercept on prob. scale
+# beta0 <- logit(mean.psi)    # same on logit scale
+# for(k in 1:3){              # 2 detection covariates + 1 interact
+#     alpha[k] ~ dnorm(0, 0.01) # Covariates on logit(detection)
+# #   alpha[k] ~ dnorm(0, 0.05) # Covariates on logit(detection)
+# #   alpha[k] ~ dunif(-10, 10) # Covariates on logit(detection)
+# }
+# 
+# for(k in 1:1){                # 2 occupancy covariates + 1 interact
+#     beta[k] ~ dnorm(0, 0.01)  # Covariates on logit(occupancy)
+# #   beta[k] ~ dnorm(0, 0.05)  # Covariates on logit(occupancy)
+# #   beta[k] ~ dunif(-10, 10)  # Covariates on logit(occupancy)
+# }
+# 
+# # Translation of the occupancy parameters in unmarked into those for BUGS:
+# # (Intercept)         (beta0 in BUGS)
+# # elev                (beta[1])
+# # forest              (beta[2])
+# # temp                (beta[3])
+# # elev:forest         (beta[4])
+# # elev:temp           (beta[5])
+# # forest:temp         (beta[6])
+# # elev:forest:temp    (beta[7])
+# 
+# 
+# # Likelihood
+# for (i in 1:M) {
+#   # True state model for the partially observed true state
+#   z[i] ~ dbern(psi[i])                      # True occupancy z at site i
+#   logit(psi[i]) <- beta0 +                  # occupancy (psi) intercept
+#     beta[1] * elev[i] #+                     # elev
+#     #beta[2] * forest[i] #+                  # forest
+#     #beta[3] * elev[i] * forest[i]          # elev:forest
+#     #beta[4] * elev[i] * temp[i] +          # elev:temp
+#     #beta[5] * temp[i] +                    # temp
+#     #beta[6] * forest[i] * temp[i] +        # forest:temp
+#     #beta[7] * elev[i] * forest[i] * temp[i]   # elev:forest:temp
+# 
+#    for (j in 1:J) {
+#       # Observation model for the actual observations
+#       y[i,j] ~ dbern(p.eff[i,j])      # Detection-nondetection at i and j
+#       p.eff[i,j] <- z[i] * p[i,j]
+#       logit(p[i,j]) <- alpha0 +             # detection (p) intercept
+#          alpha[1] * elev[i] +               # effect of elevation on p
+#          alpha[2] * temp[i,j] +             # effect of temp on p
+#          alpha[3] * elev[i] * temp[i,j]     # effect of elev:temp on p
+#    }
+# }
+# 
+# # Derived quantities
+# sumZ <- sum(z[])      # Number of occupied sites among those studied
+# occ.fs <- sum(z[])/M  # proportion of occupied sites among those studied
+# logit.psi <- beta0    # For comparison with unmarked
+# logit.p <- alpha0     # For comparison with unmarked
+# }
+# ",fill = TRUE)
+# sink()
+
+
+library(jagsUI)
+# library(R2jags)
+# Initial values
+zst <- apply(datos2$y, 1, max)
+inits <- function(){list(z = zst, 
+                         mean.psi = runif(1), 
+                         mean.p = runif(1), 
+                         alpha = rnorm(3), # adjust here
+                         beta = rnorm(1))} # adjust here
+
+# Parameters monitored
+params <- c("sumZ", "occ.fs", "logit.psi", "logit.p", "alpha", "beta")
+
+# MCMC settings
+# ni <- 100000   ;   nt <- 10   ;   nb <- 1000   ;   nc <- 3
+ ni <- 10000   ;   nt <- 10   ;   nb <- 500   ;   nc <- 3
+
+# Call JAGS from R (ART 260 sec with norm(), 480 with unif(-10,10)) 
+# and summarize posteriors
+system.time(out22 <- jags(win.data, inits, parameters.to.save = params,
+                      model.file = "D:/BoxFiles/Box Sync/CodigoR/Toshiba/IntroOccuBook/bookdown-demo-master/model22.txt", 
+                          n.chains = nc, 
+                          n.thin = nt, 
+                          n.iter = ni, 
+                          n.burnin = nb, 
+                          parallel = T))
+
+
+# See model diagnistics and convergence 
+library(mcmcplots)
+library(ggmcmc)
+fit22.mcmc <- as.mcmc.list(out22$samples)
+bayes.mod.fit.gg <- ggs(fit22.mcmc) #convert to ggmcmc
+ggs_running(bayes.mod.fit.gg)# check if chains approach target distrib. 
+
+# denplot(fit22.mcmc, parms = c("beta", 
+#                               "alpha[1]", "alpha[2]", "alpha[3]", 
+#                               "logit.psi", "logit.p" ))
+# traplot(fit22.mcmc)
+# ggs_density(bayes.mod.fit.gg)
+
+# xyplot(out22)        # assess within-chain convergence
+densityplot(out22)  # shape of the posterior distribution
+# see model result and estimates  
+print(out22, 3)
+
+# store in tmp coefficients from best ML model
+tmp <- summary(fm7)
+modestimates <- cbind(rbind(tmp$state[1:2], tmp$det[1:2]), 
+                Post.mean = out22$summary[c(3, 8, 4:7), 1],
+                Post.sd   = out22$summary[c(3, 8, 4:7), 2] )
+
+# fix the(logit-scale) in unmarked 
+modestimates[1,1]<- plogis(modestimates[1,1])
+modestimates[3,1]<- plogis(modestimates[3,1])
+
+# fix the(logit-scale) in Bayes in logit.psi  logit.p
+modestimates[1,3]<- plogis(modestimates[1,3])
+modestimates[3,3]<- plogis(modestimates[3,3])
+
+# get real values from datos2 object
+real<- rbind(datos2$mean.occupancy, datos2$beta1, datos2$mean.detection,
+             datos2$alpha1, datos2$alpha2, datos2$alpha3)
+
+```
+
+## Comparing the actual and estimated values from ML and Bayesian
+
+Let's see how close the estimates are to the actual values, by comparing the actual value with the Maximum Likelihood estimate (columns 2 and 3) and the Bayesian estimate (columns 4 and 5).
+
+```{r print_estim, eval=TRUE, cache=TRUE, warning=FALSE}
+### see if the values are close to real values
+compare <- cbind(real, modestimates) # put both in same table
+# put names to rows
+rownames(compare) <- c("psi","beta","p","alpha1","alpha2", "alpha3")
+
+# print comparing table
+library(knitr)
+kable(compare)
+
+```
+
+## Bayesian estimates easily using ubms
+
+The JAGS code adds another layer of complexity to the analysis. Fortunately, since the year 2022, there is a new package in the neighborhood. The [ubms package](https://kenkellner.com/ubms/) allows Bayesian estimates using the same easy and simple unmarked structure. The package has a formula-based interface compatible with unmarked, but the model is fit using MCMC with Stan instead of using maximum likelihood. 
+
+```{r ubms_umf1_ch7, cache=TRUE, warning=FALSE, message=FALSE, echo=TRUE}
+
+library(ubms)
+
+(fm7_ubms <- stan_occu(~ elev + temp + elev:temp ~ elev, umf, chains=3, cores=3))
+
+# Assess model goodness-of-fit with a posterior predictive check, using the MacKenzie-Bailey chi-square test:
+fm_fit <- gof(fm7_ubms, draws=500)
+plot(fm_fit)
+
+# Look at the marginal effect of on detection:
+
+plot_effects(fm7_ubms, "det")
+
+# Look at the marginal effect of on Occupancy:
+
+plot_effects(fm7_ubms, "state")
+
+```
+
+
+### Advantages of ubms compared to unmarked:
+
+1. Obtain posterior distributions of parameters and derived parameters.
+
+2. Include random effects in parameter formulas (same syntax as lme4).
+
+3. Assess model fit using WAIC and LOO via the loo package.
+
+### Disadvantages of ubms compared to unmarked:
+
+1. MCMC is slower than maximum likelihood.
+
+2. Not all model types are supported.
+
+3. Potential for convergence issues
+

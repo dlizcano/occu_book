@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Introducción | Simulación y análisis de ocupación</title>
+  <meta name="description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Introducción | Simulación y análisis de ocupación" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/venado_large.png" />
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="dlizcano/IntroOccuBook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Introducción | Simulación y análisis de ocupación" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="twitter:image" content="images/venado_large.png" />
+
+<meta name="author" content="Diego J. Lizcano, Ph.D." />
+
+
+<meta name="date" content="2020-04-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="index.html"/>
+<link rel="next" href="why.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulaciones y análisis de ocupación</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisitos</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introducción</a></li>
+<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> Por qué simular?</a><ul>
+<li class="chapter" data-level="3.1" data-path="why.html"><a href="why.html#por-qué-son-útiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> por qué son útiles las simulaciones:</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
+<li class="chapter" data-level="5" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="example.html"><a href="example.html#modelo-ecológico"><i class="fa fa-check"></i><b>5.0.1</b> Modelo Ecológico:</a></li>
+<li class="chapter" data-level="5.0.2" data-path="example.html"><a href="example.html#modelo-de-observación"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
+<li class="chapter" data-level="5.1" data-path="example.html"><a href="example.html#pasos-iniciales-tamaño-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
+<li class="chapter" data-level="5.2" data-path="example.html"><a href="example.html#simulando-el-proceso-ecológico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="example.html"><a href="example.html#por-qué-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por qué Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="example.html"><a href="example.html#simulando-el-proceso-de-observación-y-su-resultado-la-detección"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="example.html"><a href="example.html#uniendo-los-dos-procesos-el-ecológico-y-el-de-observación"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecológico y el de observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función</a></li>
+<li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Análisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="unmarked.html"><a href="unmarked.html#limpiando-la-memoria-de-r"><i class="fa fa-check"></i><b>7.0.1</b> Limpiando la memoria de R</a></li>
+<li class="chapter" data-level="7.1" data-path="unmarked.html"><a href="unmarked.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="7.2" data-path="unmarked.html"><a href="unmarked.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
+<li class="chapter" data-level="7.3" data-path="unmarked.html"><a href="unmarked.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
+<li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#selección-de-modelos"><i class="fa fa-check"></i><b>7.4</b> Selección de modelos</a></li>
+<li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#predicción-en-graficas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas</a></li>
+<li class="chapter" data-level="7.6" data-path="unmarked.html"><a href="unmarked.html#predicción-espacialmente-explicita"><i class="fa fa-check"></i><b>7.6</b> Predicción espacialmente explicita</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
+<li class="chapter" data-level="8.1" data-path="bayesian.html"><a href="bayesian.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="8.2" data-path="bayesian.html"><a href="bayesian.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="información-de-la-sesión-de-r-y-los-paquetes-usados.html"><a href="información-de-la-sesión-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sesión de R y los paquetes usados</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/dlizcano/IntroOccuBook" target="_blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y análisis de ocupación</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">Capítulo 2</span> Introducción</h1>
+<p>En este libro-tutorial realizaremos simulaciones de datos para modelos de ocupación, bajo el modelo estático de una sola estación, desarrollado originalmente por Daryl MacKenzie <span class="citation">(MacKenzie et al., <a href="#ref-MacKenzie2002" role="doc-biblioref">2002</a>)</span>. El modelo básico de ocupación, es la piedra angular del muestreo y monitoreo biológico moderno!.</p>
+<p>El objetivo de este documento es entender la versatilidad y el poder de las simulaciones con R en el capítulo <a href="why.html#why">3</a>. Aprenderemos el principio biologico y el mecanismo bajo el cual funciona el modelo básico de ocupación en el capítulo <a href="occu.html#occu">4</a>. Realizaremos un ejemplo sencillo en el capítulo <a href="example.html#example">5</a> para un venado del Parque Nacional Machalilla. Posteriormente empacaremos el código que genera los datos de ocupación, en una sola función en el Capítulo <a href="function1.html#function1">6</a>. Esta función nos permitirá simular datos bajo diferentes escenarios, los cuales analizaremos con los estimadores de máxima verosimilitud de la función occu del paquete unmarked en el Capítulo <a href="unmarked.html#unmarked">7</a>. Posteriormente analizaremos los mismos datos bajo estimadores bayesianos en el Capítulo <a href="bayesian.html#bayesian">8</a>, para al final comparar la precisión de ambas aproximaciones, máxima verosimilitud y bayesiana.</p>
+<div id="créditos" class="section level4">
+<h4><span class="header-section-number">2.0.0.1</span> Créditos</h4>
+<p>Gran parte del concepto de este documento, el código y el texto han sido adaptados de los libros de <a href="http://store.elsevier.com/Marc-Kery/ELS_1059944/">Marc Kery</a> <span class="citation">(Kéry, <a href="#ref-Kery2010" role="doc-biblioref">2010</a>; Kéry &amp; Royle, <a href="#ref-kery2015applied" role="doc-biblioref">2015</a>; Kéry &amp; Schaub, <a href="#ref-Kery2012" role="doc-biblioref">2012</a>)</span>.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Kery2010">
+<p>Kéry, M. (2010). <em>Introduction to WinBUGS for ecologists</em>. doi: <a href="https://doi.org/10.1016/B978-0-12-378605-0.00020-X">10.1016/B978-0-12-378605-0.00020-X</a></p>
+</div>
+<div id="ref-kery2015applied">
+<p>Kéry, M., &amp; Royle, J. A. (2015). <em>Applied hierarchical modeling in ecology: Analysis of distribution, abundance and species richness in r and bugs: Volume 1: Prelude and static models</em>. Academic Press.</p>
+</div>
+<div id="ref-Kery2012">
+<p>Kéry, M., &amp; Schaub, M. (2012). Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models. In <em>Bayesian population analysis using winbugs</em> (pp. 413–461). doi: <a href="https://doi.org/10.1016/B978-0-12-387020-9.00013-4">10.1016/B978-0-12-387020-9.00013-4</a></p>
+</div>
+<div id="ref-MacKenzie2002">
+<p>MacKenzie, D. I., Nichols, J. D., Lachman, G. B., Droege, S., Andrew Royle, J., &amp; Langtimm, C. A. (2002). Estimating site occupancy rates when detection probabilities are less than one. <em>Ecology</em>, <em>83</em>(8), 2248–2255. doi: <a href="https://doi.org/10.1890/0012-9658(2002)083%5B2248:ESORWD%5D2.0.CO;2">10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2</a></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="why.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["IntroOccuBook.pdf"],
+"toc": {
+"collapse": "subsection"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

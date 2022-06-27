@@ -84,9 +84,9 @@ forest <- runif(n = M, -1, 1)           # Scaled forest cover at each site
 temp <- array(runif(n = M*J, -1, 1), dim = c(M, J)) # Scaled temperature
 ```
 
-## Simulating the ecological process and its result: the occurrence of The Tapir
+## Simulating the ecological process and its result: The Occurrence of The Tapir
 
-To simulate the occurrence of tapirs at each site, we choose the values for the parameters that govern the spatial variation in occurrence $β_{0}$ to $β_{3}$. The first parameter is the expected average occurrence of tapir (occupation probability) when all covariates have a value of zero, in other words the intercept of the occurrence model. We prefer to think of tapir in terms of their occurrence rather than logit (occurrence). Here we choose the occupancy intercept first and then transform it from the logarithmic scale with the logit link function.
+To simulate the occurrence of tapirs at each site, we choose the values for the parameters that govern the spatial variation in occurrence $β_{0}$ to $β_{3}$. The first parameter is the expected average occurrence of tapir (occupation probability) when all covariates have a value of zero, in other words the intercept of the occurrence model. We prefer to think of tapirs in terms of their occurrence rather than logit (occurrence). Here we choose the occupancy intercept first and then transform it from the logarithmic scale with the logit link function.
 
 ```{r psi_effect1, echo=TRUE,cache=TRUE}
 mean.occupancy <- 0.60         # Mean expected occurrence of tapir
@@ -150,7 +150,7 @@ matpoints(elev, forest, pch="+", cex=0.8)
 
 
 
-So far we have not introduced any stochastic variation in the relationship between tapir occurrence and covariates. To do this we must make use of some statistical models, or statistical distributions, to describe the random variability around the expected value of psi. The typical way to introduce this random variation is to obtain the occurrence of tapir at each site _i_, $z _{i}$ , from a Bernoulli distribution with the expected values ($\psi _{i}$).  
+So far we have not introduced any stochastic variation in the relationship between tapir occurrence and covariates. To do this we must make use of some statistical models, or statistical distributions, to describe the random variability around the expected value of psi. The typical way to introduce this random variation is to obtain the occurrence of tapir at each site _i_, $z _{i}$, from a Bernoulli distribution with the expected values ($\psi _{i}$).  
 
 ### Why Bernoulli?
 
@@ -229,12 +229,12 @@ matpoints(elev, temp, pch="+", cex=0.7, col = "black")
 
 So far we have modeled the two processes, the ecological $z$ and the observation process _p_ separately. Now we will have to put them together, and for this we multiply the result of the ecological process by the probability of detection within a Bernoulli distribution.
 
-### Uniting the two processes the ecological and the observation
+### Combining the two processes the ecological and the observation
 
-When we "measure" the occurrence, the imperfect detection represents a source of error with a Bernoulli-type distribution (for example, the presence of the deer in a place where it is detected with a probability _p_, or it is not detected as 1-_p_) . By applying this observation process we produce repeated measures of the presence or absence (1 or 0) of deer at each site. Remember that the Bernoulli distribution is a special case of the binomial distribution, and its best example is a single coin toss. 
+When we "measure" the occurrence, the imperfect detection represents a source of error with a Bernoulli-type distribution (for example, the presence of the tapir in a place where it is detected with a probability _p_, or it is not detected as 1-_p_). By applying this observation process we produce repeated measures of the presence or absence (1 or 0) of tapir at each site. Remember that the Bernoulli distribution is a special case of the binomial distribution, and its best example is a single coin toss. 
 
 
-Right now we are establishing the hierarchy in the hierarchical model. Here we are nesting the ecological process "within" the observation process.  
+Right now we are establishing the hierarchy in the **hierarchical model**. Here we are nesting the ecological process "within" the observation process.  
 
 ```{r Bernoull, cache=TRUE, warning=FALSE}
 y <- matrix(NA, nrow = M, ncol = J)      # Prepare array for counts

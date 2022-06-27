@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter4 Our Example: | Occupancy simulation and analysis</title>
+  <meta name="description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter4 Our Example: | Occupancy simulation and analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="dlizcano/OTS" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter4 Our Example: | Occupancy simulation and analysis" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
+
+<meta name="author" content="Diego J. Lizcano, Ph.D." />
+
+
+<meta name="date" content="2022-06-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="occu.html"/>
+<link rel="next" href="function1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Occupancy simulation and analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#please-cite-this-work-as"><i class="fa fa-check"></i><b>1.1</b> Please cite this work as:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>2</b> Why to do simulations?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="why.html"><a href="why.html#why-simulations-are-useful"><i class="fa fa-check"></i><b>2.1</b> why simulations are useful:</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>3</b> The Occupancy</a></li>
+<li class="chapter" data-level="4" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>4</b> Our Example:</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="example.html"><a href="example.html#ecological-model"><i class="fa fa-check"></i><b>4.0.1</b> Ecological Model:</a></li>
+<li class="chapter" data-level="4.0.2" data-path="example.html"><a href="example.html#observation-model"><i class="fa fa-check"></i><b>4.0.2</b> Observation Model:</a></li>
+<li class="chapter" data-level="4.1" data-path="example.html"><a href="example.html#initial-steps-sample-size-and-covariate-values"><i class="fa fa-check"></i><b>4.1</b> Initial steps: sample size and covariate values</a></li>
+<li class="chapter" data-level="4.2" data-path="example.html"><a href="example.html#simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir"><i class="fa fa-check"></i><b>4.2</b> Simulating the ecological process and its result: The Occurrence of The Tapir</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="example.html"><a href="example.html#why-bernoulli"><i class="fa fa-check"></i><b>4.2.1</b> Why Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="example.html"><a href="example.html#simulating-the-observation-process-and-its-result-the-detection"><i class="fa fa-check"></i><b>4.3</b> Simulating the observation process and its result: the detection</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="example.html"><a href="example.html#combining-the-two-processes-the-ecological-and-the-observation"><i class="fa fa-check"></i><b>4.3.1</b> Combining the two processes the ecological and the observation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>5</b> Packing everything into a function</a></li>
+<li class="chapter" data-level="6" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>6</b> Occupancy analysis, ML method</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="unmarked.html"><a href="unmarked.html#clearing-r-memory"><i class="fa fa-check"></i><b>6.0.1</b> Clearing R memory</a></li>
+<li class="chapter" data-level="6.1" data-path="unmarked.html"><a href="unmarked.html#generating-the-data"><i class="fa fa-check"></i><b>6.1</b> Generating the data</a></li>
+<li class="chapter" data-level="6.2" data-path="unmarked.html"><a href="unmarked.html#putting-the-data-in-unmarked"><i class="fa fa-check"></i><b>6.2</b> Putting the data in unmarked</a></li>
+<li class="chapter" data-level="6.3" data-path="unmarked.html"><a href="unmarked.html#fitting-the-models"><i class="fa fa-check"></i><b>6.3</b> Fitting the models</a></li>
+<li class="chapter" data-level="6.4" data-path="unmarked.html"><a href="unmarked.html#model-selection"><i class="fa fa-check"></i><b>6.4</b> Model Selection</a></li>
+<li class="chapter" data-level="6.5" data-path="unmarked.html"><a href="unmarked.html#prediction-in-graphs"><i class="fa fa-check"></i><b>6.5</b> Prediction in graphs</a></li>
+<li class="chapter" data-level="6.6" data-path="unmarked.html"><a href="unmarked.html#spatially-explicit-prediction"><i class="fa fa-check"></i><b>6.6</b> Spatially explicit prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>7</b> Bayesian analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:</a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Occupancy simulation and analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="example" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter4</span> Our Example:<a href="example.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The data set that we are going to simulate mimics the spatial and temporal way in which we imagine the repeated measures of presence-absence in ecology originate. Which are a combination of an ecological process and an observation process. The first process contains the mechanisms under which Spatio-temporal distribution patterns originate, while the second process contains the different facets in which sources of error originate when taking the data.</p>
+<p>To be more concrete we are going to call our imaginary species by a real name. We will call it the Mountain Tapir (<em>Tapirus pinchaque</em>), a large and conspicuous mammal, distributed from Colombia to Ecuador and Northern Peru, and listed as endangered in terms of <a href="https://www.iucnredlist.org/species/21473/45173922">conservation</a>.</p>
+<p><img src="images/Mountain_Tapir_large.jpg" alt="The Mountain Tapir" />
+Mountain tapir in “Los Nevados” National Park. Colombia</p>
+<p>Though it is the smallest (and furriest!) of tapir species, the Mountain tapir is the largest mammal in the tropical Andes mountain range. Their long hair is brownish to black, and their lips are lined in a white color.</p>
+<p>The data set contains <em>J</em> replicated data of detection or non-detection of the species in <em>M</em> sites, taking into account that we assume that it is a closed population (‘closure’ assumption). This means that during the sampling there were no changes due to births, deaths, immigration or emigration. In other words, the sampling was short in time and the occurrence of species <em>z</em> did not change due to demographic effects.</p>
+<p>Clearly, we must distinguish two processes, the first is the ecological process, which generates (partially) a latent state of the occurrence <em>z</em>. The second is the observation process, which produces the observed tapir detection or non-detection data. Here we assume that the observation process is governed by an imperfect detection mechanism. In other words, some tapir could have escaped my observation, which generates false negatives. We also assume that false positives are absent, meaning that anything I identify as a tapir is indeed a tapir and not a deer or a bear. To make the example more realistic, we include the effects of elevation (altitude) and forest cover on occurrence, as factors that affect occurrence linearly, decreasing it in the case of elevation, and increasing occupation linearly in the case of forest cover. In the end the two variables interact negatively with each other. These effects are introduced in the logarithmic scale occurrence as a generalized linear model (GLM) is traditionally done.</p>
+<p>In our simulation we are going to make it explicit that it is not possible to detect all the tapirs from a sample site, so we are facing a type of error that makes us underestimate the abundance of the population. There are many reasons why we fail to spot an individual in the wild, it can be because we got distracted while the tapir passed by, because the binoculars did not have enough magnification, or simply because the tapir hid behind a tree upon smelling us, or because some other reason. In this way, we are going to register the presence (<em>z</em>=1) with a probability of detection <em>p</em> which we are also going to make dependent (on the logarithmic scale) of the elevation and of a co-variable that affects the detection, the temperature. In general terms, animals are more difficult to observe when the temperature is higher, and generally the higher the elevation, the lower the temperature. In this way, we assume that detection is negatively related to elevation and temperature. But it should also be noted that the negative effect on <em>p</em> can also be mediated by a decrease in abundance with elevation, which also causes the probability of occupancy to decrease with elevation. Note that a co-variable, elevation affects both the ecological process (the occurrence) and the observational process (the probability of detection). This has a purpose and is likely to happen in nature many times. Occupancy models have a “mechanistic” basis producing a spatial variation in abundance. That is, we will have sites with greater abundance and others with less abundance. But hierarchical models, like the one we are about to build, are capable of unraveling these complex relationships between occurrence and probability of detection <span class="citation">(<a href="#ref-KERY2008" role="doc-biblioref">Kéry, 2008</a>; <a href="#ref-Kery2008" role="doc-biblioref">Kéry &amp; Royle, 2008</a>; <a href="#ref-Kery2012" role="doc-biblioref">Kéry &amp; Schaub, 2012</a>)</span>. Finally, for this first example, we are going to leave out the effect of the interaction between elevation and temperature, setting it to zero. Then we can vary this parameter to consider that effect. In summary, we are going to generate data under the following model, where the sites are indexed as <em>i</em> and the repeated counts on the site are going to be referred to as <em>j</em>.</p>
+<div id="ecological-model" class="section level3 hasAnchor" number="4.0.1">
+<h3><span class="header-section-number">4.0.1</span> Ecological Model:<a href="example.html#ecological-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display" id="eq:binom">\[\begin{equation}
+z _{i} = Bernoulli (\psi _{i})
+  \tag{4.1}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:binom">\[\begin{equation}
+logit(\psi _{i}) = \beta _{0} + \beta _{1} \ast Elevation _{i} + \beta _{2}\ast CovForest _{i} + \beta _{3} \ast Elevation _{i} \ast CovForest _{i}
+  \tag{4.1}
+\end{equation}\]</span></p>
+</div>
+<div id="observation-model" class="section level3 hasAnchor" number="4.0.2">
+<h3><span class="header-section-number">4.0.2</span> Observation Model:<a href="example.html#observation-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display" id="eq:binom">\[\begin{equation}
+y _{ij} = Bernoulli (z _{i} * p _{ij})
+  \tag{4.1}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:binom">\[\begin{equation}
+logit(p _{ij}) = \alpha  _{0} + \alpha  _{1} \ast Elevation _{i} + \alpha  _{2}\ast Temperature _{ij} + \alpha _{3} \ast Elevation _{i} \ast Temperature _{ij}
+  \tag{4.1}
+\end{equation}\]</span></p>
+<p>Where <span class="math inline">\(\psi\)</span> is the occupancy and <em>p</em> the probability of detection. With <span class="math inline">\(\beta\)</span> as the regression coefficient for the occupancy covariates and <span class="math inline">\(\alpha\)</span> the regression coefficient for the detection covariates.</p>
+<p>We are going to generate data from the “inside out” and from the top down. For this, we first choose the sample size and create the values for the covariates. Second, we select the values of the ecological model parameters (the occupancy) and assemble the expected occurrence (the parameter <span class="math inline">\(\psi\)</span>, occupancy) and then obtain the random variable <em>z</em> which has a Bernoulli distribution. Third, we select the values of the parameters of the observation model (the detection), to assemble the probability of detection <em>p</em> and obtain the second set of a random variable <em>y</em> (observed or unobserved detection of a tapir) which also has distribution Bernoulli.</p>
+<p>To simulate the data we will use the statistical programming language R <span class="citation">(<a href="#ref-RCoreTeam2016" role="doc-biblioref">R Core Team, 2016</a>)</span>, which provides a wide variety of graphical and statistical modeling techniques and a large ecosystem of packages for statistical and ecological analysis. If you haven’t already, download and install <a href="http://www.r-project.org/">R</a> on your computer, then do the same with <a href="http://www.rstudio.com%20/">RStudio.</a></p>
+</div>
+<div id="initial-steps-sample-size-and-covariate-values" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Initial steps: sample size and covariate values<a href="example.html#initial-steps-sample-size-and-covariate-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Start <a href="http://www.rstudio.com/">RStudio</a>, copy, paste and execute the commands in the gray window.</p>
+<p>We first choose the sample size, the number of sites, and the number of repeated measures (number of visits) of presence/absence at each site.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="example.html#cb2-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">60</span> <span class="co"># Number of spatial replicas (sites)</span></span>
+<span id="cb2-2"><a href="example.html#cb2-2" aria-hidden="true" tabindex="-1"></a>J <span class="ot">&lt;-</span> <span class="dv">30</span> <span class="co"># Number of temporal replicas (repeat counts)</span></span></code></pre></div>
+<p>We then create the values for the covariates. We have elevation and forest cover as co-variables for each site. They differ from site to site but for each sampling, they are the same. While the temperature is a co-variable of the observation, so it does vary in each sampling and also in each site. Remember that the sub-index <em>i</em> refers to the site and the <em>j</em> to each sampling. To keep things simple our covariates are going to have a normal distribution with a mean-centered at zero and not going to extend very far on either side of zero. In real data analysis, we will have to standardize the co-variables to avoid numerical problems of difference in the scales of the co-variables and to be able to calculate the value of maximum likelihood (ML), as well as to obtain convergence in the Markov chains of the Bayesian model. Here we are going to ignore a fact of real life, and that is that the co-variables are not totally independent of each other, that is, in nature, forest cover can be related to elevation, but this is not going to be relevant, for now.</p>
+<p>To initialize the random number generator and always get the same results we can add the following line:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="example.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">24</span>) <span class="co"># Can choose seed of your choice</span></span></code></pre></div>
+<p>In this way, we can always obtain the same estimates. But then when we want to get the sampling error we will have to remove that line. For this example, we will generate values already standardized for the covariates, which are centered at zero and ranging from -1 to 1.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="example.html#cb4-1" aria-hidden="true" tabindex="-1"></a>elev <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> M, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)             <span class="co"># Scaled elevation of a site</span></span>
+<span id="cb4-2"><a href="example.html#cb4-2" aria-hidden="true" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> M, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)           <span class="co"># Scaled forest cover at each site</span></span>
+<span id="cb4-3"><a href="example.html#cb4-3" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">runif</span>(<span class="at">n =</span> M<span class="sc">*</span>J, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">dim =</span> <span class="fu">c</span>(M, J)) <span class="co"># Scaled temperature</span></span></code></pre></div>
+</div>
+<div id="simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Simulating the ecological process and its result: The Occurrence of The Tapir<a href="example.html#simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To simulate the occurrence of tapirs at each site, we choose the values for the parameters that govern the spatial variation in occurrence <span class="math inline">\(β_{0}\)</span> to <span class="math inline">\(β_{3}\)</span>. The first parameter is the expected average occurrence of tapir (occupation probability) when all covariates have a value of zero, in other words the intercept of the occurrence model. We prefer to think of tapirs in terms of their occurrence rather than logit (occurrence). Here we choose the occupancy intercept first and then transform it from the logarithmic scale with the logit link function.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="example.html#cb5-1" aria-hidden="true" tabindex="-1"></a>mean.occupancy <span class="ot">&lt;-</span> <span class="fl">0.60</span>         <span class="co"># Mean expected occurrence of tapir</span></span>
+<span id="cb5-2"><a href="example.html#cb5-2" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(mean.occupancy) <span class="co"># Same on logit scale (= logit-scale intercept)</span></span>
+<span id="cb5-3"><a href="example.html#cb5-3" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span>                    <span class="co"># Effect (slope) of elevation</span></span>
+<span id="cb5-4"><a href="example.html#cb5-4" aria-hidden="true" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="dv">2</span>                     <span class="co"># Effect (slope) of forest cover</span></span>
+<span id="cb5-5"><a href="example.html#cb5-5" aria-hidden="true" tabindex="-1"></a>beta3 <span class="ot">&lt;-</span> <span class="dv">1</span>                     <span class="co"># Interaction effect (slope) of elev and forest</span></span></code></pre></div>
+<p>Here we apply the linear model (to the logarithmic scale) and obtain the logit transformation of the occupancy probability, which we invert with the logit transformation to obtain the tapir occupancy and plot everything.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="example.html#cb6-1" aria-hidden="true" tabindex="-1"></a>logit.psi <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1 <span class="sc">*</span> elev <span class="sc">+</span> beta2 <span class="sc">*</span> forest <span class="sc">+</span> beta3 <span class="sc">*</span> elev <span class="sc">*</span> forest</span>
+<span id="cb6-2"><a href="example.html#cb6-2" aria-hidden="true" tabindex="-1"></a>psi <span class="ot">&lt;-</span> <span class="fu">plogis</span>(logit.psi)      <span class="co"># Inverse link transformation</span></span>
+<span id="cb6-3"><a href="example.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="example.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># par()              # view current settings</span></span>
+<span id="cb6-5"><a href="example.html#cb6-5" aria-hidden="true" tabindex="-1"></a>opar <span class="ot">&lt;-</span> <span class="fu">par</span>()      <span class="co"># make a copy of current settings</span></span>
+<span id="cb6-6"><a href="example.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex.main =</span> <span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="example.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb6-8"><a href="example.html#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Altitud&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;psi&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb6-9"><a href="example.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.9</span>, <span class="fl">0.95</span>, <span class="st">&quot;A&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb6-10"><a href="example.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(elev, psi, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Altitud&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb6-11"><a href="example.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.9</span>, <span class="fl">0.95</span>, <span class="st">&quot;B&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb6-12"><a href="example.html#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(beta0 <span class="sc">+</span> beta2<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb6-13"><a href="example.html#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;psi&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb6-14"><a href="example.html#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">0.95</span>, <span class="st">&quot;C&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb6-15"><a href="example.html#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forest, psi, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb6-16"><a href="example.html#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">0.95</span>, <span class="st">&quot;D&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fig2"></span>
+<img src="Occu_Book_files/figure-html/fig2-1.png" alt="Two ways to show the relationship between the probability of occurrence of tapir and the covariates. (A) Relationship between psi and elevation for a constant value (mean equal to zero) of forest cover. (B) Relationship between psi and elevation in an observed value of forest cover. (C) Forest cover psi ratio for a constant elevation (at mean zero). (D) Relationship psi forest cover for the observed value of elevation." width="672" />
+<p class="caption">
+Figure 4.1: Two ways to show the relationship between the probability of occurrence of tapir and the covariates. (A) Relationship between psi and elevation for a constant value (mean equal to zero) of forest cover. (B) Relationship between psi and elevation in an observed value of forest cover. (C) Forest cover psi ratio for a constant elevation (at mean zero). (D) Relationship psi forest cover for the observed value of elevation.
+</p>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="example.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.off()</span></span>
+<span id="cb7-2"><a href="example.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(opar)          <span class="co"># restore original par settings</span></span></code></pre></div>
+<p>To better show the joint relationship between the two covariates and psi, we need to make a surface plot. Here we have not changed anything about the simulation, we have only added more data to it to better visualize it.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="example.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute expected occurrence for a grid of elevation and forest cover</span></span>
+<span id="cb8-2"><a href="example.html#cb8-2" aria-hidden="true" tabindex="-1"></a>cov1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, , <span class="dv">100</span>)                       <span class="co"># Values for elevation</span></span>
+<span id="cb8-3"><a href="example.html#cb8-3" aria-hidden="true" tabindex="-1"></a>cov2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, , <span class="dv">100</span>)                       <span class="co"># Values for forest cover</span></span>
+<span id="cb8-4"><a href="example.html#cb8-4" aria-hidden="true" tabindex="-1"></a>psi.matrix <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))      <span class="co"># Prediction matrix, for every </span></span>
+<span id="cb8-5"><a href="example.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># combination of values of elevation and forest cover</span></span>
+<span id="cb8-6"><a href="example.html#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="example.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb8-8"><a href="example.html#cb8-8" aria-hidden="true" tabindex="-1"></a>   <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb8-9"><a href="example.html#cb8-9" aria-hidden="true" tabindex="-1"></a>      psi.matrix[i, j] <span class="ot">&lt;-</span> <span class="fu">plogis</span>(beta0 <span class="sc">+</span> </span>
+<span id="cb8-10"><a href="example.html#cb8-10" aria-hidden="true" tabindex="-1"></a>                                   beta1 <span class="sc">*</span> cov1[i] <span class="sc">+</span> </span>
+<span id="cb8-11"><a href="example.html#cb8-11" aria-hidden="true" tabindex="-1"></a>                                   beta2 <span class="sc">*</span> cov2[j] <span class="sc">+</span> </span>
+<span id="cb8-12"><a href="example.html#cb8-12" aria-hidden="true" tabindex="-1"></a>                                   beta3 <span class="sc">*</span> cov1[i] <span class="sc">*</span> cov2[j] )</span>
+<span id="cb8-13"><a href="example.html#cb8-13" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb8-14"><a href="example.html#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="example.html#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="example.html#cb8-16" aria-hidden="true" tabindex="-1"></a>mapPalette <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;red&quot;</span>))</span>
+<span id="cb8-17"><a href="example.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(<span class="at">x =</span> cov1, <span class="at">y =</span> cov2, <span class="at">z =</span> psi.matrix, <span class="at">col =</span> <span class="fu">mapPalette</span>(<span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">&quot;Altitud&quot;</span>, </span>
+<span id="cb8-18"><a href="example.html#cb8-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="at">cex.lab =</span> <span class="fl">1.2</span>)</span>
+<span id="cb8-19"><a href="example.html#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(<span class="at">x =</span> cov1, <span class="at">y =</span> cov2, <span class="at">z =</span> psi.matrix, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb8-20"><a href="example.html#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">matpoints</span>(elev, forest, <span class="at">pch=</span><span class="st">&quot;+&quot;</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fig3"></span>
+<img src="Occu_Book_files/figure-html/fig3-1.png" alt="Relationship constructed between the simulated data of the expected occurrence (occupation) of tapir (psi) represented with the color scale from gray to red, against elevation and forest cover simultaneously. In this case the interaction between the two covariates is given by the value of beta3 = 1 that we have established previously." width="672" />
+<p class="caption">
+Figure 4.2: Relationship constructed between the simulated data of the expected occurrence (occupation) of tapir (psi) represented with the color scale from gray to red, against elevation and forest cover simultaneously. In this case the interaction between the two covariates is given by the value of beta3 = 1 that we have established previously.
+</p>
+</div>
+<p>So far we have not introduced any stochastic variation in the relationship between tapir occurrence and covariates. To do this we must make use of some statistical models, or statistical distributions, to describe the random variability around the expected value of psi. The typical way to introduce this random variation is to obtain the occurrence of tapir at each site <em>i</em>, <span class="math inline">\(z _{i}\)</span>, from a Bernoulli distribution with the expected values (<span class="math inline">\(\psi _{i}\)</span>).</p>
+<div id="why-bernoulli" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Why Bernoulli?<a href="example.html#why-bernoulli" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the ecological process <span class="math inline">\(z _{i}\)</span> tapir occurrence is represented by a Bernoulli-type distribution where tapir is present at a site represented as the occupancy <span class="math inline">\(\psi\)</span> at a site where it is present, or not present 1-<span class="math inline">\(\psi\)</span>. The Bernoulli distribution is a special case of the binomial distribution, and its best example is a single toss of a coin. If you require a more extensive, basic, detailed explanation and with more examples, I recommend you visit <a href="https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/binomial-mean-standard-dev-formulas/v/mean-and-variance-of-bernoulli-distribution-example">khanacademy.</a></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="example.html#cb9-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> M, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> psi)  <span class="co"># Realised occurrence. A Bernoulli</span></span>
+<span id="cb9-2"><a href="example.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(z)                                    <span class="co"># Total number of occupied sites</span></span></code></pre></div>
+<pre><code>## [1] 40</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="example.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(z)                                  <span class="co"># Frequency distribution of tapir occurrence</span></span></code></pre></div>
+<pre><code>## z
+##  0  1 
+## 20 40</code></pre>
+<p>Here we have created the result of the ecological process: site-specific occurrence <span class="math inline">\(z _{1}\)</span>. We see that 20 sites are not occupied and the remaining 40 sites are occupied</p>
+</div>
+</div>
+<div id="simulating-the-observation-process-and-its-result-the-detection" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Simulating the observation process and its result: the detection<a href="example.html#simulating-the-observation-process-and-its-result-the-detection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Occurrence <em>z</em> is not what we normally see, as there is a chance that we will fail to observe an individual. Hence there is a binary measure of error when we measure occurrence (we observe it or we don’t observe it). We assume that we can make only one of the two possible sightings (yes, no), but we may have missed a tapir sighting somewhere, so the probability of detection is less than one, and the error measure is affected by coverage. of forest and temperature. Keep in mind that we will never register the presence of a tapir when in fact there are no tapir. In other words, we are assuming that we have no false positives. To make it explicit that we have an interaction effect between two covariates in our data, we are going to allow an interaction effect in the code, but set it to zero and thus have no effect in the model that generates the data. We first select the values for <span class="math inline">\(\alpha _{0}\)</span> to <span class="math inline">\(\alpha _{3}\)</span>, where the first is the probability of detection for the tapir, on the logit scale, when all detection covariates have a value of zero. We have chosen the intercept of the detection model and then transformed it with the plogis link function. This is not the same as the average detection probability, which is higher in our simulation model, as we will see later.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="example.html#cb13-1" aria-hidden="true" tabindex="-1"></a>mean.detection <span class="ot">&lt;-</span> <span class="fl">0.3</span>            <span class="co"># Mean expected detection</span></span>
+<span id="cb13-2"><a href="example.html#cb13-2" aria-hidden="true" tabindex="-1"></a>alpha0 <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(mean.detection) <span class="co"># same on logit scale (intercept)</span></span>
+<span id="cb13-3"><a href="example.html#cb13-3" aria-hidden="true" tabindex="-1"></a>alpha1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span>                     <span class="co"># Effect (slope) of elevation</span></span>
+<span id="cb13-4"><a href="example.html#cb13-4" aria-hidden="true" tabindex="-1"></a>alpha2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span>                     <span class="co"># Effect (slope) of temperature</span></span>
+<span id="cb13-5"><a href="example.html#cb13-5" aria-hidden="true" tabindex="-1"></a>alpha3 <span class="ot">&lt;-</span> <span class="dv">0</span>                      <span class="co"># Interaction effect (slope) of elevevation and temperature</span></span></code></pre></div>
+<p>Applying the linear model, we have the logit of the detection probability of the tapir for each site and sampling, and applying the inverse transformation (plogis), we obtain a matrix of dimensions 60 by 30 with the probability of detection for each site <em>i</em> and sampling <em>j</em>. Finally, we plot the relationships for the probability of detection in the data.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="example.html#cb14-1" aria-hidden="true" tabindex="-1"></a>logit.p <span class="ot">&lt;-</span> alpha0 <span class="sc">+</span> alpha1 <span class="sc">*</span> elev <span class="sc">+</span> alpha2 <span class="sc">*</span> temp <span class="sc">+</span> alpha3 <span class="sc">*</span> elev <span class="sc">*</span> temp</span>
+<span id="cb14-2"><a href="example.html#cb14-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plogis</span>(logit.p)             <span class="co"># Inverse link transform </span></span>
+<span id="cb14-3"><a href="example.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p)                          <span class="co"># average per-site p is about 0.39</span></span></code></pre></div>
+<pre><code>## [1] 0.3928068</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="example.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex.main =</span> <span class="dv">1</span>)</span>
+<span id="cb16-2"><a href="example.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(alpha0 <span class="sc">+</span> alpha1<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), </span>
+<span id="cb16-3"><a href="example.html#cb16-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Altitud&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;p&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb16-4"><a href="example.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">1.05</span>, <span class="st">&quot;A&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb16-5"><a href="example.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(elev, p, <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">xlab =</span> <span class="st">&quot;Altitud&quot;</span>, </span>
+<span id="cb16-6"><a href="example.html#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb16-7"><a href="example.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">1.05</span>, <span class="st">&quot;B&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb16-8"><a href="example.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">plogis</span>(alpha0 <span class="sc">+</span> alpha2<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), </span>
+<span id="cb16-9"><a href="example.html#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Temperature&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;p&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb16-10"><a href="example.html#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">1.05</span>, <span class="st">&quot;C&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb16-11"><a href="example.html#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(temp, p, <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">xlab =</span> <span class="st">&quot;Temperature&quot;</span>, </span>
+<span id="cb16-12"><a href="example.html#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;p&quot;</span>)</span>
+<span id="cb16-13"><a href="example.html#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.9</span>, <span class="fl">1.05</span>, <span class="st">&quot;D&quot;</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fig4"></span>
+<img src="Occu_Book_files/figure-html/fig4-1.png" alt="Two ways to show the relationships between the expected detection probability of the tapir (_p_) and the two variables elevation and temperature. (A) Relationship _p_ and elevation for constant temperature (at the mean value, which is equal to zero). (B) Relationship between _p_ and elevation in the observed value of temperature quantity. (C) Relationship between _p_ and temperature for a constant value of elevation (at mean elevation equal to zero). (D) Relationship between _p_ and temperature for an observed value of elevation." width="672" />
+<p class="caption">
+Figure 4.3: Two ways to show the relationships between the expected detection probability of the tapir (<em>p</em>) and the two variables elevation and temperature. (A) Relationship <em>p</em> and elevation for constant temperature (at the mean value, which is equal to zero). (B) Relationship between <em>p</em> and elevation in the observed value of temperature quantity. (C) Relationship between <em>p</em> and temperature for a constant value of elevation (at mean elevation equal to zero). (D) Relationship between <em>p</em> and temperature for an observed value of elevation.
+</p>
+</div>
+<p>In a similar way we are going to produce a graph of a surface with the joint relationship between elevation, temperature and the probability of detection of the tapir (<em>p</em>), acting simultaneously. The relationship on the logarithmic scale is represented by a sloped plane that represents the interaction between elevation and forest cover.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="example.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute expected detection probability for a grid of elevation and temperature</span></span>
+<span id="cb17-2"><a href="example.html#cb17-2" aria-hidden="true" tabindex="-1"></a>cov1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>,,<span class="dv">100</span>)                  <span class="co"># Values of elevation</span></span>
+<span id="cb17-3"><a href="example.html#cb17-3" aria-hidden="true" tabindex="-1"></a>cov2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,,<span class="dv">100</span>)                   <span class="co"># Values of temperature</span></span>
+<span id="cb17-4"><a href="example.html#cb17-4" aria-hidden="true" tabindex="-1"></a>p.matrix <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>)) <span class="co"># Prediction matrix which combines </span></span>
+<span id="cb17-5"><a href="example.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># every value in cov 1 with every other in cov2</span></span>
+<span id="cb17-6"><a href="example.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb17-7"><a href="example.html#cb17-7" aria-hidden="true" tabindex="-1"></a>   <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb17-8"><a href="example.html#cb17-8" aria-hidden="true" tabindex="-1"></a>      p.matrix[i, j] <span class="ot">&lt;-</span> <span class="fu">plogis</span>(alpha0 <span class="sc">+</span> alpha1 <span class="sc">*</span> cov1[i] <span class="sc">+</span> </span>
+<span id="cb17-9"><a href="example.html#cb17-9" aria-hidden="true" tabindex="-1"></a>                                 alpha2 <span class="sc">*</span> cov2[j] <span class="sc">+</span> </span>
+<span id="cb17-10"><a href="example.html#cb17-10" aria-hidden="true" tabindex="-1"></a>                                 alpha3 <span class="sc">*</span> cov1[i] <span class="sc">*</span> cov2[j])</span>
+<span id="cb17-11"><a href="example.html#cb17-11" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb17-12"><a href="example.html#cb17-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-13"><a href="example.html#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(<span class="at">x =</span> cov1, <span class="at">y =</span> cov2, <span class="at">z =</span> p.matrix, <span class="at">col =</span> <span class="fu">mapPalette</span>(<span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">&quot;Altitud&quot;</span>, </span>
+<span id="cb17-14"><a href="example.html#cb17-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;Temperature&quot;</span>, <span class="at">cex.lab =</span> <span class="fl">1.2</span>)</span>
+<span id="cb17-15"><a href="example.html#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(<span class="at">x =</span> cov1, <span class="at">y =</span> cov2, <span class="at">z =</span> p.matrix, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb17-16"><a href="example.html#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">matpoints</span>(elev, temp, <span class="at">pch=</span><span class="st">&quot;+&quot;</span>, <span class="at">cex=</span><span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fig5"></span>
+<img src="Occu_Book_files/figure-html/fig5-1.png" alt="Relationship constructed between the simulated data of the expected probability of detection (detectability) of tapir (p) represented with the color scale from gray to red, against elevation and temperature simultaneously. In this case, the interaction between the two covariates has a linear relationship that is given by the value of alpha3 = 0 that we have previously established." width="672" />
+<p class="caption">
+Figure 4.4: Relationship constructed between the simulated data of the expected probability of detection (detectability) of tapir (p) represented with the color scale from gray to red, against elevation and temperature simultaneously. In this case, the interaction between the two covariates has a linear relationship that is given by the value of alpha3 = 0 that we have previously established.
+</p>
+</div>
+<p>So far we have modeled the two processes, the ecological <span class="math inline">\(z\)</span> and the observation process <em>p</em> separately. Now we will have to put them together, and for this we multiply the result of the ecological process by the probability of detection within a Bernoulli distribution.</p>
+<div id="combining-the-two-processes-the-ecological-and-the-observation" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Combining the two processes the ecological and the observation<a href="example.html#combining-the-two-processes-the-ecological-and-the-observation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When we “measure” the occurrence, the imperfect detection represents a source of error with a Bernoulli-type distribution (for example, the presence of the tapir in a place where it is detected with a probability <em>p</em>, or it is not detected as 1-<em>p</em>). By applying this observation process we produce repeated measures of the presence or absence (1 or 0) of tapir at each site. Remember that the Bernoulli distribution is a special case of the binomial distribution, and its best example is a single coin toss.</p>
+<p>Right now we are establishing the hierarchy in the <strong>hierarchical model</strong>. Here we are nesting the ecological process “within” the observation process.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="example.html#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> M, <span class="at">ncol =</span> J)      <span class="co"># Prepare array for counts</span></span>
+<span id="cb18-2"><a href="example.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>J){                          <span class="co"># Generate counts</span></span>
+<span id="cb18-3"><a href="example.html#cb18-3" aria-hidden="true" tabindex="-1"></a>   y[,i] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> M, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> z<span class="sc">*</span>p[,i])   <span class="co"># this is the Bernoulli</span></span>
+<span id="cb18-4"><a href="example.html#cb18-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>So far we have simulated the presence/absence of mountain tapirs at 60 sites during 30 sampling sessions. Let’s see what the tables contain. Remember that the sites are in the rows and the repeated samples in the columns. For comparison, we will show the true occurrence in the first column for 30 sites and only five samples.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="example.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb19-2"><a href="example.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(<span class="fu">head</span>(<span class="fu">cbind</span>(<span class="st">&quot;True Presence/Absence&quot;</span> <span class="ot">=</span> z, </span>
+<span id="cb19-3"><a href="example.html#cb19-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;1st survey&quot;</span> <span class="ot">=</span> y[,<span class="dv">1</span>], </span>
+<span id="cb19-4"><a href="example.html#cb19-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;2nd survey&quot;</span> <span class="ot">=</span> y[,<span class="dv">2</span>], </span>
+<span id="cb19-5"><a href="example.html#cb19-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;3rd survey&quot;</span> <span class="ot">=</span> y[,<span class="dv">3</span>],</span>
+<span id="cb19-6"><a href="example.html#cb19-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;4th survey&quot;</span> <span class="ot">=</span> y[,<span class="dv">4</span>],</span>
+<span id="cb19-7"><a href="example.html#cb19-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;5th survey&quot;</span> <span class="ot">=</span> y[,<span class="dv">5</span>]), <span class="dv">30</span>)) )   <span class="co"># First 30 rows (= sites)</span></span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="28%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">True Presence/Absence</th>
+<th align="right">1st survey</th>
+<th align="right">2nd survey</th>
+<th align="right">3rd survey</th>
+<th align="right">4th survey</th>
+<th align="right">5th survey</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Now we will finally visualize graphically the data of ones and zeros that we have simulated for our sampling. Remember that these are values of ones that represent whether or not we have detected the tapir at each of the sampling sites on each of the visits.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="example.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">cex.main =</span> <span class="dv">1</span>)</span>
+<span id="cb20-2"><a href="example.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(elev, <span class="fu">jitter</span>(y), <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb20-3"><a href="example.html#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Detection/Nondetection (y)&quot;</span>)</span>
+<span id="cb20-4"><a href="example.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(forest, <span class="fu">jitter</span>(y), <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb20-5"><a href="example.html#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Detection/Nondetection (y)&quot;</span>)</span>
+<span id="cb20-6"><a href="example.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(temp, <span class="fu">jitter</span>(y), <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb20-7"><a href="example.html#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Temperature&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Detection/Nondetection (y)&quot;</span>)</span>
+<span id="cb20-8"><a href="example.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(y, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">600</span>), <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb20-9"><a href="example.html#cb20-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Detection/Nondetection (y)&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fig6"></span>
+<img src="Occu_Book_files/figure-html/fig6-1.png" alt="Relationship between observed (jittered) tapir occupancy (y) and the three standardized covariates. Elevation (A). Forest cover (B). Temperature (C) and the frequency of distribution of the observed occurrence (y) in a data set of 60 sites with 30 samples each (D)." width="672" />
+<p class="caption">
+Figure 4.5: Relationship between observed (jittered) tapir occupancy (y) and the three standardized covariates. Elevation (A). Forest cover (B). Temperature (C) and the frequency of distribution of the observed occurrence (y) in a data set of 60 sites with 30 samples each (D).
+</p>
+</div>
+<p>So far we have created a data set where tapir detection/non-detection is negatively correlated with temperature and positively correlated with forest cover. There is a reason why this correlation between variables is different. Occurrence per site, the target of ecological inference, is affected by forest cover and elevation, but not by temperature, while the probability of detection, the parameter characterizing the measurement of the error process when we take occurrence measurements, is also affected by elevation and additionally by temperature. Therefore, as can be seen, there is a great challenge to be able to disentangle the reason for the Spatio-temporal variation in the observation of the detection/non-detection data, given that they can be affected by two totally different processes: the ecological and the observational, that the same covariate can also affect the two processes and that there can also be interactions between those covariates.</p>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-KERY2008" class="csl-entry">
+Kéry, M. (2008). <span class="nocase">Estimating abundance from bird counts: binomial mixture models uncover complex covariate relationships</span>. <em>The Auk</em>, <em>125</em>(2), 336–345. <a href="https://doi.org/10.1525/auk.2008.06185">https://doi.org/10.1525/auk.2008.06185</a>
+</div>
+<div id="ref-Kery2008" class="csl-entry">
+Kéry, M., &amp; Royle, J. A. (2008). <span class="nocase">Hierarchical Bayes estimation of species richness and occupancy in spatially replicated surveys</span>. <em>Journal of Applied Ecology</em>, <em>45</em>(2), 589–598. <a href="https://doi.org/10.1111/j.1365-2664.2007.01441.x">https://doi.org/10.1111/j.1365-2664.2007.01441.x</a>
+</div>
+<div id="ref-Kery2012" class="csl-entry">
+Kéry, M., &amp; Schaub, M. (2012). <span class="nocase">Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models</span>. In <em>Bayesian population analysis using WinBUGS</em> (pp. 413–461). Elsevier. <a href="https://doi.org/10.1016/B978-0-12-387020-9.00013-4">https://doi.org/10.1016/B978-0-12-387020-9.00013-4</a>
+</div>
+<div id="ref-RCoreTeam2016" class="csl-entry">
+R Core Team. (2016). <em><span class="nocase">R: A language and environment for statistical computing</span></em>. R Foundation for Statistical Computing. <a href="http://www.r-project.org/">http://www.r-project.org/</a>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="occu.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="function1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/occu_book/edit/master/04-example.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": "https://github.com/dlizcano/occu_book/Occu_Book.pdf",
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

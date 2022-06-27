@@ -11,7 +11,7 @@ documentclass: book
 github-repo: dlizcano/OTS
 link-citations: true
 linkcolor: blue
-csl: D:/BoxFiles/Box Sync/CodigoR/Toshiba/IntroOccuBook/journal-of-ecology.csl
+csl: journal-of-ecology.csl
 subtitle: Understanding the simulations and the basic occupancy model
 bibliography: [book.bib, packages.bib, refs.bib]
 

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter5 Packing everything into a function | Occupancy simulation and analysis</title>
+  <meta name="description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter5 Packing everything into a function | Occupancy simulation and analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="dlizcano/OTS" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter5 Packing everything into a function | Occupancy simulation and analysis" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
+
+<meta name="author" content="Diego J. Lizcano, Ph.D." />
+
+
+<meta name="date" content="2022-06-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="example.html"/>
+<link rel="next" href="unmarked.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Occupancy simulation and analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#please-cite-this-work-as"><i class="fa fa-check"></i><b>1.1</b> Please cite this work as:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>2</b> Why to do simulations?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="why.html"><a href="why.html#why-simulations-are-useful"><i class="fa fa-check"></i><b>2.1</b> why simulations are useful:</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>3</b> The Occupancy</a></li>
+<li class="chapter" data-level="4" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>4</b> Our Example:</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="example.html"><a href="example.html#ecological-model"><i class="fa fa-check"></i><b>4.0.1</b> Ecological Model:</a></li>
+<li class="chapter" data-level="4.0.2" data-path="example.html"><a href="example.html#observation-model"><i class="fa fa-check"></i><b>4.0.2</b> Observation Model:</a></li>
+<li class="chapter" data-level="4.1" data-path="example.html"><a href="example.html#initial-steps-sample-size-and-covariate-values"><i class="fa fa-check"></i><b>4.1</b> Initial steps: sample size and covariate values</a></li>
+<li class="chapter" data-level="4.2" data-path="example.html"><a href="example.html#simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir"><i class="fa fa-check"></i><b>4.2</b> Simulating the ecological process and its result: The Occurrence of The Tapir</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="example.html"><a href="example.html#why-bernoulli"><i class="fa fa-check"></i><b>4.2.1</b> Why Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="example.html"><a href="example.html#simulating-the-observation-process-and-its-result-the-detection"><i class="fa fa-check"></i><b>4.3</b> Simulating the observation process and its result: the detection</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="example.html"><a href="example.html#combining-the-two-processes-the-ecological-and-the-observation"><i class="fa fa-check"></i><b>4.3.1</b> Combining the two processes the ecological and the observation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>5</b> Packing everything into a function</a></li>
+<li class="chapter" data-level="6" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>6</b> Occupancy analysis, ML method</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="unmarked.html"><a href="unmarked.html#clearing-r-memory"><i class="fa fa-check"></i><b>6.0.1</b> Clearing R memory</a></li>
+<li class="chapter" data-level="6.1" data-path="unmarked.html"><a href="unmarked.html#generating-the-data"><i class="fa fa-check"></i><b>6.1</b> Generating the data</a></li>
+<li class="chapter" data-level="6.2" data-path="unmarked.html"><a href="unmarked.html#putting-the-data-in-unmarked"><i class="fa fa-check"></i><b>6.2</b> Putting the data in unmarked</a></li>
+<li class="chapter" data-level="6.3" data-path="unmarked.html"><a href="unmarked.html#fitting-the-models"><i class="fa fa-check"></i><b>6.3</b> Fitting the models</a></li>
+<li class="chapter" data-level="6.4" data-path="unmarked.html"><a href="unmarked.html#model-selection"><i class="fa fa-check"></i><b>6.4</b> Model Selection</a></li>
+<li class="chapter" data-level="6.5" data-path="unmarked.html"><a href="unmarked.html#prediction-in-graphs"><i class="fa fa-check"></i><b>6.5</b> Prediction in graphs</a></li>
+<li class="chapter" data-level="6.6" data-path="unmarked.html"><a href="unmarked.html#spatially-explicit-prediction"><i class="fa fa-check"></i><b>6.6</b> Spatially explicit prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>7</b> Bayesian analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:</a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Occupancy simulation and analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="function1" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter5</span> Packing everything into a function<a href="function1.html#function1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>It could be very useful to pack everything we’ve done into a single function that allows us to do the same thing many times over and over again. This will allow us to design simulations in a more concise and flexible way and makes the generation of parameters used to generate data more transparent. So let’s define a function (which we’ll call data.fn) to generate the same data type we just created, assigning arguments to the function, such as sample size, covariate effects, and interaction directions and magnitudes. of the detection error and occupancy terms. This will make our code more flexible and efficient.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="function1.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">###############################</span></span>
+<span id="cb21-2"><a href="function1.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The function starts here </span><span class="al">###</span></span>
+<span id="cb21-3"><a href="function1.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="do">###############################</span></span>
+<span id="cb21-4"><a href="function1.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="function1.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Function definition with set of default values</span></span>
+<span id="cb21-6"><a href="function1.html#cb21-6" aria-hidden="true" tabindex="-1"></a>data.fn <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">M =</span> <span class="dv">60</span>, <span class="at">J =</span> <span class="dv">30</span>, <span class="at">mean.occupancy =</span> <span class="fl">0.6</span>, </span>
+<span id="cb21-7"><a href="function1.html#cb21-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">beta1 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">beta2 =</span> <span class="dv">2</span>, <span class="at">beta3 =</span> <span class="dv">1</span>, <span class="at">mean.detection =</span> <span class="fl">0.3</span>, </span>
+<span id="cb21-8"><a href="function1.html#cb21-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha1 =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">alpha2 =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">alpha3 =</span> <span class="dv">0</span>, <span class="at">show.plot =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb21-9"><a href="function1.html#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to simulate occupancy measurements replicated at M sites during J occasions.</span></span>
+<span id="cb21-10"><a href="function1.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Population closure is assumed for each site.</span></span>
+<span id="cb21-11"><a href="function1.html#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected occurrence may be affected by elevation (elev), </span></span>
+<span id="cb21-12"><a href="function1.html#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># forest cover (forest) and their interaction.</span></span>
+<span id="cb21-13"><a href="function1.html#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected detection probability may be affected by elevation, </span></span>
+<span id="cb21-14"><a href="function1.html#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># temperature (temp) and their interaction.</span></span>
+<span id="cb21-15"><a href="function1.html#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Function arguments:</span></span>
+<span id="cb21-16"><a href="function1.html#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     M: Number of spatial replicates (sites)</span></span>
+<span id="cb21-17"><a href="function1.html#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     J: Number of temporal replicates (occasions)</span></span>
+<span id="cb21-18"><a href="function1.html#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates</span></span>
+<span id="cb21-19"><a href="function1.html#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     beta1: Main effect of elevation on occurrence</span></span>
+<span id="cb21-20"><a href="function1.html#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     beta2: Main effect of forest cover on occurrence</span></span>
+<span id="cb21-21"><a href="function1.html#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     beta3: Interaction effect on occurrence of elevation and forest cover</span></span>
+<span id="cb21-22"><a href="function1.html#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     mean.detection: Mean detection prob. at value 0 of detection covariates</span></span>
+<span id="cb21-23"><a href="function1.html#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">#     alpha1: Main effect of elevation on detection probability</span></span>
+<span id="cb21-24"><a href="function1.html#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co">#     alpha2: Main effect of temperature on detection probability</span></span>
+<span id="cb21-25"><a href="function1.html#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     alpha3: Interaction effect on detection of elevation and temperature</span></span>
+<span id="cb21-26"><a href="function1.html#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     show.plot: if TRUE, plots of the data will be displayed; </span></span>
+<span id="cb21-27"><a href="function1.html#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">#               set to FALSE if you are running simulations.</span></span>
+<span id="cb21-28"><a href="function1.html#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-29"><a href="function1.html#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Create covariates</span></span>
+<span id="cb21-30"><a href="function1.html#cb21-30" aria-hidden="true" tabindex="-1"></a>elev <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> M, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)                         <span class="co"># Scaled elevation</span></span>
+<span id="cb21-31"><a href="function1.html#cb21-31" aria-hidden="true" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> M, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)                       <span class="co"># Scaled forest cover</span></span>
+<span id="cb21-32"><a href="function1.html#cb21-32" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">runif</span>(<span class="at">n =</span> M<span class="sc">*</span>J, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">dim =</span> <span class="fu">c</span>(M, J)) <span class="co"># Scaled temperature</span></span>
+<span id="cb21-33"><a href="function1.html#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-34"><a href="function1.html#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Model for occurrence</span></span>
+<span id="cb21-35"><a href="function1.html#cb21-35" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(mean.occupancy)               <span class="co"># Mean occurrence on link scale</span></span>
+<span id="cb21-36"><a href="function1.html#cb21-36" aria-hidden="true" tabindex="-1"></a>psi <span class="ot">&lt;-</span> <span class="fu">plogis</span>(beta0 <span class="sc">+</span> beta1<span class="sc">*</span>elev <span class="sc">+</span> beta2<span class="sc">*</span>forest <span class="sc">+</span> beta3<span class="sc">*</span>elev<span class="sc">*</span>forest)</span>
+<span id="cb21-37"><a href="function1.html#cb21-37" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> M, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> psi)      <span class="co"># Realised occurrence</span></span>
+<span id="cb21-38"><a href="function1.html#cb21-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-39"><a href="function1.html#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb21-40"><a href="function1.html#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(show.plot){</span>
+<span id="cb21-41"><a href="function1.html#cb21-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">cex.main =</span> <span class="dv">1</span>)</span>
+<span id="cb21-42"><a href="function1.html#cb21-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">devAskNewPage</span>(<span class="at">ask =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-43"><a href="function1.html#cb21-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">plogis</span>(beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb21-44"><a href="function1.html#cb21-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;psi&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb21-45"><a href="function1.html#cb21-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(elev, psi, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Elevation&quot;</span>, </span>
+<span id="cb21-46"><a href="function1.html#cb21-46" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-47"><a href="function1.html#cb21-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">plogis</span>(beta0 <span class="sc">+</span> beta2<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb21-48"><a href="function1.html#cb21-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;psi&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb21-49"><a href="function1.html#cb21-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(forest, psi, <span class="at">frame.plot =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, </span>
+<span id="cb21-50"><a href="function1.html#cb21-50" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb21-51"><a href="function1.html#cb21-51" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-52"><a href="function1.html#cb21-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-53"><a href="function1.html#cb21-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Model for observations</span></span>
+<span id="cb21-54"><a href="function1.html#cb21-54" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> p <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> M, <span class="at">ncol =</span> J)<span class="co"># Prepare matrix for y and p</span></span>
+<span id="cb21-55"><a href="function1.html#cb21-55" aria-hidden="true" tabindex="-1"></a>alpha0 <span class="ot">&lt;-</span> <span class="fu">qlogis</span>(mean.detection)        <span class="co"># mean detection on link scale</span></span>
+<span id="cb21-56"><a href="function1.html#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>J){                         <span class="co"># Generate counts by survey</span></span>
+<span id="cb21-57"><a href="function1.html#cb21-57" aria-hidden="true" tabindex="-1"></a>   p[,j] <span class="ot">&lt;-</span> <span class="fu">plogis</span>(alpha0 <span class="sc">+</span> alpha1<span class="sc">*</span>elev <span class="sc">+</span> alpha2<span class="sc">*</span>temp[,j] <span class="sc">+</span> alpha3<span class="sc">*</span>elev<span class="sc">*</span>temp[,j])</span>
+<span id="cb21-58"><a href="function1.html#cb21-58" aria-hidden="true" tabindex="-1"></a>   y[,j] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> M, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> z <span class="sc">*</span> p[,j])</span>
+<span id="cb21-59"><a href="function1.html#cb21-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-60"><a href="function1.html#cb21-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-61"><a href="function1.html#cb21-61" aria-hidden="true" tabindex="-1"></a><span class="co"># True and observed measures of &#39;distribution&#39;</span></span>
+<span id="cb21-62"><a href="function1.html#cb21-62" aria-hidden="true" tabindex="-1"></a>sumZ <span class="ot">&lt;-</span> <span class="fu">sum</span>(z)                     <span class="co"># Total occurrence (all sites)</span></span>
+<span id="cb21-63"><a href="function1.html#cb21-63" aria-hidden="true" tabindex="-1"></a>sumZ.obs <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">apply</span>(y,<span class="dv">1</span>,max))    <span class="co"># Observed number of occ sites</span></span>
+<span id="cb21-64"><a href="function1.html#cb21-64" aria-hidden="true" tabindex="-1"></a>psi.fs.true <span class="ot">&lt;-</span> <span class="fu">sum</span>(z) <span class="sc">/</span> M          <span class="co"># True proportion of occ. sites in sample</span></span>
+<span id="cb21-65"><a href="function1.html#cb21-65" aria-hidden="true" tabindex="-1"></a>psi.fs.obs <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">apply</span>(y,<span class="dv">1</span>,max)) <span class="co"># Observed proportion of occ. sites in sample</span></span>
+<span id="cb21-66"><a href="function1.html#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="function1.html#cb21-67" aria-hidden="true" tabindex="-1"></a><span class="co"># More plots</span></span>
+<span id="cb21-68"><a href="function1.html#cb21-68" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(show.plot){</span>
+<span id="cb21-69"><a href="function1.html#cb21-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb21-70"><a href="function1.html#cb21-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">plogis</span>(alpha0 <span class="sc">+</span> alpha1<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb21-71"><a href="function1.html#cb21-71" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Relationship p-elevation </span><span class="sc">\n</span><span class="st">at average temperature&quot;</span>, </span>
+<span id="cb21-72"><a href="function1.html#cb21-72" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Scaled elevation&quot;</span>, <span class="at">frame.plot =</span> F)</span>
+<span id="cb21-73"><a href="function1.html#cb21-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matplot</span>(elev, p, <span class="at">xlab =</span> <span class="st">&quot;Scaled elevation&quot;</span>, </span>
+<span id="cb21-74"><a href="function1.html#cb21-74" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Relationship p-elevation</span><span class="sc">\n</span><span class="st"> at observed temperature&quot;</span>, </span>
+<span id="cb21-75"><a href="function1.html#cb21-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> F)</span>
+<span id="cb21-76"><a href="function1.html#cb21-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">plogis</span>(alpha0 <span class="sc">+</span> alpha2<span class="sc">*</span>x), <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb21-77"><a href="function1.html#cb21-77" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Relationship p-temperature </span><span class="sc">\n</span><span class="st"> at average elevation&quot;</span>, </span>
+<span id="cb21-78"><a href="function1.html#cb21-78" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Scaled temperature&quot;</span>, <span class="at">frame.plot =</span> F)</span>
+<span id="cb21-79"><a href="function1.html#cb21-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matplot</span>(temp, p, <span class="at">xlab =</span> <span class="st">&quot;Scaled temperature&quot;</span>, </span>
+<span id="cb21-80"><a href="function1.html#cb21-80" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Relationship p-temperature </span><span class="sc">\n</span><span class="st">at observed elevation&quot;</span>, </span>
+<span id="cb21-81"><a href="function1.html#cb21-81" aria-hidden="true" tabindex="-1"></a>        <span class="at">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="at">frame.plot =</span> F)</span>
+<span id="cb21-82"><a href="function1.html#cb21-82" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-83"><a href="function1.html#cb21-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-84"><a href="function1.html#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Output</span></span>
+<span id="cb21-85"><a href="function1.html#cb21-85" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">list</span>(<span class="at">M =</span> M, <span class="at">J =</span> J, <span class="at">mean.occupancy =</span> mean.occupancy, </span>
+<span id="cb21-86"><a href="function1.html#cb21-86" aria-hidden="true" tabindex="-1"></a>            <span class="at">beta0 =</span> beta0, <span class="at">beta1 =</span> beta1, <span class="at">beta2 =</span> beta2, <span class="at">beta3 =</span> beta3, </span>
+<span id="cb21-87"><a href="function1.html#cb21-87" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean.detection =</span> mean.detection, </span>
+<span id="cb21-88"><a href="function1.html#cb21-88" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha0 =</span> alpha0, <span class="at">alpha1 =</span> alpha1, <span class="at">alpha2 =</span> alpha2, <span class="at">alpha3 =</span> alpha3, </span>
+<span id="cb21-89"><a href="function1.html#cb21-89" aria-hidden="true" tabindex="-1"></a>            <span class="at">elev =</span> elev, <span class="at">forest =</span> forest, <span class="at">temp =</span> temp, </span>
+<span id="cb21-90"><a href="function1.html#cb21-90" aria-hidden="true" tabindex="-1"></a>            <span class="at">psi =</span> psi, <span class="at">z =</span> z, <span class="at">p =</span> p, <span class="at">y =</span> y, <span class="at">sumZ =</span> sumZ, <span class="at">sumZ.obs =</span> sumZ.obs, </span>
+<span id="cb21-91"><a href="function1.html#cb21-91" aria-hidden="true" tabindex="-1"></a>            <span class="at">psi.fs.true =</span> psi.fs.true, <span class="at">psi.fs.obs =</span> psi.fs.obs))</span>
+<span id="cb21-92"><a href="function1.html#cb21-92" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-93"><a href="function1.html#cb21-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-94"><a href="function1.html#cb21-94" aria-hidden="true" tabindex="-1"></a><span class="do">###############################</span></span>
+<span id="cb21-95"><a href="function1.html#cb21-95" aria-hidden="true" tabindex="-1"></a><span class="do">## The function ends  here  </span><span class="al">###</span></span>
+<span id="cb21-96"><a href="function1.html#cb21-96" aria-hidden="true" tabindex="-1"></a><span class="do">###############################</span></span></code></pre></div>
+<p>Once we have defined the function and executed its code, we can call it repeatedly and output the results to the screen or assign them to an object in R. So that we can use the dataset stored in the object for detailed analysis.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="function1.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this part line by line, taking note of the meaning of the </span></span>
+<span id="cb22-2"><a href="function1.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model in the comment and hitting Enter after each graph.</span></span>
+<span id="cb22-3"><a href="function1.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Take in to account that if you do not override all the parameters</span></span>
+<span id="cb22-4"><a href="function1.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with another value, the function will use the default values.</span></span>
+<span id="cb22-5"><a href="function1.html#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="function1.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>()                  <span class="co"># Execute function with default arguments</span></span>
+<span id="cb22-7"><a href="function1.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">show.plot =</span> <span class="cn">FALSE</span>) <span class="co"># same, without plots</span></span>
+<span id="cb22-8"><a href="function1.html#cb22-8" aria-hidden="true" tabindex="-1"></a>objeto1 <span class="ot">&lt;-</span> <span class="fu">data.fn</span>(<span class="at">M =</span> <span class="dv">30</span>, <span class="at">J =</span> <span class="dv">10</span>, <span class="at">mean.occupancy =</span> <span class="fl">0.5</span>, </span>
+<span id="cb22-9"><a href="function1.html#cb22-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">beta1 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">beta2 =</span> <span class="dv">2</span>, <span class="at">beta3 =</span> <span class="dv">1</span>, </span>
+<span id="cb22-10"><a href="function1.html#cb22-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">mean.detection =</span> <span class="fl">0.25</span>, <span class="at">alpha1 =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb22-11"><a href="function1.html#cb22-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alpha2 =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">alpha3 =</span> <span class="dv">0</span>, <span class="at">show.plot =</span> <span class="cn">TRUE</span>) <span class="co"># Explicit defaults</span></span></code></pre></div>
+<p><img src="Occu_Book_files/figure-html/fun_call1b-1.png" width="672" /><img src="Occu_Book_files/figure-html/fun_call1b-2.png" width="672" /></p>
+<p>Perhaps the simplest possible use for this function is to experience the sampling error by firsthand: which is the natural variability from repeated runs (several data sets) of our stochastic process by which we compute the data sets. We are going to simulate 10,000 tapir data sets to see how they vary in terms of the true number of occupied sites (sumZ in the code) and the number of sites where tapirs were observed at least once. Note that the data generated in the 10,000 has default parameters in the mean.occupancy and mean.detection parameters.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="function1.html#cb23-1" aria-hidden="true" tabindex="-1"></a>simrep <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb23-2"><a href="function1.html#cb23-2" aria-hidden="true" tabindex="-1"></a>trueSumZ <span class="ot">&lt;-</span> obsSumZ <span class="ot">&lt;-</span> <span class="fu">numeric</span>(simrep)</span>
+<span id="cb23-3"><a href="function1.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>simrep){</span>
+<span id="cb23-4"><a href="function1.html#cb23-4" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(i <span class="sc">%%</span> <span class="dv">1000</span> <span class="sc">==</span><span class="dv">0</span> )                        <span class="co"># report progress</span></span>
+<span id="cb23-5"><a href="function1.html#cb23-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">cat</span>(<span class="st">&quot;iter&quot;</span>, i, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb23-6"><a href="function1.html#cb23-6" aria-hidden="true" tabindex="-1"></a>   data <span class="ot">&lt;-</span> <span class="fu">data.fn</span>(<span class="at">M =</span> <span class="dv">60</span>,<span class="at">J =</span> <span class="dv">3</span>,<span class="at">show.plot =</span> <span class="cn">FALSE</span>) <span class="co"># 60 sitios, 3 muestreos, p=0.3</span></span>
+<span id="cb23-7"><a href="function1.html#cb23-7" aria-hidden="true" tabindex="-1"></a>   trueSumZ[i] <span class="ot">&lt;-</span> data<span class="sc">$</span>sumZ</span>
+<span id="cb23-8"><a href="function1.html#cb23-8" aria-hidden="true" tabindex="-1"></a>   obsSumZ[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">apply</span>(data<span class="sc">$</span>y, <span class="dv">1</span>, max))</span>
+<span id="cb23-9"><a href="function1.html#cb23-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## iter 1000 
+## iter 2000 
+## iter 3000 
+## iter 4000 
+## iter 5000 
+## iter 6000 
+## iter 7000 
+## iter 8000 
+## iter 9000 
+## iter 10000</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="function1.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sort</span>(trueSumZ), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fu">min</span>(obsSumZ), <span class="fu">max</span>(trueSumZ)), <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Simulation&quot;</span>,</span>
+<span id="cb25-2"><a href="function1.html#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;True (red) and observed (blue) number of occupied sites&quot;</span>)</span>
+<span id="cb25-3"><a href="function1.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(obsSumZ[<span class="fu">order</span>(trueSumZ)], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:fig7"></span>
+<img src="Occu_Book_files/figure-html/fig7-1.png" alt="Natural variability (sampling error) of the true number of occupied sites (ordered by size) in red and the observed number of occupied sites (in blue). The number of sites observed/total is also known as the naïve occupancy of deer occurrence at 60 sites in the simulation. The width of the blue area represents the error induced by imperfect detection. Note the importance of taking this error into account to get a better idea of the occupation." width="672" />
+<p class="caption">
+Figure 5.1: Natural variability (sampling error) of the true number of occupied sites (ordered by size) in red and the observed number of occupied sites (in blue). The number of sites observed/total is also known as the naïve occupancy of deer occurrence at 60 sites in the simulation. The width of the blue area represents the error induced by imperfect detection. Note the importance of taking this error into account to get a better idea of the occupation.
+</p>
+</div>
+<p>As an exercise, change the code to again generate the 10,000 simulations with medium (mean.detection =0.5), high (mean.detection =0.8), and perfect detection (mean.detection =1). Compare the resulting graphs.</p>
+<p>Now we can use this function to generate data under different sampling schemes, varying the number of sites and the number of repeated samples. As well as under different ecological and detection characteristics, and considering possible interactions between covariates.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="function1.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this part line by line, taking note of the meaning of the </span></span>
+<span id="cb26-2"><a href="function1.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model in the comment and hitting Enter after each graph.</span></span>
+<span id="cb26-3"><a href="function1.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Take in to account that if you do not override all the parameters</span></span>
+<span id="cb26-4"><a href="function1.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with another value, the function will use the default values.</span></span>
+<span id="cb26-5"><a href="function1.html#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="function1.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">J =</span> <span class="dv">1</span>, <span class="at">show.plot =</span> T)  <span class="co"># Only 1 survey (no temporal replicate)</span></span>
+<span id="cb26-7"><a href="function1.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">J =</span> <span class="dv">2</span>, <span class="at">show.plot =</span> T)  <span class="co"># Only 2 surveys (sites)</span></span>
+<span id="cb26-8"><a href="function1.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">M =</span> <span class="dv">5</span>, <span class="at">J =</span> <span class="dv">3</span>)          <span class="co"># Only 5 sites, 3 counts (repeted visits)</span></span>
+<span id="cb26-9"><a href="function1.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">M =</span> <span class="dv">1</span>, <span class="at">J =</span> <span class="dv">100</span>)        <span class="co"># No spatial replicates, but 100 counts</span></span>
+<span id="cb26-10"><a href="function1.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">M =</span> <span class="dv">1000</span>, <span class="at">J =</span> <span class="dv">100</span>)     <span class="co"># Very intensive sampling. 1000 sites, 100 visits</span></span>
+<span id="cb26-11"><a href="function1.html#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="function1.html#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">mean.occupancy =</span> <span class="fl">0.6</span>,   <span class="co"># psi = 0.6 and</span></span>
+<span id="cb26-13"><a href="function1.html#cb26-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean.detection =</span> <span class="dv">1</span>,     <span class="co"># p = 1 (perfect detection!!!)</span></span>
+<span id="cb26-14"><a href="function1.html#cb26-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.plot =</span> T)</span>
+<span id="cb26-15"><a href="function1.html#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="function1.html#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">mean.occupancy =</span> <span class="fl">0.95</span>,  <span class="co"># psi = 1 a really coomon sp.</span></span>
+<span id="cb26-17"><a href="function1.html#cb26-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean.detection =</span> <span class="dv">1</span>,     <span class="co"># p = 1 (perfect detection!!!)</span></span>
+<span id="cb26-18"><a href="function1.html#cb26-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.plot =</span> T)</span>
+<span id="cb26-19"><a href="function1.html#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="function1.html#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">mean.occupancy =</span> <span class="fl">0.05</span>,  <span class="co"># psi = 0.05 a really rare sp.</span></span>
+<span id="cb26-21"><a href="function1.html#cb26-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean.detection =</span> <span class="fl">0.05</span>,  <span class="co"># p = 0.05 and very hard to detect !!!</span></span>
+<span id="cb26-22"><a href="function1.html#cb26-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">show.plot =</span> T)</span>
+<span id="cb26-23"><a href="function1.html#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="function1.html#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">beta3 =</span> <span class="fl">1.5</span>, <span class="at">show.plot =</span> <span class="cn">TRUE</span>) <span class="co"># With interaction elev-temp on p</span></span>
+<span id="cb26-25"><a href="function1.html#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="function1.html#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">mean.occupancy =</span> <span class="fl">0.6</span>, <span class="at">beta1 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">beta2 =</span> <span class="dv">2</span>, <span class="at">beta3 =</span> <span class="dv">1</span>, </span>
+<span id="cb26-27"><a href="function1.html#cb26-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean.detection =</span> <span class="fl">0.1</span>, <span class="at">show.plot =</span> <span class="cn">TRUE</span>)  <span class="co"># p = 1 (low detectability)</span></span>
+<span id="cb26-28"><a href="function1.html#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-29"><a href="function1.html#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="fu">data.fn</span>(<span class="at">M =</span> <span class="dv">267</span>, <span class="at">J =</span> <span class="dv">5</span>, <span class="at">mean.occupancy =</span> <span class="fl">0.6</span>, <span class="at">beta1 =</span> <span class="dv">0</span>, <span class="at">beta2 =</span> <span class="dv">0</span>, <span class="at">beta3 =</span> <span class="dv">0</span>, </span>
+<span id="cb26-30"><a href="function1.html#cb26-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean.detection =</span> <span class="fl">0.4</span>, <span class="at">alpha1 =</span> <span class="dv">0</span>, <span class="at">alpha2 =</span> <span class="dv">0</span>, <span class="at">alpha3 =</span> <span class="dv">0</span>, <span class="at">show.plot =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-31"><a href="function1.html#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplest case with occupancy (0.6) and detection (0.4) constant, no covariate effects</span></span>
+<span id="cb26-32"><a href="function1.html#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="co"># observe betas = 0, and alphas = 0. This correspond to a kind of null model.</span></span></code></pre></div>
+<blockquote>
+<p><strong>CONGRATULATIONS!!!, if you got this far, and if you understood the data simulation and its procedure, then you fully understood the basic occupancy model, which is the cornerstone of modern biological sampling and monitoring.</strong></p>
+</blockquote>
+<p><img src="https://media.giphy.com/media/fxsqOYnIMEefC/giphy.gif" /></p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="example.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="unmarked.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/occu_book/edit/master/05-all-in-function.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": "https://github.com/dlizcano/occu_book/Occu_Book.pdf",
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

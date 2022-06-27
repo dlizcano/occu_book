@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter7 Bayesian analysis | Occupancy simulation and analysis</title>
+  <meta name="description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter7 Bayesian analysis | Occupancy simulation and analysis" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/Mountain_Tapir_large.png" />
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="dlizcano/OTS" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter7 Bayesian analysis | Occupancy simulation and analysis" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="twitter:image" content="/images/Mountain_Tapir_large.png" />
+
+<meta name="author" content="Diego J. Lizcano, Ph.D." />
+
+
+<meta name="date" content="2022-06-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="unmarked.html"/>
+<link rel="next" href="r-session-information-and-packages-used.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Occupancy simulation and analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#please-cite-this-work-as"><i class="fa fa-check"></i><b>1.1</b> Please cite this work as:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>2</b> Why to do simulations?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="why.html"><a href="why.html#why-simulations-are-useful"><i class="fa fa-check"></i><b>2.1</b> why simulations are useful:</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>3</b> The Occupancy</a></li>
+<li class="chapter" data-level="4" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>4</b> Our Example:</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="example.html"><a href="example.html#ecological-model"><i class="fa fa-check"></i><b>4.0.1</b> Ecological Model:</a></li>
+<li class="chapter" data-level="4.0.2" data-path="example.html"><a href="example.html#observation-model"><i class="fa fa-check"></i><b>4.0.2</b> Observation Model:</a></li>
+<li class="chapter" data-level="4.1" data-path="example.html"><a href="example.html#initial-steps-sample-size-and-covariate-values"><i class="fa fa-check"></i><b>4.1</b> Initial steps: sample size and covariate values</a></li>
+<li class="chapter" data-level="4.2" data-path="example.html"><a href="example.html#simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir"><i class="fa fa-check"></i><b>4.2</b> Simulating the ecological process and its result: The Occurrence of The Tapir</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="example.html"><a href="example.html#why-bernoulli"><i class="fa fa-check"></i><b>4.2.1</b> Why Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="example.html"><a href="example.html#simulating-the-observation-process-and-its-result-the-detection"><i class="fa fa-check"></i><b>4.3</b> Simulating the observation process and its result: the detection</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="example.html"><a href="example.html#combining-the-two-processes-the-ecological-and-the-observation"><i class="fa fa-check"></i><b>4.3.1</b> Combining the two processes the ecological and the observation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>5</b> Packing everything into a function</a></li>
+<li class="chapter" data-level="6" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>6</b> Occupancy analysis, ML method</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="unmarked.html"><a href="unmarked.html#clearing-r-memory"><i class="fa fa-check"></i><b>6.0.1</b> Clearing R memory</a></li>
+<li class="chapter" data-level="6.1" data-path="unmarked.html"><a href="unmarked.html#generating-the-data"><i class="fa fa-check"></i><b>6.1</b> Generating the data</a></li>
+<li class="chapter" data-level="6.2" data-path="unmarked.html"><a href="unmarked.html#putting-the-data-in-unmarked"><i class="fa fa-check"></i><b>6.2</b> Putting the data in unmarked</a></li>
+<li class="chapter" data-level="6.3" data-path="unmarked.html"><a href="unmarked.html#fitting-the-models"><i class="fa fa-check"></i><b>6.3</b> Fitting the models</a></li>
+<li class="chapter" data-level="6.4" data-path="unmarked.html"><a href="unmarked.html#model-selection"><i class="fa fa-check"></i><b>6.4</b> Model Selection</a></li>
+<li class="chapter" data-level="6.5" data-path="unmarked.html"><a href="unmarked.html#prediction-in-graphs"><i class="fa fa-check"></i><b>6.5</b> Prediction in graphs</a></li>
+<li class="chapter" data-level="6.6" data-path="unmarked.html"><a href="unmarked.html#spatially-explicit-prediction"><i class="fa fa-check"></i><b>6.6</b> Spatially explicit prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>7</b> Bayesian analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian.html"><a href="bayesian.html#generating-the-data-1"><i class="fa fa-check"></i><b>7.1</b> Generating the data</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian.html"><a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian"><i class="fa fa-check"></i><b>7.2</b> Comparing the actual and estimated values from ML and Bayesian</a></li>
+<li class="chapter" data-level="7.3" data-path="bayesian.html"><a href="bayesian.html#bayesian-estimates-easily-using-ubms"><i class="fa fa-check"></i><b>7.3</b> Bayesian estimates easily using ubms</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="bayesian.html"><a href="bayesian.html#advantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.1</b> Advantages of ubms compared to unmarked:</a></li>
+<li class="chapter" data-level="7.3.2" data-path="bayesian.html"><a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked"><i class="fa fa-check"></i><b>7.3.2</b> Disadvantages of ubms compared to unmarked:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="r-session-information-and-packages-used.html"><a href="r-session-information-and-packages-used.html"><i class="fa fa-check"></i><b>8</b> R session information and packages used</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/dlizcano/occu_book" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Occupancy simulation and analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bayesian" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter7</span> Bayesian analysis<a href="bayesian.html#bayesian" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this part we are going to estimate the same parameters of a model equal to the “best model” which was selected in the unmarked model selection procedure in the previous chapter. Recall that this model has beta1 and alpha1, alpha2, alpha3. The parameters that we will estimate with the Bayesian method are going to be compared with the parameters that we already estimated with ML in unmarked and we will also compare them with the real parameters that we defined when establishing the data (data2) with the function data.fn, to see which of the two estimation methods (ML or Bayesian) are closer to the real parameters.</p>
+<div id="generating-the-data-1" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Generating the data<a href="bayesian.html#generating-the-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Again we will use a TEAM-type design (<a href="https://www.wildlifeinsights.org/team-network" class="uri">https://www.wildlifeinsights.org/team-network</a>) with 60 sampling sites and 30 repeated visits, which is equivalent to the 30 days that the cameras remain active in the field. Our species remains the same, the white-tailed deer. For this example we will assume that detection is 0.6, occupancy is 0.8, and the interactions are simple with altitude as the only covariate explaining occupancy. But for detection there is a more complex relationship, assuming there is a slight interaction between the observation covariates. For observation, altitude and temperature interact with each other. Also note how altitude influences in opposite directions with a positive altitude sign for detection and a negative sign for occupancy.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="bayesian.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">###</span><span class="co"> Generate a new data set or use the same</span></span>
+<span id="cb42-2"><a href="bayesian.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # ****************************************</span></span>
+<span id="cb42-3"><a href="bayesian.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(148)</span></span>
+<span id="cb42-4"><a href="bayesian.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data &lt;- data.fn(show.plot = T)    # Default arguments</span></span>
+<span id="cb42-5"><a href="bayesian.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># str(data)                         # Look at the object</span></span>
+<span id="cb42-6"><a href="bayesian.html#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># we are oing to use the data from datos2 object</span></span>
+<span id="cb42-7"><a href="bayesian.html#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="bayesian.html#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="do">### Fit same model with JAGS, using library jagsUI</span></span>
+<span id="cb42-9"><a href="bayesian.html#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ************************************************</span></span>
+<span id="cb42-10"><a href="bayesian.html#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Bundle data</span></span>
+<span id="cb42-11"><a href="bayesian.html#cb42-11" aria-hidden="true" tabindex="-1"></a>win.data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y =</span> datos2<span class="sc">$</span>y, </span>
+<span id="cb42-12"><a href="bayesian.html#cb42-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">M =</span> <span class="fu">nrow</span>(datos2<span class="sc">$</span>y), </span>
+<span id="cb42-13"><a href="bayesian.html#cb42-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">J =</span> <span class="fu">ncol</span>(datos2<span class="sc">$</span>y), </span>
+<span id="cb42-14"><a href="bayesian.html#cb42-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">elev =</span> datos2<span class="sc">$</span>elev, </span>
+<span id="cb42-15"><a href="bayesian.html#cb42-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">forest =</span> datos2<span class="sc">$</span>forest, </span>
+<span id="cb42-16"><a href="bayesian.html#cb42-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">temp =</span> datos2<span class="sc">$</span>temp)</span>
+<span id="cb42-17"><a href="bayesian.html#cb42-17" aria-hidden="true" tabindex="-1"></a><span class="co"># str(win.data)</span></span>
+<span id="cb42-18"><a href="bayesian.html#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-19"><a href="bayesian.html#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="bayesian.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="co"># # Specify model in BUGS language</span></span>
+<span id="cb42-21"><a href="bayesian.html#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co"># sink(&quot;model22.txt&quot;)</span></span>
+<span id="cb42-22"><a href="bayesian.html#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(&quot;</span></span>
+<span id="cb42-23"><a href="bayesian.html#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="co"># model {</span></span>
+<span id="cb42-24"><a href="bayesian.html#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-25"><a href="bayesian.html#cb42-25" aria-hidden="true" tabindex="-1"></a><span class="co"># # Priors</span></span>
+<span id="cb42-26"><a href="bayesian.html#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="co"># mean.p ~ dunif(0, 1)        # Detection intercept on prob. scale</span></span>
+<span id="cb42-27"><a href="bayesian.html#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co"># alpha0 &lt;- logit(mean.p)     # same on logit scale</span></span>
+<span id="cb42-28"><a href="bayesian.html#cb42-28" aria-hidden="true" tabindex="-1"></a><span class="co"># mean.psi ~ dunif(0, 1)      # Occupancy intercept on prob. scale</span></span>
+<span id="cb42-29"><a href="bayesian.html#cb42-29" aria-hidden="true" tabindex="-1"></a><span class="co"># beta0 &lt;- logit(mean.psi)    # same on logit scale</span></span>
+<span id="cb42-30"><a href="bayesian.html#cb42-30" aria-hidden="true" tabindex="-1"></a><span class="co"># for(k in 1:3){              # 2 detection covariates + 1 interact</span></span>
+<span id="cb42-31"><a href="bayesian.html#cb42-31" aria-hidden="true" tabindex="-1"></a><span class="co">#     alpha[k] ~ dnorm(0, 0.01) # Covariates on logit(detection)</span></span>
+<span id="cb42-32"><a href="bayesian.html#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="co"># #   alpha[k] ~ dnorm(0, 0.05) # Covariates on logit(detection)</span></span>
+<span id="cb42-33"><a href="bayesian.html#cb42-33" aria-hidden="true" tabindex="-1"></a><span class="co"># #   alpha[k] ~ dunif(-10, 10) # Covariates on logit(detection)</span></span>
+<span id="cb42-34"><a href="bayesian.html#cb42-34" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb42-35"><a href="bayesian.html#cb42-35" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-36"><a href="bayesian.html#cb42-36" aria-hidden="true" tabindex="-1"></a><span class="co"># for(k in 1:1){                # 2 occupancy covariates + 1 interact</span></span>
+<span id="cb42-37"><a href="bayesian.html#cb42-37" aria-hidden="true" tabindex="-1"></a><span class="co">#     beta[k] ~ dnorm(0, 0.01)  # Covariates on logit(occupancy)</span></span>
+<span id="cb42-38"><a href="bayesian.html#cb42-38" aria-hidden="true" tabindex="-1"></a><span class="co"># #   beta[k] ~ dnorm(0, 0.05)  # Covariates on logit(occupancy)</span></span>
+<span id="cb42-39"><a href="bayesian.html#cb42-39" aria-hidden="true" tabindex="-1"></a><span class="co"># #   beta[k] ~ dunif(-10, 10)  # Covariates on logit(occupancy)</span></span>
+<span id="cb42-40"><a href="bayesian.html#cb42-40" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb42-41"><a href="bayesian.html#cb42-41" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-42"><a href="bayesian.html#cb42-42" aria-hidden="true" tabindex="-1"></a><span class="co"># # Translation of the occupancy parameters in unmarked into those for BUGS:</span></span>
+<span id="cb42-43"><a href="bayesian.html#cb42-43" aria-hidden="true" tabindex="-1"></a><span class="co"># # (Intercept)         (beta0 in BUGS)</span></span>
+<span id="cb42-44"><a href="bayesian.html#cb42-44" aria-hidden="true" tabindex="-1"></a><span class="co"># # elev                (beta[1])</span></span>
+<span id="cb42-45"><a href="bayesian.html#cb42-45" aria-hidden="true" tabindex="-1"></a><span class="co"># # forest              (beta[2])</span></span>
+<span id="cb42-46"><a href="bayesian.html#cb42-46" aria-hidden="true" tabindex="-1"></a><span class="co"># # temp                (beta[3])</span></span>
+<span id="cb42-47"><a href="bayesian.html#cb42-47" aria-hidden="true" tabindex="-1"></a><span class="co"># # elev:forest         (beta[4])</span></span>
+<span id="cb42-48"><a href="bayesian.html#cb42-48" aria-hidden="true" tabindex="-1"></a><span class="co"># # elev:temp           (beta[5])</span></span>
+<span id="cb42-49"><a href="bayesian.html#cb42-49" aria-hidden="true" tabindex="-1"></a><span class="co"># # forest:temp         (beta[6])</span></span>
+<span id="cb42-50"><a href="bayesian.html#cb42-50" aria-hidden="true" tabindex="-1"></a><span class="co"># # elev:forest:temp    (beta[7])</span></span>
+<span id="cb42-51"><a href="bayesian.html#cb42-51" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-52"><a href="bayesian.html#cb42-52" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-53"><a href="bayesian.html#cb42-53" aria-hidden="true" tabindex="-1"></a><span class="co"># # Likelihood</span></span>
+<span id="cb42-54"><a href="bayesian.html#cb42-54" aria-hidden="true" tabindex="-1"></a><span class="co"># for (i in 1:M) {</span></span>
+<span id="cb42-55"><a href="bayesian.html#cb42-55" aria-hidden="true" tabindex="-1"></a><span class="co">#   # True state model for the partially observed true state</span></span>
+<span id="cb42-56"><a href="bayesian.html#cb42-56" aria-hidden="true" tabindex="-1"></a><span class="co">#   z[i] ~ dbern(psi[i])                      # True occupancy z at site i</span></span>
+<span id="cb42-57"><a href="bayesian.html#cb42-57" aria-hidden="true" tabindex="-1"></a><span class="co">#   logit(psi[i]) &lt;- beta0 +                  # occupancy (psi) intercept</span></span>
+<span id="cb42-58"><a href="bayesian.html#cb42-58" aria-hidden="true" tabindex="-1"></a><span class="co">#     beta[1] * elev[i] #+                     # elev</span></span>
+<span id="cb42-59"><a href="bayesian.html#cb42-59" aria-hidden="true" tabindex="-1"></a><span class="co">#     #beta[2] * forest[i] #+                  # forest</span></span>
+<span id="cb42-60"><a href="bayesian.html#cb42-60" aria-hidden="true" tabindex="-1"></a><span class="co">#     #beta[3] * elev[i] * forest[i]          # elev:forest</span></span>
+<span id="cb42-61"><a href="bayesian.html#cb42-61" aria-hidden="true" tabindex="-1"></a><span class="co">#     #beta[4] * elev[i] * temp[i] +          # elev:temp</span></span>
+<span id="cb42-62"><a href="bayesian.html#cb42-62" aria-hidden="true" tabindex="-1"></a><span class="co">#     #beta[5] * temp[i] +                    # temp</span></span>
+<span id="cb42-63"><a href="bayesian.html#cb42-63" aria-hidden="true" tabindex="-1"></a><span class="co">#     #beta[6] * forest[i] * temp[i] +        # forest:temp</span></span>
+<span id="cb42-64"><a href="bayesian.html#cb42-64" aria-hidden="true" tabindex="-1"></a><span class="co">#     #beta[7] * elev[i] * forest[i] * temp[i]   # elev:forest:temp</span></span>
+<span id="cb42-65"><a href="bayesian.html#cb42-65" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-66"><a href="bayesian.html#cb42-66" aria-hidden="true" tabindex="-1"></a><span class="co">#    for (j in 1:J) {</span></span>
+<span id="cb42-67"><a href="bayesian.html#cb42-67" aria-hidden="true" tabindex="-1"></a><span class="co">#       # Observation model for the actual observations</span></span>
+<span id="cb42-68"><a href="bayesian.html#cb42-68" aria-hidden="true" tabindex="-1"></a><span class="co">#       y[i,j] ~ dbern(p.eff[i,j])      # Detection-nondetection at i and j</span></span>
+<span id="cb42-69"><a href="bayesian.html#cb42-69" aria-hidden="true" tabindex="-1"></a><span class="co">#       p.eff[i,j] &lt;- z[i] * p[i,j]</span></span>
+<span id="cb42-70"><a href="bayesian.html#cb42-70" aria-hidden="true" tabindex="-1"></a><span class="co">#       logit(p[i,j]) &lt;- alpha0 +             # detection (p) intercept</span></span>
+<span id="cb42-71"><a href="bayesian.html#cb42-71" aria-hidden="true" tabindex="-1"></a><span class="co">#          alpha[1] * elev[i] +               # effect of elevation on p</span></span>
+<span id="cb42-72"><a href="bayesian.html#cb42-72" aria-hidden="true" tabindex="-1"></a><span class="co">#          alpha[2] * temp[i,j] +             # effect of temp on p</span></span>
+<span id="cb42-73"><a href="bayesian.html#cb42-73" aria-hidden="true" tabindex="-1"></a><span class="co">#          alpha[3] * elev[i] * temp[i,j]     # effect of elev:temp on p</span></span>
+<span id="cb42-74"><a href="bayesian.html#cb42-74" aria-hidden="true" tabindex="-1"></a><span class="co">#    }</span></span>
+<span id="cb42-75"><a href="bayesian.html#cb42-75" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb42-76"><a href="bayesian.html#cb42-76" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-77"><a href="bayesian.html#cb42-77" aria-hidden="true" tabindex="-1"></a><span class="co"># # Derived quantities</span></span>
+<span id="cb42-78"><a href="bayesian.html#cb42-78" aria-hidden="true" tabindex="-1"></a><span class="co"># sumZ &lt;- sum(z[])      # Number of occupied sites among those studied</span></span>
+<span id="cb42-79"><a href="bayesian.html#cb42-79" aria-hidden="true" tabindex="-1"></a><span class="co"># occ.fs &lt;- sum(z[])/M  # proportion of occupied sites among those studied</span></span>
+<span id="cb42-80"><a href="bayesian.html#cb42-80" aria-hidden="true" tabindex="-1"></a><span class="co"># logit.psi &lt;- beta0    # For comparison with unmarked</span></span>
+<span id="cb42-81"><a href="bayesian.html#cb42-81" aria-hidden="true" tabindex="-1"></a><span class="co"># logit.p &lt;- alpha0     # For comparison with unmarked</span></span>
+<span id="cb42-82"><a href="bayesian.html#cb42-82" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb42-83"><a href="bayesian.html#cb42-83" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;,fill = TRUE)</span></span>
+<span id="cb42-84"><a href="bayesian.html#cb42-84" aria-hidden="true" tabindex="-1"></a><span class="co"># sink()</span></span>
+<span id="cb42-85"><a href="bayesian.html#cb42-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-86"><a href="bayesian.html#cb42-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-87"><a href="bayesian.html#cb42-87" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jagsUI)</span>
+<span id="cb42-88"><a href="bayesian.html#cb42-88" aria-hidden="true" tabindex="-1"></a><span class="co"># library(R2jags)</span></span>
+<span id="cb42-89"><a href="bayesian.html#cb42-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial values</span></span>
+<span id="cb42-90"><a href="bayesian.html#cb42-90" aria-hidden="true" tabindex="-1"></a>zst <span class="ot">&lt;-</span> <span class="fu">apply</span>(datos2<span class="sc">$</span>y, <span class="dv">1</span>, max)</span>
+<span id="cb42-91"><a href="bayesian.html#cb42-91" aria-hidden="true" tabindex="-1"></a>inits <span class="ot">&lt;-</span> <span class="cf">function</span>(){<span class="fu">list</span>(<span class="at">z =</span> zst, </span>
+<span id="cb42-92"><a href="bayesian.html#cb42-92" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mean.psi =</span> <span class="fu">runif</span>(<span class="dv">1</span>), </span>
+<span id="cb42-93"><a href="bayesian.html#cb42-93" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mean.p =</span> <span class="fu">runif</span>(<span class="dv">1</span>), </span>
+<span id="cb42-94"><a href="bayesian.html#cb42-94" aria-hidden="true" tabindex="-1"></a>                         <span class="at">alpha =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>), <span class="co"># adjust here</span></span>
+<span id="cb42-95"><a href="bayesian.html#cb42-95" aria-hidden="true" tabindex="-1"></a>                         <span class="at">beta =</span> <span class="fu">rnorm</span>(<span class="dv">1</span>))} <span class="co"># adjust here</span></span>
+<span id="cb42-96"><a href="bayesian.html#cb42-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-97"><a href="bayesian.html#cb42-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters monitored</span></span>
+<span id="cb42-98"><a href="bayesian.html#cb42-98" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;sumZ&quot;</span>, <span class="st">&quot;occ.fs&quot;</span>, <span class="st">&quot;logit.psi&quot;</span>, <span class="st">&quot;logit.p&quot;</span>, <span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)</span>
+<span id="cb42-99"><a href="bayesian.html#cb42-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-100"><a href="bayesian.html#cb42-100" aria-hidden="true" tabindex="-1"></a><span class="co"># MCMC settings</span></span>
+<span id="cb42-101"><a href="bayesian.html#cb42-101" aria-hidden="true" tabindex="-1"></a><span class="co"># ni &lt;- 100000   ;   nt &lt;- 10   ;   nb &lt;- 1000   ;   nc &lt;- 3</span></span>
+<span id="cb42-102"><a href="bayesian.html#cb42-102" aria-hidden="true" tabindex="-1"></a> ni <span class="ot">&lt;-</span> <span class="dv">10000</span>   ;   nt <span class="ot">&lt;-</span> <span class="dv">10</span>   ;   nb <span class="ot">&lt;-</span> <span class="dv">500</span>   ;   nc <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb42-103"><a href="bayesian.html#cb42-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-104"><a href="bayesian.html#cb42-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Call JAGS from R (ART 260 sec with norm(), 480 with unif(-10,10)) </span></span>
+<span id="cb42-105"><a href="bayesian.html#cb42-105" aria-hidden="true" tabindex="-1"></a><span class="co"># and summarize posteriors</span></span>
+<span id="cb42-106"><a href="bayesian.html#cb42-106" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(out22 <span class="ot">&lt;-</span> <span class="fu">jags</span>(win.data, </span>
+<span id="cb42-107"><a href="bayesian.html#cb42-107" aria-hidden="true" tabindex="-1"></a>                          inits, </span>
+<span id="cb42-108"><a href="bayesian.html#cb42-108" aria-hidden="true" tabindex="-1"></a>                          <span class="at">parameters.to.save =</span> params,</span>
+<span id="cb42-109"><a href="bayesian.html#cb42-109" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model.file =</span> <span class="st">&quot;C:/Users/silvi/Documents/GitHub/occu_book/model22.txt&quot;</span>, </span>
+<span id="cb42-110"><a href="bayesian.html#cb42-110" aria-hidden="true" tabindex="-1"></a>                          <span class="at">n.chains =</span> nc, </span>
+<span id="cb42-111"><a href="bayesian.html#cb42-111" aria-hidden="true" tabindex="-1"></a>                          <span class="at">n.thin =</span> nt, </span>
+<span id="cb42-112"><a href="bayesian.html#cb42-112" aria-hidden="true" tabindex="-1"></a>                          <span class="at">n.iter =</span> ni, </span>
+<span id="cb42-113"><a href="bayesian.html#cb42-113" aria-hidden="true" tabindex="-1"></a>                          <span class="at">n.burnin =</span> nb, </span>
+<span id="cb42-114"><a href="bayesian.html#cb42-114" aria-hidden="true" tabindex="-1"></a>                          <span class="at">parallel =</span> T))</span></code></pre></div>
+<pre><code>## 
+## Processing function input....... 
+## 
+## Done. 
+##  
+## Beginning parallel processing using 3 cores. Console output will be suppressed.
+## 
+## Parallel processing completed.
+## 
+## Calculating statistics....... 
+## 
+## Done.</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.09    0.07  496.41</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="bayesian.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See model diagnistics and convergence </span></span>
+<span id="cb45-2"><a href="bayesian.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mcmcplots)</span>
+<span id="cb45-3"><a href="bayesian.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmcmc)</span>
+<span id="cb45-4"><a href="bayesian.html#cb45-4" aria-hidden="true" tabindex="-1"></a>fit22.mcmc <span class="ot">&lt;-</span> <span class="fu">as.mcmc.list</span>(out22<span class="sc">$</span>samples)</span>
+<span id="cb45-5"><a href="bayesian.html#cb45-5" aria-hidden="true" tabindex="-1"></a>bayes.mod.fit.gg <span class="ot">&lt;-</span> <span class="fu">ggs</span>(fit22.mcmc) <span class="co">#convert to ggmcmc</span></span>
+<span id="cb45-6"><a href="bayesian.html#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggs_running</span>(bayes.mod.fit.gg)<span class="co"># check if chains approach target distrib. </span></span></code></pre></div>
+<p><img src="Occu_Book_files/figure-html/bayesian-1.png" width="672" /></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="bayesian.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># denplot(fit22.mcmc, parms = c(&quot;beta&quot;, </span></span>
+<span id="cb46-2"><a href="bayesian.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                               &quot;alpha[1]&quot;, &quot;alpha[2]&quot;, &quot;alpha[3]&quot;, </span></span>
+<span id="cb46-3"><a href="bayesian.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                               &quot;logit.psi&quot;, &quot;logit.p&quot; ))</span></span>
+<span id="cb46-4"><a href="bayesian.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># traplot(fit22.mcmc)</span></span>
+<span id="cb46-5"><a href="bayesian.html#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ggs_density(bayes.mod.fit.gg)</span></span>
+<span id="cb46-6"><a href="bayesian.html#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="bayesian.html#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co"># xyplot(out22)        # assess within-chain convergence</span></span>
+<span id="cb46-8"><a href="bayesian.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">densityplot</span>(out22)  <span class="co"># shape of the posterior distribution</span></span></code></pre></div>
+<p><img src="Occu_Book_files/figure-html/bayesian-2.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="bayesian.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see model result and estimates  </span></span>
+<span id="cb47-2"><a href="bayesian.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(out22, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## JAGS output for model &#39;C:/Users/silvi/Documents/GitHub/occu_book/model22.txt&#39;, generated by jagsUI.
+## Estimates based on 3 chains of 10000 iterations,
+## adaptation = 100 iterations (sufficient),
+## burn-in = 500 iterations and thin rate = 10,
+## yielding 2850 total samples from the joint posterior. 
+## MCMC ran in parallel for 8.272 minutes at time 2022-06-26 19:52:50.
+## 
+##               mean    sd     2.5%      50%    97.5% overlap0     f  Rhat n.eff
+## sumZ        46.024 0.154   46.000   46.000   46.000    FALSE 1.000 1.003  2850
+## occ.fs       0.767 0.003    0.767    0.767    0.767    FALSE 1.000 1.003  2850
+## logit.psi    1.173 0.324    0.574    1.157    1.858    FALSE 1.000 1.000  2850
+## logit.p      0.407 0.072    0.270    0.406    0.556    FALSE 1.000 1.000  2850
+## alpha[1]     2.149 0.146    1.861    2.144    2.445    FALSE 1.000 1.000  2850
+## alpha[2]     0.905 0.128    0.652    0.904    1.152    FALSE 1.000 1.000  2850
+## alpha[3]     1.685 0.247    1.191    1.689    2.168    FALSE 1.000 1.001  2850
+## beta        -1.475 0.640   -2.750   -1.464   -0.285    FALSE 0.994 1.000  2850
+## deviance  1589.314 3.437 1585.532 1588.385 1599.121    FALSE 1.000 1.001  2197
+## 
+## Successful convergence based on Rhat values (all &lt; 1.1). 
+## Rhat is the potential scale reduction factor (at convergence, Rhat=1). 
+## For each parameter, n.eff is a crude measure of effective sample size. 
+## 
+## overlap0 checks if 0 falls in the parameter&#39;s 95% credible interval.
+## f is the proportion of the posterior with the same sign as the mean;
+## i.e., our confidence that the parameter is positive or negative.
+## 
+## DIC info: (pD = var(deviance)/2) 
+## pD = 5.9 and DIC = 1595.218 
+## DIC is an estimate of expected predictive error (lower is better).</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bayesian.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store in tmp coefficients from best ML model</span></span>
+<span id="cb49-2"><a href="bayesian.html#cb49-2" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">summary</span>(fm7)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
+## 
+## Occupancy (logit-scale):
+##             Estimate    SE     z  P(&gt;|z|)
+## (Intercept)     1.18 0.326  3.62 0.000291
+## elev           -1.41 0.624 -2.26 0.023548
+## 
+## Detection (logit-scale):
+##             Estimate     SE     z  P(&gt;|z|)
+## (Intercept)    0.407 0.0735  5.54 3.03e-08
+## elev           2.140 0.1494 14.32 1.66e-46
+## temp           0.900 0.1262  7.14 9.68e-13
+## elev:temp      1.680 0.2514  6.68 2.34e-11
+## 
+## AIC: 1656.533 
+## Number of sites: 60
+## optim convergence code: 0
+## optim iterations: 38 
+## Bootstrap iterations: 0</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="bayesian.html#cb51-1" aria-hidden="true" tabindex="-1"></a>modestimates <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rbind</span>(tmp<span class="sc">$</span>state[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], tmp<span class="sc">$</span>det[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), </span>
+<span id="cb51-2"><a href="bayesian.html#cb51-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">Post.mean =</span> out22<span class="sc">$</span>summary[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>), <span class="dv">1</span>],</span>
+<span id="cb51-3"><a href="bayesian.html#cb51-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">Post.sd   =</span> out22<span class="sc">$</span>summary[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>), <span class="dv">2</span>] )</span>
+<span id="cb51-4"><a href="bayesian.html#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="bayesian.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the(logit-scale) in unmarked </span></span>
+<span id="cb51-6"><a href="bayesian.html#cb51-6" aria-hidden="true" tabindex="-1"></a>modestimates[<span class="dv">1</span>,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">plogis</span>(modestimates[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb51-7"><a href="bayesian.html#cb51-7" aria-hidden="true" tabindex="-1"></a>modestimates[<span class="dv">3</span>,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">plogis</span>(modestimates[<span class="dv">3</span>,<span class="dv">1</span>])</span>
+<span id="cb51-8"><a href="bayesian.html#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="bayesian.html#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the(logit-scale) in Bayes in logit.psi  logit.p</span></span>
+<span id="cb51-10"><a href="bayesian.html#cb51-10" aria-hidden="true" tabindex="-1"></a>modestimates[<span class="dv">1</span>,<span class="dv">3</span>]<span class="ot">&lt;-</span> <span class="fu">plogis</span>(modestimates[<span class="dv">1</span>,<span class="dv">3</span>])</span>
+<span id="cb51-11"><a href="bayesian.html#cb51-11" aria-hidden="true" tabindex="-1"></a>modestimates[<span class="dv">3</span>,<span class="dv">3</span>]<span class="ot">&lt;-</span> <span class="fu">plogis</span>(modestimates[<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb51-12"><a href="bayesian.html#cb51-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-13"><a href="bayesian.html#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="co"># get real values from datos2 object</span></span>
+<span id="cb51-14"><a href="bayesian.html#cb51-14" aria-hidden="true" tabindex="-1"></a>real<span class="ot">&lt;-</span> <span class="fu">rbind</span>(datos2<span class="sc">$</span>mean.occupancy, datos2<span class="sc">$</span>beta1, datos2<span class="sc">$</span>mean.detection,</span>
+<span id="cb51-15"><a href="bayesian.html#cb51-15" aria-hidden="true" tabindex="-1"></a>             datos2<span class="sc">$</span>alpha1, datos2<span class="sc">$</span>alpha2, datos2<span class="sc">$</span>alpha3)</span></code></pre></div>
+</div>
+<div id="comparing-the-actual-and-estimated-values-from-ml-and-bayesian" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Comparing the actual and estimated values from ML and Bayesian<a href="bayesian.html#comparing-the-actual-and-estimated-values-from-ml-and-bayesian" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s see how close the estimates are to the actual values, by comparing the actual value with the Maximum Likelihood estimate (columns 2 and 3) and the Bayesian estimate (columns 4 and 5).</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="bayesian.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">### see if the values are close to real values</span></span>
+<span id="cb52-2"><a href="bayesian.html#cb52-2" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">cbind</span>(real, modestimates) <span class="co"># put both in same table</span></span>
+<span id="cb52-3"><a href="bayesian.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># put names to rows</span></span>
+<span id="cb52-4"><a href="bayesian.html#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(compare) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;psi&quot;</span>,<span class="st">&quot;beta&quot;</span>,<span class="st">&quot;p&quot;</span>,<span class="st">&quot;alpha1&quot;</span>,<span class="st">&quot;alpha2&quot;</span>, <span class="st">&quot;alpha3&quot;</span>)</span>
+<span id="cb52-5"><a href="bayesian.html#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="bayesian.html#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print comparing table</span></span>
+<span id="cb52-7"><a href="bayesian.html#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb52-8"><a href="bayesian.html#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(compare)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">real</th>
+<th align="right">Estimate</th>
+<th align="right">SE</th>
+<th align="right">Post.mean</th>
+<th align="right">Post.sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">psi</td>
+<td align="right">0.8</td>
+<td align="right">0.7653197</td>
+<td align="right">0.3262574</td>
+<td align="right">0.7637639</td>
+<td align="right">0.3241587</td>
+</tr>
+<tr class="even">
+<td align="left">beta</td>
+<td align="right">-1.5</td>
+<td align="right">-1.4129006</td>
+<td align="right">0.6239572</td>
+<td align="right">-1.4750154</td>
+<td align="right">0.6402681</td>
+</tr>
+<tr class="odd">
+<td align="left">p</td>
+<td align="right">0.6</td>
+<td align="right">0.6004304</td>
+<td align="right">0.0735178</td>
+<td align="right">0.6003755</td>
+<td align="right">0.0723759</td>
+</tr>
+<tr class="even">
+<td align="left">alpha1</td>
+<td align="right">2.0</td>
+<td align="right">2.1395071</td>
+<td align="right">0.1494144</td>
+<td align="right">2.1486145</td>
+<td align="right">0.1457261</td>
+</tr>
+<tr class="odd">
+<td align="left">alpha2</td>
+<td align="right">1.0</td>
+<td align="right">0.9003900</td>
+<td align="right">0.1261927</td>
+<td align="right">0.9045429</td>
+<td align="right">0.1280443</td>
+</tr>
+<tr class="even">
+<td align="left">alpha3</td>
+<td align="right">1.5</td>
+<td align="right">1.6801587</td>
+<td align="right">0.2513946</td>
+<td align="right">1.6853946</td>
+<td align="right">0.2469354</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="bayesian-estimates-easily-using-ubms" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Bayesian estimates easily using ubms<a href="bayesian.html#bayesian-estimates-easily-using-ubms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The JAGS code adds another layer of complexity to the analysis. Fortunately, since the year 2022, there is a new package in the neighborhood. The <a href="https://kenkellner.com/ubms/">ubms package</a> allows Bayesian estimates using the same easy and simple unmarked structure. The package has a formula-based interface compatible with unmarked, but the model is fit using MCMC with Stan instead of using maximum likelihood.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="bayesian.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ubms)</span>
+<span id="cb53-2"><a href="bayesian.html#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="bayesian.html#cb53-3" aria-hidden="true" tabindex="-1"></a>(fm7_ubms <span class="ot">&lt;-</span> <span class="fu">stan_occu</span>(<span class="sc">~</span> elev <span class="sc">+</span> temp <span class="sc">+</span> elev<span class="sc">:</span>temp <span class="sc">~</span> elev, umf, <span class="at">chains=</span><span class="dv">3</span>, <span class="at">cores=</span><span class="dv">3</span>))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## stan_occu(formula = ~elev + temp + elev:temp ~ elev, data = umf, 
+##     chains = 3, cores = 3)
+## 
+## Occupancy (logit-scale):
+##             Estimate    SD   2.5%  97.5% n_eff  Rhat
+## (Intercept)     1.16 0.325  0.567  1.812  3548 1.000
+## elev           -1.27 0.568 -2.447 -0.223  2970 0.999
+## 
+## Detection (logit-scale):
+##             Estimate     SD  2.5% 97.5% n_eff Rhat
+## (Intercept)    0.398 0.0742 0.257 0.555  3054    1
+## elev           2.117 0.1481 1.825 2.419  2670    1
+## temp           0.882 0.1272 0.633 1.134  2931    1
+## elev:temp      1.627 0.2514 1.129 2.147  3109    1
+## 
+## LOOIC: 1657.562
+## Runtime: 8.968 sec</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="bayesian.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assess model goodness-of-fit with a posterior predictive check, using the MacKenzie-Bailey chi-square test:</span></span>
+<span id="cb55-2"><a href="bayesian.html#cb55-2" aria-hidden="true" tabindex="-1"></a>fm_fit <span class="ot">&lt;-</span> <span class="fu">gof</span>(fm7_ubms, <span class="at">draws=</span><span class="dv">500</span>)</span>
+<span id="cb55-3"><a href="bayesian.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fm_fit)</span></code></pre></div>
+<p><img src="Occu_Book_files/figure-html/ubms_umf1_ch7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="bayesian.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the marginal effect of on detection:</span></span>
+<span id="cb56-2"><a href="bayesian.html#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="bayesian.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_effects</span>(fm7_ubms, <span class="st">&quot;det&quot;</span>)</span></code></pre></div>
+<p><img src="Occu_Book_files/figure-html/ubms_umf1_ch7-2.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="bayesian.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the marginal effect of on Occupancy:</span></span>
+<span id="cb57-2"><a href="bayesian.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="bayesian.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_effects</span>(fm7_ubms, <span class="st">&quot;state&quot;</span>)</span></code></pre></div>
+<p><img src="Occu_Book_files/figure-html/ubms_umf1_ch7-3.png" width="672" /></p>
+<div id="advantages-of-ubms-compared-to-unmarked" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Advantages of ubms compared to unmarked:<a href="bayesian.html#advantages-of-ubms-compared-to-unmarked" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Obtain posterior distributions of parameters and derived parameters.</p></li>
+<li><p>Include random effects in parameter formulas (same syntax as lme4).</p></li>
+<li><p>Assess model fit using WAIC and LOO via the loo package.</p></li>
+</ol>
+</div>
+<div id="disadvantages-of-ubms-compared-to-unmarked" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Disadvantages of ubms compared to unmarked:<a href="bayesian.html#disadvantages-of-ubms-compared-to-unmarked" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>MCMC is slower than maximum likelihood.</p></li>
+<li><p>Not all model types are supported.</p></li>
+<li><p>Potential for convergence issues</p></li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unmarked.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-session-information-and-packages-used.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/occu_book/edit/master/07-bayesian.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": "https://github.com/dlizcano/occu_book/Occu_Book.pdf",
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

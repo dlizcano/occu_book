@@ -237,8 +237,10 @@ params <- c("sumZ", "occ.fs", "logit.psi", "logit.p", "alpha", "beta")
 
 # Call JAGS from R (ART 260 sec with norm(), 480 with unif(-10,10)) 
 # and summarize posteriors
-system.time(out22 <- jags(win.data, inits, parameters.to.save = params,
-                      model.file = "D:/BoxFiles/Box Sync/CodigoR/Toshiba/IntroOccuBook/bookdown-demo-master/model22.txt", 
+system.time(out22 <- jags(win.data, 
+                          inits, 
+                          parameters.to.save = params,
+                      model.file = "C:/Users/silvi/Documents/GitHub/occu_book/model22.txt", 
                           n.chains = nc, 
                           n.thin = nt, 
                           n.iter = ni, 

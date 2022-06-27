@@ -1,0 +1,3 @@
+h1:function1 Packing everything into a function
+fig:fig7 Natural variability (sampling error) of the true number of occupied sites (ordered by size) in red and the observed number of occupied sites (in blue). The number of sites observed/total is also known as the naïve occupancy of deer occurrence at 60 sites in the simulation. The width of the blue area represents the error induced by imperfect detection. Note the importance of taking this error into account to get a better idea of the occupation.
+

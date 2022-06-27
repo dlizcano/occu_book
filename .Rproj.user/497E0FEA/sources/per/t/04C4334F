@@ -1,0 +1,26 @@
+{
+    "id": "04C4334F",
+    "path": "~/GitHub/occu_book/04-example.Rmd",
+    "project_path": "04-example.Rmd",
+    "type": "r_markdown",
+    "hash": "4163193176",
+    "contents": "",
+    "dirty": false,
+    "created": 1656292571750.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "19,655",
+        "scrollLine": "14"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1656292641,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1656292641027,
+    "read_only": false,
+    "read_only_alternatives": []
+}

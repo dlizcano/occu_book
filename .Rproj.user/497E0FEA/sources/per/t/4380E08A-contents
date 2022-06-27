@@ -1,0 +1,326 @@
+# Occupancy analysis, ML method {#unmarked}
+
+Now that we have understood how the two processes work and interact; the ecological and the observational to produce the occupation data. After generating several data sets, now we only have to analyze them. The most direct and intuitive way is to use the occu function from the unmarked [@Fiske2011] package. Later we can use a Bayesian type model in the BUGS language to analyze the same data and in the end compare which of the two estimators, Maximum Likelihood or Bayesian, is closer to the true parameters.
+
+### Clearing R memory
+
+Before we continue, and since we have already generated a large amount of data and models in the previous steps, we are going to clear the memory of R before we begin. We do this with the command:
+
+```{r clear_WS, eval=FALSE, warning=FALSE}
+rm(list = ls())
+
+```
+
+Once we have done this we must re-run the code of the function that generates the data that we have created in Chapter \@ref(function1).
+
+After having loaded the function again we must return to
+
+## Generating the data
+
+This time we will use a TEAM-type design (https://www.wildlifeinsights.org/team-network) with 60 sampling sites and 30 repeated visits, which is equivalent to the 30 days that the cameras remain active in the field. Again our species is the white-tailed tapir. For this example we will assume that detection is 0.6, occupancy is 0.8, and the interactions are much simpler with elevation as the only covariate explaining occupancy. However, for detection there is a more complex relationship, assuming that there is a slight interaction between the observation covariates. For observation, elevation and temperature interact with each other. Also, note how elevation influences in opposite directions with a positive sign at elevation for detection and negative for occupancy.
+
+
+```{r fun_ch2, warning=FALSE, echo=FALSE, message=FALSE}
+###############################
+## The function starts here ###
+###############################
+set.seed(24) # Can choose seed of your choice
+# Function definition with set of default values
+data.fn <- function(M = 60, J = 30, mean.occupancy = 0.8, 
+                    beta1 = -1.5, beta2 = 0, beta3 = 0, mean.detection = 0.6, 
+                    alpha1 = 2, alpha2 = 1, alpha3 = 1.5, show.plot = FALSE){
+# Function to simulate occupancy measurements replicated at M sites during J occasions.
+# Population closure is assumed for each site.
+# Expected occurrence may be affected by elevation (elev), 
+# forest cover (forest) and their interaction.
+# Expected detection probability may be affected by elevation, 
+# temperature (temp) and their interaction.
+# Function arguments:
+#     M: Number of spatial replicates (sites)
+#     J: Number of temporal replicates (occasions)
+#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates
+#     beta1: Main effect of elevation on occurrence
+#     beta2: Main effect of forest cover on occurrence
+#     beta3: Interaction effect on occurrence of elevation and forest cover
+#     mean.detection: Mean detection prob. at value 0 of detection covariates
+#     alpha1: Main effect of elevation on detection probability
+#     alpha2: Main effect of temperature on detection probability
+#     alpha3: Interaction effect on detection of elevation and temperature
+#     show.plot: if TRUE, plots of the data will be displayed; 
+#               set to FALSE if you are running simulations.
+
+# Create covariates
+elev <- runif(n = M, -1, 1)                         # Scaled elevation
+forest <- runif(n = M, -1, 1)                       # Scaled forest cover
+temp <- array(runif(n = M*J, -1, 1), dim = c(M, J)) # Scaled temperature
+
+# Model for occurrence
+beta0 <- qlogis(mean.occupancy)               # Mean occurrence on link scale
+psi <- plogis(beta0 + beta1*elev + beta2*forest + beta3*elev*forest)
+z <- rbinom(n = M, size = 1, prob = psi)      # Realised occurrence
+
+# Plots
+if(show.plot){
+  par(mfrow = c(2, 2), cex.main = 1)
+  devAskNewPage(ask = TRUE)
+  curve(plogis(beta0 + beta1*x), -1, 1, col = "red", frame.plot = FALSE, 
+      ylim = c(0, 1), xlab = "Elevation", ylab = "psi", lwd = 2)
+  plot(elev, psi, frame.plot = FALSE, ylim = c(0, 1), xlab = "Elevation", 
+     ylab = "")
+  curve(plogis(beta0 + beta2*x), -1, 1, col = "red", frame.plot = FALSE, 
+      ylim = c(0, 1), xlab = "Forest cover", ylab = "psi", lwd = 2)
+  plot(forest, psi, frame.plot = FALSE, ylim = c(0, 1), xlab = "Forest cover", 
+     ylab = "")
+}
+
+# Model for observations
+y <- p <- matrix(NA, nrow = M, ncol = J)# Prepare matrix for y and p
+alpha0 <- qlogis(mean.detection)        # mean detection on link scale
+for (j in 1:J){                         # Generate counts by survey
+   p[,j] <- plogis(alpha0 + alpha1*elev + alpha2*temp[,j] + alpha3*elev*temp[,j])
+   y[,j] <- rbinom(n = M, size = 1, prob = z * p[,j])
+}
+
+# True and observed measures of 'distribution'
+sumZ <- sum(z)                     # Total occurrence (all sites)
+sumZ.obs <- sum(apply(y,1,max))    # Observed number of occ sites
+psi.fs.true <- sum(z) / M          # True proportion of occ. sites in sample
+psi.fs.obs <- mean(apply(y,1,max)) # Observed proportion of occ. sites in sample
+
+# More plots
+if(show.plot){
+  par(mfrow = c(2, 2))
+  curve(plogis(alpha0 + alpha1*x), -1, 1, col = "red", 
+      main = "Relationship p-elevation \nat average temperature", 
+      xlab = "Scaled elevation", frame.plot = F)
+  matplot(elev, p, xlab = "Scaled elevation", 
+        main = "Relationship p-elevation\n at observed temperature", 
+        pch = "*", frame.plot = F)
+  curve(plogis(alpha0 + alpha2*x), -1, 1, col = "red", 
+      main = "Relationship p-temperature \n at average elevation", 
+      xlab = "Scaled temperature", frame.plot = F)
+  matplot(temp, p, xlab = "Scaled temperature", 
+        main = "Relationship p-temperature \nat observed elevation", 
+        pch = "*", frame.plot = F)
+}
+
+# Output
+return(list(M = M, J = J, mean.occupancy = mean.occupancy, 
+            beta0 = beta0, beta1 = beta1, beta2 = beta2, beta3 = beta3, 
+            mean.detection = mean.detection, 
+            alpha0 = alpha0, alpha1 = alpha1, alpha2 = alpha2, alpha3 = alpha3, 
+            elev = elev, forest = forest, temp = temp, 
+            psi = psi, z = z, p = p, y = y, sumZ = sumZ, sumZ.obs = sumZ.obs, 
+            psi.fs.true = psi.fs.true, psi.fs.obs = psi.fs.obs))
+}
+
+###############################
+## The function ends  here  ###
+###############################
+
+datos2<-data.fn(M = 60, J = 30, show.plot = FALSE,
+                mean.occupancy = 0.8, beta1 = -1.5, beta2 = 0, beta3 = 0,  
+                mean.detection = 0.6, alpha1 = 2, alpha2 = 1, alpha3 = 1.5
+                )
+
+attach(datos2)  
+
+
+```
+
+
+
+```{r unmark_data, cache=TRUE, message=FALSE, eval=FALSE, echo=TRUE}
+# Data generation
+# Lets build a model were elevation explain occupancy and p has interactions
+datos2<-data.fn(M = 60, J = 30, show.plot = FALSE,
+                mean.occupancy = 0.8, beta1 = -1.5, beta2 = 0, beta3 = 0,  
+                mean.detection = 0.6, alpha1 = 2, alpha2 = 1, alpha3 = 1.5
+                )
+
+# Function to simulate occupancy measurements replicated at M sites during J occasions.
+# Population closure is assumed for each site.
+# Expected occurrence may be affected by elevation (elev), 
+# forest cover (forest) and their interaction.
+# Expected detection probability may be affected by elevation, 
+# temperature (temp) and their interaction.
+# Function arguments:
+#     M: Number of spatial replicates (sites)
+#     J: Number of temporal replicates (occasions)
+#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates
+#     beta1: Main effect of elevation on occurrence
+#     beta2: Main effect of forest cover on occurrence
+#     beta3: Interaction effect on occurrence of elevation and forest cover
+#     mean.detection: Mean detection prob. at value 0 of detection covariates
+#     alpha1: Main effect of elevation on detection probability
+#     alpha2: Main effect of temperature on detection probability
+#     alpha3: Interaction effect on detection of elevation and temperature
+#     show.plot: if TRUE, plots of the data will be displayed; 
+#               set to FALSE if you are running simulations.
+
+
+#To make the objects inside the list directly accessible to R, without having to address 
+#them as data$C for instance, you can attach datos2 to the search path.
+
+attach(datos2)         # Make objects inside of 'datos2' accessible directly
+
+#Remember to detach the data after use, and in particular before attaching a new data 
+#object, because more than one data set attached in the search path will cause confusion.
+
+# detach(datos2)         # Make clean up
+
+```
+
+## Putting the data in unmarked
+
+[Unmarked](http://cran.r-project.org/web/packages/unmarked/index.html) is the R package we use to analyze the [@Fiske2011] occupancy data. To achieve this we must first prepare the data and collect it in an object of type unmarkedFrame. In this case we use the unmarkedFrameOccu function, which is specific for occupancy analysis of a single season or season. More about unmarked at: https://sites.google.com/site/unmarkedinfo/home
+
+```{r unmark_umf1, cache=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
+
+datos2<-data.fn(M = 60, J = 30, show.plot = FALSE,
+                mean.occupancy = 0.8, beta1 = -1.5, beta2 = 0, beta3 = 0,  
+                mean.detection = 0.6, alpha1 = 2, alpha2 = 1, alpha3 = 1.5
+                )
+attach(datos2) 
+
+
+```
+
+
+```{r unmark_umf2, dependson=-1, cache=TRUE, warning=FALSE, message=FALSE}
+
+library(unmarked)
+siteCovs <- as.data.frame(cbind(forest,elev)) # occupancy covariates 
+obselev<-matrix(rep(elev,J),ncol = J) # make elevation per observation
+obsCovs <- list(temp= temp,elev=obselev) # detection covariates
+
+# umf is the object joining observations (y), occupancy covariates (siteCovs)
+# and detection covariates (obsCovs). Note that obsCovs should be a list of 
+# matrices or dataframes.
+
+umf <- unmarkedFrameOccu(y = y, siteCovs = siteCovs, obsCovs = obsCovs)
+
+```
+
+
+The unmarked package allows us to graphically see how the data is arranged at the sampling sites with the plot function.
+
+```{r umfplot, cache=TRUE, fig.cap="Inspección grafica del objeto umf.", fig.scap="fig"}
+plot (umf)
+```
+
+
+## Fitting the models
+
+The next step is to fit the models that were required by varying the covariates. This is accomplished with the [occu() function](http://www.rdocumentation.org/packages/unmarked/versions/0.11-0/topics/occu).
+
+Keep in mind that in the model building process your models must have a biological meaning.
+
+
+```{r occu1, cache=TRUE, dependson=c(-1,-2), cache=TRUE, warning=FALSE, message=FALSE}
+# detection first, occupancy next
+fm0 <- occu(~1 ~1, umf) # Null model
+fm1 <- occu(~ elev ~ 1, umf) # elev explaining detection
+fm2 <- occu(~ elev ~ elev, umf) # elev explaining detection and occupancy
+fm3 <- occu(~ temp ~ elev, umf)
+fm4 <- occu(~ temp ~ forest, umf)
+fm5 <- occu(~ elev + temp ~ 1, umf)
+fm6 <- occu(~ elev + temp + elev:temp ~ 1, umf)
+fm7 <- occu(~ elev + temp + elev:temp ~ elev, umf)
+fm8 <- occu(~ elev + temp + elev:temp ~ forest, umf)
+```
+
+
+## Model Selection
+
+Unmarked allows you to perform a model selection procedure to select models based on the Akaike information Criterium (AIC) of each one. So the lowest AIC is the most parsimonious model according to our data [@Burnham2004].
+
+
+```{r modelsel, cache=TRUE}
+
+models <- fitList( # here e put names to the models
+  'p(.)psi(.)'                        = fm0,
+  'p(elev)psi(.)'                     = fm1,
+  'p(elev)psi(elev)'                  = fm2,
+  'p(temp)psi(elev)'                  = fm3,
+  'p(temp)psi(forest)'                = fm4,
+  'p(temp+elev)psi(.)'                = fm5,
+  'p(temp+elev+elev:temp)psi(.)'      = fm6,
+  'p(temp+elev+elev:temp)psi(elev)'   = fm7,
+  'p(temp+elev+elev:temp)psi(forest)' = fm8)
+
+modSel(models) # model selection procedure
+```
+
+
+## Prediction in graphs
+
+The model with the lowest AIC can be used to predict expected results according to a new data set. For example, one might ask the expected abundance of deer at a higher elevation site. Predictions are also another way of presenting the results of an analysis. Here we will illustrate what the prediction of $\psi$ and _p_ looks like over the range of covariates studied. Note that we are using standardized covariates. If we were using covariates at their real scale, we would have to take into account that they have to be transformed using the mean and standard deviation.
+
+Before using the model to predict it is a good idea to check the model parameters and their errors, then check graphically that the model fits well with the parboot function, which does a resampling of the model. This plot is interpreted as the model having a good fit, when the mean (dotted line) is between the intervals of the histogram. If the line is too far from the histogram the model might not be good at predicting.
+
+
+```{r fit1, cache=TRUE,  fig.cap="Graphical evaluation of the model fit fm7.", fig.scap="fig", warning=FALSE, message=FALSE, fig.show='hold', fig.height=4}
+summary(fm7) # see the model parameters
+pb <- parboot(fm7, nsim=250, report=10) # goodness of fit
+plot (pb) # plot goodness of fit
+
+```
+
+
+Now that we know that our best model has a good fit, we can use it to predict occupancy in the elevation range to see how it behaves on a graph.
+
+```{r gpsi,  fig.scap="fig.", cache=TRUE, warning=FALSE, message=FALSE,  fig.show='asis', fig.cap="Plot of occupancy versus elevation."}
+
+elevrange<-data.frame(elev=seq(min(datos2$elev),max(datos2$elev),length=100)) # newdata
+pred_psi <-predict(fm7,type="state",newdata=elevrange,appendData=TRUE) 
+plot(Predicted~elev, pred_psi,type="l",col="blue",
+       xlab="elev",
+       ylab="psi")
+lines(lower~elev, pred_psi,type="l",col=gray(0.5))
+lines(upper~elev, pred_psi,type="l",col=gray(0.5))
+```
+
+
+## Spatially explicit prediction
+
+We can also use the best model to predict spatially explicitly if we have the maps. As an illustration we will construct simulated maps for each of our covariates. The maps arise from a random pattern of points with a Poisson distribution. We then convert these points to an interpolated surface.
+
+```{r spat, cache=TRUE, warning=FALSE, message=FALSE, fig.show='asis', fig.cap="Simulated map of elevation, forest and temperature.", fig.scap="fig"}
+
+# lets make random maps for the three covariates
+library(raster)
+library(spatstat)
+set.seed(24) # Remove for random simulations
+
+# CONSTRUCT ANALYSIS WINDOW USING THE FOLLOWING:
+xrange=c(-2.5, 1002.5)
+yrange=c(-2.5, 502.5)
+window<-owin(xrange, yrange)
+
+# Build maps from random points and interpole in same line
+elev   <- density(rpoispp(lambda=0.6, win=window)) # 
+forest <- density(rpoispp(lambda=0.2, win=window)) # 
+temp   <- density(rpoispp(lambda=0.5, win=window)) # 
+
+# Convert covs to raster and Put in the same stack 
+mapdata.m<-stack(raster(elev),raster(forest), raster(temp)) 
+names(mapdata.m)<- c("elev", "forest", "temp") # put names to raster
+
+# lets plot the covs maps
+plot(mapdata.m)
+
+```
+
+Once we have our covariate maps, we use them to predict with the best model. In this way we can have a map with predictions of the occupancy and the probability of detection.
+
+```{r spatr, cache=TRUE, warning=FALSE, message=FALSE, fig.height=2.5, fig.show='asis', fig.cap="Spatially explicit detection and occupancy models.", fig.scap="fig."}
+# make the predictions 
+predictions_psi <- predict(fm7, type="state", newdata=mapdata.m) # predict psi
+predictions_p   <- predict(fm7, type="det",   newdata=mapdata.m) # predict p
+# put in the same stack
+predmaps<-stack(predictions_psi$Predicted,predictions_p$Predicted) 
+names(predmaps)<-c("psi_predicted", "p_predicted") # put names
+plot(predmaps)
+
+```

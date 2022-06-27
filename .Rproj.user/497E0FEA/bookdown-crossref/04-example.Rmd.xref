@@ -1,0 +1,14 @@
+h1:example Our Example:
+h3:ecological-model Ecological Model:
+h3:observation-model Observation Model:
+h2:initial-steps-sample-size-and-covariate-values Initial steps: sample size and covariate values
+h2:simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir Simulating the ecological process and its result: The Occurrence of The Tapir
+fig:fig2 Two ways to show the relationship between the probability of occurrence of tapir and the covariates. (A) Relationship between psi and elevation for a constant value (mean equal to zero) of forest cover. (B) Relationship between psi and elevation in an observed value of forest cover. (C) Forest cover psi ratio for a constant elevation (at mean zero). (D) Relationship psi forest cover for the observed value of elevation.
+fig:fig3 Relationship constructed between the simulated data of the expected occurrence (occupation) of tapir (psi) represented with the color scale from gray to red, against elevation and forest cover simultaneously. In this case the interaction between the two covariates is given by the value of beta3 = 1 that we have established previously.
+h3:why-bernoulli Why Bernoulli?
+h2:simulating-the-observation-process-and-its-result-the-detection Simulating the observation process and its result: the detection
+fig:fig4 Two ways to show the relationships between the expected detection probability of the tapir (_p_) and the two variables elevation and temperature. (A) Relationship _p_ and elevation for constant temperature (at the mean value, which is equal to zero). (B) Relationship between _p_ and elevation in the observed value of temperature quantity. (C) Relationship between _p_ and temperature for a constant value of elevation (at mean elevation equal to zero). (D) Relationship between _p_ and temperature for an observed value of elevation.
+fig:fig5 Relationship constructed between the simulated data of the expected probability of detection (detectability) of tapir (p) represented with the color scale from gray to red, against elevation and temperature simultaneously. In this case, the interaction between the two covariates has a linear relationship that is given by the value of alpha3 = 0 that we have previously established.
+h3:combining-the-two-processes-the-ecological-and-the-observation Combining the two processes the ecological and the observation
+fig:fig6 Relationship between observed (jittered) tapir occupancy (y) and the three standardized covariates. Elevation (A). Forest cover (B). Temperature (C) and the frequency of distribution of the observed occurrence (y) in a data set of 60 sites with 30 samples each (D).
+

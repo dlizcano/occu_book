@@ -1,0 +1,14 @@
+h1:unmarked Occupancy analysis, ML method
+h3:clearing-r-memory Clearing R memory
+h2:generating-the-data Generating the data
+h2:putting-the-data-in-unmarked Putting the data in unmarked
+fig:umfplot Inspección grafica del objeto umf.
+h2:fitting-the-models Fitting the models
+h2:model-selection Model Selection
+h2:prediction-in-graphs Prediction in graphs
+fig:fit1 Graphical evaluation of the model fit fm7.
+fig:gpsi Plot of occupancy versus elevation.
+h2:spatially-explicit-prediction Spatially explicit prediction
+fig:spat Simulated map of elevation, forest and temperature.
+fig:spatr Spatially explicit detection and occupancy models.
+

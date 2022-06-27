@@ -393,7 +393,7 @@ Figure 6.1: Inspección grafica del objeto umf.
 Figure 6.2: Graphical evaluation of the model fit fm7.
 </p>
 </div>
-<p>Now that we know that our best model has a good fit, we can use it to predict occupancy in the altitude range to see how it behaves on a graph.</p>
+<p>Now that we know that our best model has a good fit, we can use it to predict occupancy in the elevation range to see how it behaves on a graph.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="unmarked.html#cb39-1" aria-hidden="true" tabindex="-1"></a>elevrange<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">elev=</span><span class="fu">seq</span>(<span class="fu">min</span>(datos2<span class="sc">$</span>elev),<span class="fu">max</span>(datos2<span class="sc">$</span>elev),<span class="at">length=</span><span class="dv">100</span>)) <span class="co"># newdata</span></span>
 <span id="cb39-2"><a href="unmarked.html#cb39-2" aria-hidden="true" tabindex="-1"></a>pred_psi <span class="ot">&lt;-</span><span class="fu">predict</span>(fm7,<span class="at">type=</span><span class="st">&quot;state&quot;</span>,<span class="at">newdata=</span>elevrange,<span class="at">appendData=</span><span class="cn">TRUE</span>) </span>
 <span id="cb39-3"><a href="unmarked.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Predicted<span class="sc">~</span>elev, pred_psi,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,</span>

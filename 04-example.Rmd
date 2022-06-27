@@ -106,9 +106,9 @@ psi <- plogis(logit.psi)      # Inverse link transformation
 opar <- par()      # make a copy of current settings
 par(mfrow = c(2, 2), mar = c(5,4,2,2), cex.main = 1)
 curve(plogis(beta0 + beta1*x), -1, 1, col = "red", frame.plot = FALSE, ylim = c(0, 1),
-      xlab = "Altitud", ylab = "psi", lwd = 2)
+      xlab = "Elevation", ylab = "psi", lwd = 2)
 text(0.9, 0.95, "A", cex = 1.5)
-plot(elev, psi, frame.plot = FALSE, ylim = c(0, 1), xlab = "Altitud", ylab = "")
+plot(elev, psi, frame.plot = FALSE, ylim = c(0, 1), xlab = "Elevation", ylab = "")
 text(0.9, 0.95, "B", cex = 1.5)
 curve(plogis(beta0 + beta2*x), -1, 1, col = "red", frame.plot = FALSE, ylim = c(0, 1), 
       xlab = "Forest cover", ylab = "psi", lwd = 2)
@@ -140,7 +140,7 @@ for(i in 1:100){
 }
 
 mapPalette <- colorRampPalette(c("grey", "yellow", "orange", "red"))
-image(x = cov1, y = cov2, z = psi.matrix, col = mapPalette(100), xlab = "Altitud", 
+image(x = cov1, y = cov2, z = psi.matrix, col = mapPalette(100), xlab = "Elevation", 
       ylab = "Forest cover", cex.lab = 1.2)
 contour(x = cov1, y = cov2, z = psi.matrix, add = TRUE, lwd = 1)
 matpoints(elev, forest, pch="+", cex=0.8)
@@ -190,9 +190,9 @@ mean(p)                          # average per-site p is about 0.39
 
 par(mfrow = c(2, 2), mar = c(5,4,2,2), cex.main = 1)
 curve(plogis(alpha0 + alpha1*x), -1, 1, col = "red", frame.plot = FALSE, ylim = c(0, 1.1), 
-      xlab = "Altitud", ylab = "p", lwd = 2)
+      xlab = "Elevation", ylab = "p", lwd = 2)
 text(-0.9, 1.05, "A", cex = 1.5)
-matplot(elev, p, pch = "*", frame.plot = FALSE, ylim = c(0, 1.1), xlab = "Altitud", 
+matplot(elev, p, pch = "*", frame.plot = FALSE, ylim = c(0, 1.1), xlab = "Elevation", 
         ylab = "")
 text(-0.9, 1.05, "B", cex = 1.5)
 curve(plogis(alpha0 + alpha2*x), -1, 1, col = "red", frame.plot = FALSE, ylim = c(0, 1.1), 
@@ -220,7 +220,7 @@ for(i in 1:100){
                                  alpha3 * cov1[i] * cov2[j])
    }
 }
-image(x = cov1, y = cov2, z = p.matrix, col = mapPalette(100), xlab = "Altitud", 
+image(x = cov1, y = cov2, z = p.matrix, col = mapPalette(100), xlab = "Elevation", 
       ylab = "Temperature", cex.lab = 1.2)
 contour(x = cov1, y = cov2, z = p.matrix, add = TRUE, lwd = 1)
 matpoints(elev, temp, pch="+", cex=0.7, col = "black")

@@ -268,7 +268,7 @@ plot (pb) # plot goodness of fit
 ```
 
 
-Now that we know that our best model has a good fit, we can use it to predict occupancy in the altitude range to see how it behaves on a graph.
+Now that we know that our best model has a good fit, we can use it to predict occupancy in the elevation range to see how it behaves on a graph.
 
 ```{r gpsi,  fig.scap="fig.", cache=TRUE, warning=FALSE, message=FALSE,  fig.show='asis', fig.cap="Plot of occupancy versus elevation."}
 

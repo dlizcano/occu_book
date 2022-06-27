@@ -1,0 +1,5 @@
+book_filename: "Occu_Book.Rmd"
+repo: https://github.com/dlizcano/occu_book
+chapter_name: "Chapter"
+before_chapter_script: "before_chapter_script.R"
+delete_merged_file: yes

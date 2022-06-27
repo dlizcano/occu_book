@@ -1,0 +1,137 @@
+--- 
+title: "Occupancy simulation and analysis"
+author: "Diego J. Lizcano, Ph.D."
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+description: This is an R example to get occupancy data and analize it.
+cover-image: "images/Mountain_Tapir_large.png"
+favicon: "images/favicon.ico"
+documentclass: book
+github-repo: dlizcano/OTS
+link-citations: true
+linkcolor: blue
+csl: journal-of-ecology.csl
+subtitle: Understanding the simulations and the basic occupancy model
+bibliography: [book.bib, packages.bib, refs.bib]
+
+---
+
+# Prerequisites
+
+Placeholder
+
+
+## Please cite this work as:
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+
+# to be executed before each chapter
+rm(list = ls(all = TRUE))
+```
+# Why to do simulations? {#why}
+
+## why simulations are useful:
+
+1. When doing simulations, the true parameters are known, so we can ensure that the code we execute (R or BUGS) estimates what we want, and that the estimates are equal to or close to the true parameters, allowing us to debug errors in the code.
+  2. We can calibrate a derived and/or more complex model more easily. Simulations can be viewed as a controlled experiment, or as simplified versions of a real system, in which we can test how certain parameters vary and affect estimates of other parameters. Conducting controlled experiments in the real world is often impractical or impossible in ecology, so simulation is the most consistent way to study the ecological system.
+  3. Sampling error is experienced firsthand and becomes a fantastic learning process.
+  4. We can check the quality (frequentist) of the estimates, as well as the precision and the effect of sample size, by computing the difference between the mean of the estimate and the true value (bias) and the variance of the estimates (the precision).
+  5. It is the most flexible and direct way to carry out power analysis, solving the great problem of determining the sample size necessary to detect an effect of a certain magnitude, with a given probability.
+  6. We can visualize how identifiable the parameters are in more complex models.
+  7. We can check how robust the model is to violations of the assumptions.
+  8. Being able to simulate data under a particular model ensures that one understands the model, its constraints, and limitations.
+
+<!--chapter:end:02-why_simul.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+
+# to be executed before each chapter
+rm(list = ls(all = TRUE))
+```
+# The Occupancy {#occu}
+
+Obtaining data for studies of animal populations is costly and wasteful, and it is not always possible to measure population density or demographic parameters such as birth or mortality rates. That is why the estimation of habitat occupation ($\psi$) is a good study tool since it is a reflection of other important population parameters such as abundance and density, which require a high number of records, with the economic and logistical costs involved. Additionally, and because detectability (_p_) in wild animals is not complete, the use of raw data generates underestimates of habitat occupation. Using repeated sampling, it is possible to generate estimates of detectability and, with this estimate, obtain unbiased values of habitat occupancy. Occupancy analysis methods were initially developed by [@MacKenzie2002] and later expanded by other authors [@MACKENZIE2005; @MacKenzie2006; @Kery2008; @Royle2007a; @Royle2005; @Royle2006]. These types of models allow inferences to be made about the effects of continuous and categorical variables on habitat occupancy. Furthermore, if sampling is done over long periods, it is also possible to estimate extinction and recolonization rates, which are useful in metapopulation studies [@MacKenzie2003]. This is a field of great development in biostatistics that has produced a great explosion of studies that use occupation taking detectability into account [@Guillera-Arroita2010a; @Guillera-Arroita2015; @Guillera-Arroita2011; @Guillera-Arroita2012; @Guillera-Arroita2014a; @Kery2013].
+
+<!--chapter:end:03-occupancy.Rmd-->
+
+
+# Our Example: {#example}
+
+Placeholder
+
+
+### Ecological Model:
+### Observation Model:
+## Initial steps: sample size and covariate values
+## Simulating the ecological process and its result: The Occurrence of The Tapir
+### Why Bernoulli?
+## Simulating the observation process and its result: the detection
+### Combining the two processes the ecological and the observation
+
+<!--chapter:end:04-example.Rmd-->
+
+
+# Packing everything into a function {#function1}
+
+Placeholder
+
+
+
+<!--chapter:end:05-all-in-function.Rmd-->
+
+
+# Occupancy analysis, ML method {#unmarked}
+
+Placeholder
+
+
+### Clearing R memory
+## Generating the data
+## Putting the data in unmarked
+## Fitting the models
+## Model Selection
+## Prediction in graphs
+## Spatially explicit prediction
+
+<!--chapter:end:06-unmarked.Rmd-->
+
+
+# Bayesian analysis {#bayesian}
+
+Placeholder
+
+
+## Generating the data
+## Comparing the actual and estimated values from ML and Bayesian
+## Bayesian estimates easily using ubms
+### Advantages of ubms compared to unmarked:
+### Disadvantages of ubms compared to unmarked:
+
+<!--chapter:end:07-bayesian.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+
+# to be executed before each chapter
+rm(list = ls(all = TRUE))
+```
+# R session information and packages used
+
+```{r sesion_info, cache=TRUE}
+sessionInfo()
+```
+
+
+<!--chapter:end:08-sesion.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+
+# to be executed before each chapter
+rm(list = ls(all = TRUE))
+```
+`r if (knitr:::is_html_output()) '# References {-}'`
+
+<!--chapter:end:09-references.Rmd-->
+

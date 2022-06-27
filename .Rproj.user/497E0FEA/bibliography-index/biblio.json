@@ -1,0 +1,2644 @@
+{
+    "sources": [
+        {
+            "URL": "http://yihui.name/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "edition": "2nd",
+            "id": "xie2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1498716963",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Dynamic documents with R and knitr",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1111/j.1365-2664.2007.01441.x",
+            "ISSN": "00218901",
+            "URL": "http://doi.wiley.com/10.1111/j.1365-2664.2007.01441.x",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "M."
+                },
+                {
+                    "family": "Royle",
+                    "given": "J. A."
+                }
+            ],
+            "container-title": "Journal of Applied Ecology",
+            "id": "Kery2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        4
+                    ]
+                ]
+            },
+            "page": "589-598",
+            "title": "Hierarchical Bayes estimation of species richness and occupancy in spatially replicated surveys",
+            "type": "article-journal",
+            "volume": "45"
+        },
+        {
+            "DOI": "10.1525/auk.2008.06185",
+            "ISBN": "0004-8038",
+            "ISSN": "0004-8038",
+            "URL": "http://dx.doi.org/10.1525/auk.2008.06185 http://www.bioone.org/doi/abs/10.1525/auk.2008.06185",
+            "abstract": "Abundance estimation is central to avian ecolology. For replicated counts, Roylle e (2004) devello oped amodel to estimate abundance adjusted for detectability. Hitherto, it was unknown whether the same covariate was allowed to affect both abundance and detectability. This situation was disconcerting, because relationships between abundance and such covariates describing, for example, habitat, lie at the heart of ecology. I test this by simulation and provide additional guidelines on the model as well as code to fit it in a Bayesian mode of analysis. I simulated 1,000 data sets mimicking the Swiss breeding-bird survey “Monitoring Häufige Brutvögel” (three surveys in each of 268 quadrats). Elevation affected abundance negatively and detectability positively, resulting in a hump-shaped re- lationship between counts and elevation. I used WinBUGS to fit the model and estimate parameters, including quadrat-specific abun- dance and total abundance, across all 268 quadrats. For every parameter, the model recovered estimates that showed no indication of bias. The mean error in the estimated total population size across all quadrats was only 2%, whereas the summed maximum counts, a conventional abundance estimate, underestimated total population size by 43%. In contrast to maximum counts, the binomial mixture model revealed the true negative relationship between abundance and elevation. This model is a promising new alternative to capture– recapture or distance sampling methods to estimate bird abundance free of distorting effects of detectability. It has perhaps the fewest requirements, needing neither individual identification nor distance information to “convert” simple counts (“relative abundance”) into estimates of true abundance. It ought to be seriously considered in future bird-survey schemes.",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "M."
+                }
+            ],
+            "container-title": "The Auk",
+            "id": "KERY2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        4
+                    ]
+                ]
+            },
+            "page": "336-345",
+            "publisher": "The American Ornithologists’ Union",
+            "title": "Estimating abundance from bird counts: binomial mixture models uncover complex covariate relationships",
+            "type": "article-journal",
+            "volume": "125"
+        },
+        {
+            "DOI": "10.1016/B978-0-12-387020-9.00013-4",
+            "ISBN": "9780123870209",
+            "URL": "http://dx.doi.org/10.1016/B978-0-12-387020-9.00013-4 http://linkinghub.elsevier.com/retrieve/pii/B9780123870209000134",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Schaub",
+                    "given": "Michael"
+                }
+            ],
+            "container-title": "Bayesian population analysis using WinBUGS",
+            "id": "Kery2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "413-461",
+            "publisher": "Elsevier",
+            "title": "Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models",
+            "type": "chapter"
+        },
+        {
+            "DOI": "10.18637/jss.v043.i10",
+            "ISSN": "1548-7660",
+            "URL": "http://www.jstatsoft.org/v43/i10/",
+            "author": [
+                {
+                    "family": "Fiske",
+                    "given": "Ian"
+                },
+                {
+                    "family": "Chandler",
+                    "given": "Richard"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "Fiske2011",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1-23",
+            "title": "unmarked : An R Package for fitting hierarchical models of wildlife occurrence and abundance",
+            "type": "article-journal",
+            "volume": "43"
+        },
+        {
+            "ISBN": "3900051070",
+            "URL": "http://www.r-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "RCoreTeam2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2",
+            "ISSN": "0012-9658",
+            "URL": "http://dx.doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO 2 http://www.esajournals.org/doi/abs/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2",
+            "abstract": "Nondetection of a species at a site does not imply that the species is absent unless the probability of detection is 1. We propose a model and likelihood-based method for estimating site occupancy rates when detection probabilities are <1. The model provides a flexible framework enabling covariate information to be included and allowing for missing observations. Via computer simulation, we found that the model provides good estimates of the occupancy rates, generally unbiased for moderate detection probabilities (>0.3). We estimated site occupancy rates for two anuran species at 32 wetland sites in Maryland, USA, from data collected during 2000 as part of an amphibian monitoring program, Frogwatch USA. Site occupancy rates were estimated as 0.49 for American toads (Bufo americanus), a 44% increase over the proportion of sites at which they were actually observed, and as 0.85 for spring peepers (Pseudacris crucifer), slightly above the observed proportion of 0.83.",
+            "annote": "doi: 10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I"
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James D"
+                },
+                {
+                    "family": "Lachman",
+                    "given": "Gideon B"
+                },
+                {
+                    "family": "Droege",
+                    "given": "Sam"
+                },
+                {
+                    "family": "Andrew Royle",
+                    "given": "J"
+                },
+                {
+                    "family": "Langtimm",
+                    "given": "Catherine A"
+                }
+            ],
+            "container-title": "Ecology",
+            "id": "MacKenzie2002",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002,
+                        8
+                    ]
+                ]
+            },
+            "page": "2248-2255",
+            "publisher": "Ecological Society of America",
+            "title": "Estimating site occupancy rates when detection probabilities are less than one",
+            "type": "article-journal",
+            "volume": "83"
+        },
+        {
+            "DOI": "10.1111/j.1365-2664.2005.01098.x",
+            "ISSN": "00218901",
+            "URL": "http://doi.wiley.com/10.1111/j.1365-2664.2005.01098.x",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I."
+                },
+                {
+                    "family": "Royle",
+                    "given": "J. A."
+                }
+            ],
+            "container-title": "Journal of Applied Ecology",
+            "id": "MACKENZIE2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005,
+                        12
+                    ]
+                ]
+            },
+            "page": "1105-1114",
+            "title": "Designing occupancy studies: general advice and allocating survey effort",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "ISBN": "0120887665",
+            "abstract": "This is the first book to examine the latest methods in analyzing presence/absence data surveys. Using four classes of models (single-species, single-season; single-species, multiple season; multiple-species, single-season; and multiple-species, multiple-season), the authors discuss the practical sampling situation, present a likelihood-based model enabling direct estimation of the occupancy-related parameters while allowing for imperfect detectability, and make recommendations for designing studies using these models. It provides authoritative insights into the latest in estimation modeling; discusses multiple models which lay the groundwork for future study designs; addresses critical issues of imperfect detectibility and its effects on estimation; and explores the role of probability in estimating in detail.",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I."
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James"
+                },
+                {
+                    "family": "Royle",
+                    "given": "J. A."
+                },
+                {
+                    "family": "Pollock",
+                    "given": "Kenneth"
+                },
+                {
+                    "family": "Bailey",
+                    "given": "Larissa"
+                },
+                {
+                    "family": "Hines",
+                    "given": "James"
+                }
+            ],
+            "id": "MacKenzie2006",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "page": "324",
+            "publisher": "Academic Press",
+            "publisher-place": "Burlington, MA",
+            "title": "Occupancy estimation and modeling: inferring patterns and dynamics of species occurrence",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1890/06-0669.1",
+            "ISBN": "0012-9658",
+            "ISSN": "0012-9658",
+            "PMID": "17645027",
+            "URL": "http://dx.doi.org/10.1890/06-0669.1",
+            "abstract": "Species occurrence and its dynamic components, extinction and colonization probabilities, are focal quantities in biogeography and metapopulation biology, and for species conservation assessments. It has been increasingly appreciated that these parameters must be estimated separately from detection probability to avoid the biases induced by non-detection error. Hence, there is now considerable theoretical and practical interest in dynamic occupancy models that contain explicit representations of metapopulation dynamics such as extinction, colonization, and turnover as well as growth rates. We describe a hierarchical parameterization of these models that is analogous to the state-space formulation of models in time series, where the model is represented by two components, one for the partially observable occupancy process and another for the observations conditional on that process. This parameterization naturally allows estimation of all parameters of the conventional approach to occupancy models, but in addition, yields great flexibility and extensibility, e.g., to modeling heterogeneity or latent structure in model parameters. We also highlight the important distinction between population and finite sample inference; the latter yields much more precise estimates for the particular sample at hand. Finite sample estimates can easily be obtained using the state-space representation of the model but are difficult to obtain under the conventional approach of likelihood-based estimation. We use R and WinBUGS to apply the model to two examples. In a standard analysis for the European Crossbill in a large Swiss monitoring program, we fit a model with year-specific parameters. Estimates of the dynamic parameters varied greatly among years, highlighting the irruptive population dynamics of that species. In the second example, we analyze route occupancy of Cerulean Warblers in the North American Breeding Bird Survey (BBS) using a model allowing for site-specific heterogeneity in model parameters. The results indicate relatively low turnover and a stable distribution of Cerulean Warblers which is in contrast to analyses of counts of individuals from the same survey that indicate important declines. This discrepancy illustrates the inertia in occupancy relative to actual abundance. Furthermore, the model reveals a declining patch survival probability, and increasing turnover, toward the edge of the range of the species, which is consistent with metapopulation perspectives on the genesis of range edges. Given detection/non-detection data, dynamic occupancy models as described here have considerable potential for the study of distributions and range dynamics.",
+            "annote": "From Duplicate 1 (A Bayesian state-space formulation of dynamic occupancy models - Royle, J Andrew; Kééry, Marc)doi: 10.1890/06-0669.1",
+            "author": [
+                {
+                    "family": "Royle",
+                    "given": "J. Andrew"
+                },
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                }
+            ],
+            "container-title": "Ecology",
+            "id": "Royle2007a",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007,
+                        7
+                    ]
+                ]
+            },
+            "keyword": ",Bayesian analysis,Detection probability,Heterogeneity,Hierarchical models,Presence/absence data,Range dynamics,Site occupancy,State-space models,Turnover,WinBUGS",
+            "page": "1813-1823",
+            "publisher": "Ecological Society of America",
+            "title": "A Bayesian state-space formulation of dynamic occupancy models",
+            "type": "article-journal",
+            "volume": "88"
+        },
+        {
+            "DOI": "10.1111/j.0030-1299.2005.13534.x",
+            "abstract": "Relationships between species abundance and occupancy are of considerable interest in metapopulation biology and in macroecology. Such relationships may be described concisely using probability models that characterize variation in abundance of a species. However, estimation of the parameters of these models in most ecological problems is impaired by imperfect detection. When organisms are detected imperfectly, observed counts are biased estimates of true abundance, and this induces bias in stated occupancy or occurrence probability. In this paper we consider a class of models that enable estimation of abundance/occupancy relationships from counts of organisms that result from surveys in which detection is imperfect. Under such models, parameter estimation and inference are based on conventional likelihood methods. We provide an application of these models to geographically extensive breeding bird survey data in which alternative models of abundance are considered that include factors that influence variation in abundance and detectability. Using these models, we produce estimates of abundance and occupancy maps that honor important sources of spatial variation in avian abundance and provide clearly interpretable characterizations of abundance and occupancy adjusted for imperfect detection.",
+            "author": [
+                {
+                    "family": "Royle",
+                    "given": "J Andrew"
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James D"
+                },
+                {
+                    "family": "K&eacute"
+                },
+                {
+                    "family": "Ry",
+                    "given": "Marc"
+                }
+            ],
+            "container-title": "Oikos",
+            "id": "Royle2005",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "keyword": "detecting wildlife,gis,habitat model,model,modeling",
+            "page": "353-359",
+            "title": "Modelling occurrence and abundance of species when detection is imperfect",
+            "type": "article-journal",
+            "volume": "110"
+        },
+        {
+            "DOI": "10.1111/j.1541-0420.2005.00439.x",
+            "ISBN": "0006-341X (Print)$\\backslash$r0006-341X (Linking)",
+            "ISSN": "0006341X",
+            "PMID": "16542234",
+            "abstract": "Models for estimating the probability of occurrence of a species in the presence of imperfect detection are important in many ecological disciplines. In these \"site occupancy\" models, the possibility of heterogeneity in detection probabilities among sites must be considered because variation in abundance (and other factors) among sampled sites induces variation in detection probability (p). In this article, I develop occurrence probability models that allow for heterogeneous detection probabilities by considering several common classes of mixture distributions for p. For any mixing distribution, the likelihood has the general form of a zero-inflated binomial mixture for which inference based upon integrated likelihood is straightforward. A recent paper by Link demonstrates that in closed population models used for estimating population size, different classes of mixture distributions are indistinguishable from data, yet can produce very different inferences about population size. I demonstrate that this problem can also arise in models for estimating site occupancy in the presence of heterogeneous detection probabilities. The implications of this are discussed in the context of an application to avian survey data and the development of animal monitoring programs.",
+            "author": [
+                {
+                    "family": "Royle",
+                    "given": "J. Andrew"
+                }
+            ],
+            "container-title": "Biometrics",
+            "id": "Royle2006",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "keyword": "Animal sampling,Detection probability,Occurrence probability,Site occupancy",
+            "page": "97-102",
+            "title": "Site occupancy models with heterogeneous detection probabilities",
+            "type": "article-journal",
+            "volume": "62"
+        },
+        {
+            "DOI": "10.1890/02-3090",
+            "ISSN": "0012-9658",
+            "URL": "http://www.esajournals.org/doi/abs/10.1890/02-3090",
+            "abstract": "Few species are likely to be so evident that they will always be detected when present. Failing to allow for the possibility that a target species was present, but undetected, at a site will lead to biased estimates of site occupancy, colonization, and local extinction probabilities. These population vital rates are often of interest in long-term monitoring programs and metapopulation studies. We present a model that enables direct estimation of these parameters when the probability of detecting the species is less than 1. The model does not require any assumptions of process stationarity, as do some previous methods, but does require detection/nondetection data to be collected in a manner similar to Pollock’s robust design as used in mark–recapture studies. Via simulation, we show that the model provides good estimates of parameters for most scenarios considered. We illustrate the method with data from monitoring programs of Northern Spotted Owls (Strix occidentalis caurina) in northern California and ti...",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I."
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James D."
+                },
+                {
+                    "family": "Hines",
+                    "given": "James E."
+                },
+                {
+                    "family": "Knutson",
+                    "given": "Melinda G."
+                },
+                {
+                    "family": "Franklin",
+                    "given": "Alan B."
+                }
+            ],
+            "container-title": "Ecology",
+            "id": "MacKenzie2003",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2003,
+                        8
+                    ]
+                ]
+            },
+            "keyword": "colonization,detection probability,local extinction,metapopulation,monitoring,open population,patch occupancy,robust design,site occupancy",
+            "page": "2200-2207",
+            "title": "Estimating site occupancy, colonization, and local extinction when a species is detected imperfectly",
+            "type": "article-journal",
+            "volume": "84"
+        },
+        {
+            "DOI": "10.1111/j.2041-210X.2010.00017.x",
+            "ISSN": "2041210X",
+            "URL": "http://doi.wiley.com/10.1111/j.2041-210X.2010.00017.x",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Ridout",
+                    "given": "Martin S."
+                },
+                {
+                    "family": "Morgan",
+                    "given": "Byron J. T."
+                }
+            ],
+            "container-title": "Methods in Ecology and Evolution",
+            "id": "Guillera-Arroita2010a",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010,
+                        3
+                    ]
+                ]
+            },
+            "page": "131-139",
+            "title": "Design of occupancy studies with imperfect detection",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "DOI": "10.1111/geb.12268",
+            "ISSN": "1466822X",
+            "URL": "http://onlinelibrary.wiley.com/doi/10.1111/geb.12268/full http://doi.wiley.com/10.1111/geb.12268",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Lahoz-Monfort",
+                    "given": "José J."
+                },
+                {
+                    "family": "Elith",
+                    "given": "Jane"
+                },
+                {
+                    "family": "Gordon",
+                    "given": "Ascelin"
+                },
+                {
+                    "family": "Kujala",
+                    "given": "Heini"
+                },
+                {
+                    "family": "Lentini",
+                    "given": "Pia E."
+                },
+                {
+                    "family": "McCarthy",
+                    "given": "Michael A."
+                },
+                {
+                    "family": "Tingley",
+                    "given": "Reid"
+                },
+                {
+                    "family": "Wintle",
+                    "given": "Brendan A."
+                }
+            ],
+            "container-title": "Global Ecology and Biogeography",
+            "id": "Guillera-Arroita2015",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015,
+                        3
+                    ]
+                ]
+            },
+            "keyword": "Ecological niche model,habitat model,imperfect detection,presence‐background,presence‐only,presence–absence,prevalence,sampling bias",
+            "page": "276-292",
+            "title": "Is my species distribution model fit for purpose? Matching data and models to applications",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "DOI": "10.1111/j.2041-210X.2011.00089.x",
+            "ISSN": "2041210X",
+            "URL": "http://doi.wiley.com/10.1111/j.2041-210X.2011.00089.x",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                }
+            ],
+            "container-title": "Methods in Ecology and Evolution",
+            "id": "Guillera-Arroita2011",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011,
+                        8
+                    ]
+                ]
+            },
+            "page": "401-406",
+            "title": "Impact of sampling with replacement in occupancy studies with spatial replication",
+            "type": "article-journal",
+            "volume": "2"
+        },
+        {
+            "DOI": "10.1111/j.2041-210X.2012.00225.x",
+            "ISSN": "2041210X",
+            "URL": "http://doi.wiley.com/10.1111/j.2041-210X.2012.00225.x",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Lahoz-Monfort",
+                    "given": "José J."
+                }
+            ],
+            "container-title": "Methods in Ecology and Evolution",
+            "id": "Guillera-Arroita2012",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        10
+                    ]
+                ]
+            },
+            "page": "860-869",
+            "title": "Designing studies to detect differences in species occupancy: power analysis under imperfect detection",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "DOI": "10.1007/s13253-014-0171-4",
+            "ISSN": "1085-7117",
+            "URL": "http://dx.doi.org/10.1007/s13253-014-0171-4",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Ridout",
+                    "given": "MartinS."
+                },
+                {
+                    "family": "Morgan",
+                    "given": "ByronJ.T."
+                }
+            ],
+            "container-title": "Journal of Agricultural, Biological, and Environmental Statistics",
+            "id": "Guillera-Arroita2014a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "keyword": "Binary data,Imperfect detection,Multistage,Optimal design,Pilot study,Second-order approximation",
+            "page": "1-14",
+            "publisher": "Springer US",
+            "title": "Two-Stage Bayesian Study Design for Species Occupancy Estimation",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.1111/jbi.12087",
+            "ISSN": "03050270",
+            "URL": "http://doi.wiley.com/10.1111/jbi.12087",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Lahoz-Monfort",
+                    "given": "José J."
+                }
+            ],
+            "container-title": "Journal of Biogeography",
+            "editor": [
+                {
+                    "family": "Patten",
+                    "given": "Michael"
+                }
+            ],
+            "id": "Kery2013",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013,
+                        8
+                    ]
+                ]
+            },
+            "page": "1463-1474",
+            "title": "Analysing and mapping species range dynamics using occupancy models",
+            "type": "article-journal",
+            "volume": "40"
+        },
+        {
+            "ISBN": "0123870208",
+            "URL": "http://books.google.com/books?hl=en{\\&}lr={\\&}id=kd4JGs44ap4C{\\&}pgis=1",
+            "abstract": "Bayesian statistics has exploded into biology and its sub-disciplines, such as ecology, over the past decade. The free software program WinBUGS and its open-source sister OpenBugs is currently the only flexible and general-purpose program available with which the average ecologist can conduct standard and non-standard Bayesian statistics. Comprehensive and richly-commented examples illustrate a wide range of models that are most relevant to the research of a modern population ecologist. All WinBUGS/OpenBUGS analyses are completely integrated in software R. Includes complete documentation of all R and WinBUGS code required to conduct analyses and shows all the necessary steps from having the data in a text file out of Excel to interpreting and processing the output from WinBUGS in R.",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Schaub",
+                    "given": "Michael"
+                }
+            ],
+            "id": "Kery2011a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "535",
+            "publisher": "Academic Press",
+            "title": "Bayesian population pnalysis using WinBUGS: A hierarchical perspective",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1016/B978-0-12-378605-0.00020-X",
+            "ISBN": "9780123786050",
+            "URL": "http://dx.doi.org/10.1016/B978-0-12-378605-0.00020-X",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                }
+            ],
+            "id": "Kery2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "Elsevier",
+            "title": "Introduction to WinBUGS for ecologists",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Royle",
+                    "given": "J Andrew"
+                }
+            ],
+            "id": "kery2015applied",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Academic Press",
+            "title": "Applied hierarchical modeling in ecology: Analysis of distribution, abundance and species richness in r and BUGS: Volume 1: Prelude and static models",
+            "title-short": "Applied hierarchical modeling in ecology",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.R-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "R-base",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=bookdown",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "R-bookdown",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 0.27",
+            "title": "Bookdown: Authoring books and technical documents with r markdown",
+            "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://github.com/kenkellner/jagsUI",
+            "author": [
+                {
+                    "family": "Kellner",
+                    "given": "Ken"
+                }
+            ],
+            "id": "R-jagsUI",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "note": "R package version 1.5.2",
+            "title": "jagsUI: A wrapper around rjags to streamline JAGS analyses",
+            "title-short": "jagsUI",
+            "type": "book"
+        },
+        {
+            "URL": "https://yihui.org/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "R-knitr",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 1.39",
+            "title": "Knitr: A general-purpose package for dynamic report generation in r",
+            "title-short": "Knitr",
+            "type": "book"
+        },
+        {
+            "URL": "https://svn.r-project.org/R-packages/trunk/nlme/",
+            "author": [
+                {
+                    "family": "Pinheiro",
+                    "given": "José"
+                },
+                {
+                    "family": "Bates",
+                    "given": "Douglas"
+                },
+                {
+                    "literal": "R-core"
+                }
+            ],
+            "id": "R-nlme",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "note": "R package version 3.1-153",
+            "title": "Nlme: Linear and nonlinear mixed effects models",
+            "title-short": "Nlme",
+            "type": "book"
+        },
+        {
+            "URL": "https://rspatial.org/raster",
+            "author": [
+                {
+                    "family": "Hijmans",
+                    "given": "Robert J."
+                }
+            ],
+            "id": "R-raster",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 3.5-15",
+            "title": "Raster: Geographic data analysis and modeling",
+            "title-short": "Raster",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=rmarkdown",
+            "author": [
+                {
+                    "family": "Allaire",
+                    "given": "JJ"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "McPherson",
+                    "given": "Jonathan"
+                },
+                {
+                    "family": "Luraschi",
+                    "given": "Javier"
+                },
+                {
+                    "family": "Ushey",
+                    "given": "Kevin"
+                },
+                {
+                    "family": "Atkins",
+                    "given": "Aron"
+                },
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "family": "Cheng",
+                    "given": "Joe"
+                },
+                {
+                    "family": "Chang",
+                    "given": "Winston"
+                },
+                {
+                    "family": "Iannone",
+                    "given": "Richard"
+                }
+            ],
+            "id": "R-rmarkdown",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.14",
+            "title": "Rmarkdown: Dynamic documents for r",
+            "title-short": "Rmarkdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=rpart",
+            "author": [
+                {
+                    "family": "Therneau",
+                    "given": "Terry"
+                },
+                {
+                    "family": "Atkinson",
+                    "given": "Beth"
+                }
+            ],
+            "id": "R-rpart",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "note": "R package version 4.1-15",
+            "title": "Rpart: Recursive partitioning and regression trees",
+            "title-short": "Rpart",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=sp",
+            "author": [
+                {
+                    "family": "Pebesma",
+                    "given": "Edzer"
+                },
+                {
+                    "family": "Bivand",
+                    "given": "Roger"
+                }
+            ],
+            "id": "R-sp",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 1.4-7",
+            "title": "Sp: Classes and methods for spatial data",
+            "title-short": "Sp",
+            "type": "book"
+        },
+        {
+            "URL": "http://spatstat.org/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                }
+            ],
+            "id": "R-spatstat",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.3-4",
+            "title": "Spatstat: Spatial point pattern analysis, model-fitting, simulation, tests",
+            "title-short": "Spatstat",
+            "type": "book"
+        },
+        {
+            "URL": "http://spatstat.org/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                }
+            ],
+            "id": "R-spatstat.core",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.4-4",
+            "title": "Spatstat.core: Core functionality of the spatstat family",
+            "title-short": "Spatstat.core",
+            "type": "book"
+        },
+        {
+            "URL": "http://spatstat.org/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                }
+            ],
+            "id": "R-spatstat.data",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.2-0",
+            "title": "Spatstat.data: Datasets for spatstat family",
+            "title-short": "Spatstat.data",
+            "type": "book"
+        },
+        {
+            "URL": "http://spatstat.org/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                }
+            ],
+            "id": "R-spatstat.geom",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.4-0",
+            "title": "Spatstat.geom: Geometrical functionality of the spatstat family",
+            "title-short": "Spatstat.geom",
+            "type": "book"
+        },
+        {
+            "URL": "http://spatstat.org/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                }
+            ],
+            "id": "R-spatstat.linnet",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.3-2",
+            "title": "Spatstat.linnet: Linear networks functionality of the spatstat family",
+            "title-short": "Spatstat.linnet",
+            "type": "book"
+        },
+        {
+            "URL": "http://spatstat.org/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                }
+            ],
+            "id": "R-spatstat.random",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.2-0",
+            "title": "Spatstat.random: Random generation functionality for the spatstat family",
+            "title-short": "Spatstat.random",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=unmarked",
+            "author": [
+                {
+                    "family": "Chandler",
+                    "given": "Richard"
+                },
+                {
+                    "family": "Kellner",
+                    "given": "Ken"
+                },
+                {
+                    "family": "Fiske",
+                    "given": "Ian"
+                },
+                {
+                    "family": "Miller",
+                    "given": "David"
+                },
+                {
+                    "family": "Royle",
+                    "given": "Andy"
+                },
+                {
+                    "family": "Hostetler",
+                    "given": "Jeff"
+                },
+                {
+                    "family": "Hutchinson",
+                    "given": "Rebecca"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Adam"
+                }
+            ],
+            "id": "R-unmarked",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 1.2.5",
+            "title": "Unmarked: Models for data from unmarked animals",
+            "title-short": "Unmarked",
+            "type": "book"
+        },
+        {
+            "URL": "https://bookdown.org/yihui/bookdown",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "bookdown2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1138700109",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Bookdown: Authoring books and technical documents with R markdown",
+            "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://yihui.org/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "edition": "2nd",
+            "id": "knitr2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1498716963",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Dynamic documents with R and knitr",
+            "type": "book"
+        },
+        {
+            "URL": "http://www.crcpress.com/product/isbn/9781466561595",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "container-title": "Implementing reproducible computational research",
+            "editor": [
+                {
+                    "family": "Stodden",
+                    "given": "Victoria"
+                },
+                {
+                    "family": "Leisch",
+                    "given": "Friedrich"
+                },
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "id": "knitr2014",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1466561595",
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Knitr: A comprehensive tool for reproducible research in R",
+            "title-short": "Knitr",
+            "type": "chapter"
+        },
+        {
+            "URL": "https://bookdown.org/yihui/rmarkdown",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Allaire",
+                    "given": "J. J."
+                },
+                {
+                    "family": "Grolemund",
+                    "given": "Garrett"
+                }
+            ],
+            "id": "rmarkdown2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "note": "ISBN 9781138359338",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "R markdown: The definitive guide",
+            "title-short": "R markdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://bookdown.org/yihui/rmarkdown-cookbook",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Dervieux",
+                    "given": "Christophe"
+                },
+                {
+                    "family": "Riederer",
+                    "given": "Emily"
+                }
+            ],
+            "id": "rmarkdown2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "ISBN 9780367563837",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "R markdown cookbook",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/doc/Rnews/",
+            "author": [
+                {
+                    "family": "Pebesma",
+                    "given": "Edzer J."
+                },
+                {
+                    "family": "Bivand",
+                    "given": "Roger S."
+                }
+            ],
+            "container-title": "R News",
+            "id": "sp2005",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "9-13",
+            "title": "Classes and methods for spatial data in R",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "URL": "https://asdar-book.org/",
+            "author": [
+                {
+                    "family": "Bivand",
+                    "given": "Roger S."
+                },
+                {
+                    "family": "Pebesma",
+                    "given": "Edzer"
+                },
+                {
+                    "family": "Gomez-Rubio",
+                    "given": "Virgilio"
+                }
+            ],
+            "id": "sp2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "Springer, NY",
+            "title": "Applied spatial data analysis with R, second edition",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.routledge.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "id": "spatstat2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC Press",
+            "publisher-place": "London",
+            "title": "Spatial point patterns: Methodology and applications with R",
+            "title-short": "Spatial point patterns",
+            "type": "book"
+        },
+        {
+            "DOI": "10.18637/jss.v055.i11",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Mateu",
+                    "given": "Jorge"
+                },
+                {
+                    "family": "Bevan",
+                    "given": "Andrew"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat2013",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "1-43",
+            "title": "Hybrids of gibbs point process models and their implementation",
+            "type": "article-journal",
+            "volume": "55"
+        },
+        {
+            "DOI": "10.18637/jss.v012.i06",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "1-42",
+            "title": "spatstat: An R package for analyzing spatial point patterns",
+            "title-short": "spatstat",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "https://www.routledge.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "id": "spatstat.core2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC Press",
+            "publisher-place": "London",
+            "title": "Spatial point patterns: Methodology and applications with R",
+            "title-short": "Spatial point patterns",
+            "type": "book"
+        },
+        {
+            "DOI": "10.18637/jss.v055.i11",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Mateu",
+                    "given": "Jorge"
+                },
+                {
+                    "family": "Bevan",
+                    "given": "Andrew"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.core2013",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "1-43",
+            "title": "Hybrids of gibbs point process models and their implementation",
+            "type": "article-journal",
+            "volume": "55"
+        },
+        {
+            "DOI": "10.18637/jss.v012.i06",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.core2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "1-42",
+            "title": "spatstat: An R package for analyzing spatial point patterns",
+            "title-short": "spatstat",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "https://www.routledge.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "id": "spatstat.geom2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC Press",
+            "publisher-place": "London",
+            "title": "Spatial point patterns: Methodology and applications with R",
+            "title-short": "Spatial point patterns",
+            "type": "book"
+        },
+        {
+            "DOI": "10.18637/jss.v055.i11",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Mateu",
+                    "given": "Jorge"
+                },
+                {
+                    "family": "Bevan",
+                    "given": "Andrew"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.geom2013",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "1-43",
+            "title": "Hybrids of gibbs point process models and their implementation",
+            "type": "article-journal",
+            "volume": "55"
+        },
+        {
+            "DOI": "10.18637/jss.v012.i06",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.geom2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "1-42",
+            "title": "spatstat: An R package for analyzing spatial point patterns",
+            "title-short": "spatstat",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "https://www.routledge.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "id": "spatstat.linnet2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC Press",
+            "publisher-place": "London",
+            "title": "Spatial point patterns: Methodology and applications with R",
+            "title-short": "Spatial point patterns",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.jstatsoft.org/v55/i11/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Mateu",
+                    "given": "Jorge"
+                },
+                {
+                    "family": "Bevan",
+                    "given": "Andrew"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.linnet2013",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "1-43",
+            "title": "Hybrids of gibbs point process models and their implementation",
+            "type": "article-journal",
+            "volume": "55"
+        },
+        {
+            "URL": "https://www.jstatsoft.org/v12/i06/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.linnet2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "1-42",
+            "title": "spatstat: An R package for analyzing spatial point patterns",
+            "title-short": "spatstat",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "https://www.routledge.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Rubak",
+                    "given": "Ege"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "id": "spatstat.random2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC Press",
+            "publisher-place": "London",
+            "title": "Spatial point patterns: Methodology and applications with R",
+            "title-short": "Spatial point patterns",
+            "type": "book"
+        },
+        {
+            "DOI": "10.18637/jss.v055.i11",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                },
+                {
+                    "family": "Mateu",
+                    "given": "Jorge"
+                },
+                {
+                    "family": "Bevan",
+                    "given": "Andrew"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.random2013",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "1-43",
+            "title": "Hybrids of gibbs point process models and their implementation",
+            "type": "article-journal",
+            "volume": "55"
+        },
+        {
+            "DOI": "10.18637/jss.v012.i06",
+            "author": [
+                {
+                    "family": "Baddeley",
+                    "given": "Adrian"
+                },
+                {
+                    "family": "Turner",
+                    "given": "Rolf"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "spatstat.random2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "1-42",
+            "title": "spatstat: An R package for analyzing spatial point patterns",
+            "title-short": "spatstat",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "https://www.jstatsoft.org/v43/i10/",
+            "author": [
+                {
+                    "family": "Fiske",
+                    "given": "Ian"
+                },
+                {
+                    "family": "Chandler",
+                    "given": "Richard"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "unmarked2011",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1-23",
+            "title": "unmarked: An R package for fitting hierarchical models of wildlife occurrence and abundance",
+            "title-short": "unmarked",
+            "type": "article-journal",
+            "volume": "43"
+        },
+        {
+            "URL": "http://yihui.name/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "edition": "2nd",
+            "id": "xie2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1498716963",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Dynamic documents with R and knitr",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1111/j.1365-2664.2007.01441.x",
+            "ISSN": "00218901",
+            "URL": "http://doi.wiley.com/10.1111/j.1365-2664.2007.01441.x",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "M."
+                },
+                {
+                    "family": "Royle",
+                    "given": "J. A."
+                }
+            ],
+            "container-title": "Journal of Applied Ecology",
+            "id": "Kery2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        4
+                    ]
+                ]
+            },
+            "page": "589-598",
+            "title": "Hierarchical Bayes estimation of species richness and occupancy in spatially replicated surveys",
+            "type": "article-journal",
+            "volume": "45"
+        },
+        {
+            "DOI": "10.1525/auk.2008.06185",
+            "ISBN": "0004-8038",
+            "ISSN": "0004-8038",
+            "URL": "http://dx.doi.org/10.1525/auk.2008.06185 http://www.bioone.org/doi/abs/10.1525/auk.2008.06185",
+            "abstract": "Abundance estimation is central to avian ecolology. For replicated counts, Roylle e (2004) devello oped amodel to estimate abundance adjusted for detectability. Hitherto, it was unknown whether the same covariate was allowed to affect both abundance and detectability. This situation was disconcerting, because relationships between abundance and such covariates describing, for example, habitat, lie at the heart of ecology. I test this by simulation and provide additional guidelines on the model as well as code to fit it in a Bayesian mode of analysis. I simulated 1,000 data sets mimicking the Swiss breeding-bird survey “Monitoring Häufige Brutvögel” (three surveys in each of 268 quadrats). Elevation affected abundance negatively and detectability positively, resulting in a hump-shaped re- lationship between counts and elevation. I used WinBUGS to fit the model and estimate parameters, including quadrat-specific abun- dance and total abundance, across all 268 quadrats. For every parameter, the model recovered estimates that showed no indication of bias. The mean error in the estimated total population size across all quadrats was only 2%, whereas the summed maximum counts, a conventional abundance estimate, underestimated total population size by 43%. In contrast to maximum counts, the binomial mixture model revealed the true negative relationship between abundance and elevation. This model is a promising new alternative to capture– recapture or distance sampling methods to estimate bird abundance free of distorting effects of detectability. It has perhaps the fewest requirements, needing neither individual identification nor distance information to “convert” simple counts (“relative abundance”) into estimates of true abundance. It ought to be seriously considered in future bird-survey schemes.",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "M."
+                }
+            ],
+            "container-title": "The Auk",
+            "id": "KERY2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        4
+                    ]
+                ]
+            },
+            "page": "336-345",
+            "publisher": "The American Ornithologists’ Union",
+            "title": "Estimating abundance from bird counts: binomial mixture models uncover complex covariate relationships",
+            "type": "article-journal",
+            "volume": "125"
+        },
+        {
+            "DOI": "10.1016/B978-0-12-387020-9.00013-4",
+            "ISBN": "9780123870209",
+            "URL": "http://dx.doi.org/10.1016/B978-0-12-387020-9.00013-4 http://linkinghub.elsevier.com/retrieve/pii/B9780123870209000134",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Schaub",
+                    "given": "Michael"
+                }
+            ],
+            "container-title": "Bayesian population analysis using WinBUGS",
+            "id": "Kery2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "413-461",
+            "publisher": "Elsevier",
+            "title": "Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models",
+            "type": "chapter"
+        },
+        {
+            "DOI": "10.18637/jss.v043.i10",
+            "ISSN": "1548-7660",
+            "URL": "http://www.jstatsoft.org/v43/i10/",
+            "author": [
+                {
+                    "family": "Fiske",
+                    "given": "Ian"
+                },
+                {
+                    "family": "Chandler",
+                    "given": "Richard"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "Fiske2011",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1-23",
+            "title": "unmarked : An R Package for fitting hierarchical models of wildlife occurrence and abundance",
+            "type": "article-journal",
+            "volume": "43"
+        },
+        {
+            "ISBN": "3900051070",
+            "URL": "http://www.r-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "RCoreTeam2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2",
+            "ISSN": "0012-9658",
+            "URL": "http://dx.doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO 2 http://www.esajournals.org/doi/abs/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2",
+            "abstract": "Nondetection of a species at a site does not imply that the species is absent unless the probability of detection is 1. We propose a model and likelihood-based method for estimating site occupancy rates when detection probabilities are <1. The model provides a flexible framework enabling covariate information to be included and allowing for missing observations. Via computer simulation, we found that the model provides good estimates of the occupancy rates, generally unbiased for moderate detection probabilities (>0.3). We estimated site occupancy rates for two anuran species at 32 wetland sites in Maryland, USA, from data collected during 2000 as part of an amphibian monitoring program, Frogwatch USA. Site occupancy rates were estimated as 0.49 for American toads (Bufo americanus), a 44% increase over the proportion of sites at which they were actually observed, and as 0.85 for spring peepers (Pseudacris crucifer), slightly above the observed proportion of 0.83.",
+            "annote": "doi: 10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I"
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James D"
+                },
+                {
+                    "family": "Lachman",
+                    "given": "Gideon B"
+                },
+                {
+                    "family": "Droege",
+                    "given": "Sam"
+                },
+                {
+                    "family": "Andrew Royle",
+                    "given": "J"
+                },
+                {
+                    "family": "Langtimm",
+                    "given": "Catherine A"
+                }
+            ],
+            "container-title": "Ecology",
+            "id": "MacKenzie2002",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002,
+                        8
+                    ]
+                ]
+            },
+            "page": "2248-2255",
+            "publisher": "Ecological Society of America",
+            "title": "Estimating site occupancy rates when detection probabilities are less than one",
+            "type": "article-journal",
+            "volume": "83"
+        },
+        {
+            "DOI": "10.1111/j.1365-2664.2005.01098.x",
+            "ISSN": "00218901",
+            "URL": "http://doi.wiley.com/10.1111/j.1365-2664.2005.01098.x",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I."
+                },
+                {
+                    "family": "Royle",
+                    "given": "J. A."
+                }
+            ],
+            "container-title": "Journal of Applied Ecology",
+            "id": "MACKENZIE2005",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005,
+                        12
+                    ]
+                ]
+            },
+            "page": "1105-1114",
+            "title": "Designing occupancy studies: general advice and allocating survey effort",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "ISBN": "0120887665",
+            "abstract": "This is the first book to examine the latest methods in analyzing presence/absence data surveys. Using four classes of models (single-species, single-season; single-species, multiple season; multiple-species, single-season; and multiple-species, multiple-season), the authors discuss the practical sampling situation, present a likelihood-based model enabling direct estimation of the occupancy-related parameters while allowing for imperfect detectability, and make recommendations for designing studies using these models. It provides authoritative insights into the latest in estimation modeling; discusses multiple models which lay the groundwork for future study designs; addresses critical issues of imperfect detectibility and its effects on estimation; and explores the role of probability in estimating in detail.",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I."
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James"
+                },
+                {
+                    "family": "Royle",
+                    "given": "J. A."
+                },
+                {
+                    "family": "Pollock",
+                    "given": "Kenneth"
+                },
+                {
+                    "family": "Bailey",
+                    "given": "Larissa"
+                },
+                {
+                    "family": "Hines",
+                    "given": "James"
+                }
+            ],
+            "id": "MacKenzie2006",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "page": "324",
+            "publisher": "Academic Press",
+            "publisher-place": "Burlington, MA",
+            "title": "Occupancy estimation and modeling: inferring patterns and dynamics of species occurrence",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1890/06-0669.1",
+            "ISBN": "0012-9658",
+            "ISSN": "0012-9658",
+            "PMID": "17645027",
+            "URL": "http://dx.doi.org/10.1890/06-0669.1",
+            "abstract": "Species occurrence and its dynamic components, extinction and colonization probabilities, are focal quantities in biogeography and metapopulation biology, and for species conservation assessments. It has been increasingly appreciated that these parameters must be estimated separately from detection probability to avoid the biases induced by non-detection error. Hence, there is now considerable theoretical and practical interest in dynamic occupancy models that contain explicit representations of metapopulation dynamics such as extinction, colonization, and turnover as well as growth rates. We describe a hierarchical parameterization of these models that is analogous to the state-space formulation of models in time series, where the model is represented by two components, one for the partially observable occupancy process and another for the observations conditional on that process. This parameterization naturally allows estimation of all parameters of the conventional approach to occupancy models, but in addition, yields great flexibility and extensibility, e.g., to modeling heterogeneity or latent structure in model parameters. We also highlight the important distinction between population and finite sample inference; the latter yields much more precise estimates for the particular sample at hand. Finite sample estimates can easily be obtained using the state-space representation of the model but are difficult to obtain under the conventional approach of likelihood-based estimation. We use R and WinBUGS to apply the model to two examples. In a standard analysis for the European Crossbill in a large Swiss monitoring program, we fit a model with year-specific parameters. Estimates of the dynamic parameters varied greatly among years, highlighting the irruptive population dynamics of that species. In the second example, we analyze route occupancy of Cerulean Warblers in the North American Breeding Bird Survey (BBS) using a model allowing for site-specific heterogeneity in model parameters. The results indicate relatively low turnover and a stable distribution of Cerulean Warblers which is in contrast to analyses of counts of individuals from the same survey that indicate important declines. This discrepancy illustrates the inertia in occupancy relative to actual abundance. Furthermore, the model reveals a declining patch survival probability, and increasing turnover, toward the edge of the range of the species, which is consistent with metapopulation perspectives on the genesis of range edges. Given detection/non-detection data, dynamic occupancy models as described here have considerable potential for the study of distributions and range dynamics.",
+            "annote": "From Duplicate 1 (A Bayesian state-space formulation of dynamic occupancy models - Royle, J Andrew; Kééry, Marc)doi: 10.1890/06-0669.1",
+            "author": [
+                {
+                    "family": "Royle",
+                    "given": "J. Andrew"
+                },
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                }
+            ],
+            "container-title": "Ecology",
+            "id": "Royle2007a",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007,
+                        7
+                    ]
+                ]
+            },
+            "keyword": ",Bayesian analysis,Detection probability,Heterogeneity,Hierarchical models,Presence/absence data,Range dynamics,Site occupancy,State-space models,Turnover,WinBUGS",
+            "page": "1813-1823",
+            "publisher": "Ecological Society of America",
+            "title": "A Bayesian state-space formulation of dynamic occupancy models",
+            "type": "article-journal",
+            "volume": "88"
+        },
+        {
+            "DOI": "10.1111/j.0030-1299.2005.13534.x",
+            "abstract": "Relationships between species abundance and occupancy are of considerable interest in metapopulation biology and in macroecology. Such relationships may be described concisely using probability models that characterize variation in abundance of a species. However, estimation of the parameters of these models in most ecological problems is impaired by imperfect detection. When organisms are detected imperfectly, observed counts are biased estimates of true abundance, and this induces bias in stated occupancy or occurrence probability. In this paper we consider a class of models that enable estimation of abundance/occupancy relationships from counts of organisms that result from surveys in which detection is imperfect. Under such models, parameter estimation and inference are based on conventional likelihood methods. We provide an application of these models to geographically extensive breeding bird survey data in which alternative models of abundance are considered that include factors that influence variation in abundance and detectability. Using these models, we produce estimates of abundance and occupancy maps that honor important sources of spatial variation in avian abundance and provide clearly interpretable characterizations of abundance and occupancy adjusted for imperfect detection.",
+            "author": [
+                {
+                    "family": "Royle",
+                    "given": "J Andrew"
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James D"
+                },
+                {
+                    "family": "K&eacute"
+                },
+                {
+                    "family": "Ry",
+                    "given": "Marc"
+                }
+            ],
+            "container-title": "Oikos",
+            "id": "Royle2005",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "keyword": "detecting wildlife,gis,habitat model,model,modeling",
+            "page": "353-359",
+            "title": "Modelling occurrence and abundance of species when detection is imperfect",
+            "type": "article-journal",
+            "volume": "110"
+        },
+        {
+            "DOI": "10.1111/j.1541-0420.2005.00439.x",
+            "ISBN": "0006-341X (Print)$\\backslash$r0006-341X (Linking)",
+            "ISSN": "0006341X",
+            "PMID": "16542234",
+            "abstract": "Models for estimating the probability of occurrence of a species in the presence of imperfect detection are important in many ecological disciplines. In these \"site occupancy\" models, the possibility of heterogeneity in detection probabilities among sites must be considered because variation in abundance (and other factors) among sampled sites induces variation in detection probability (p). In this article, I develop occurrence probability models that allow for heterogeneous detection probabilities by considering several common classes of mixture distributions for p. For any mixing distribution, the likelihood has the general form of a zero-inflated binomial mixture for which inference based upon integrated likelihood is straightforward. A recent paper by Link demonstrates that in closed population models used for estimating population size, different classes of mixture distributions are indistinguishable from data, yet can produce very different inferences about population size. I demonstrate that this problem can also arise in models for estimating site occupancy in the presence of heterogeneous detection probabilities. The implications of this are discussed in the context of an application to avian survey data and the development of animal monitoring programs.",
+            "author": [
+                {
+                    "family": "Royle",
+                    "given": "J. Andrew"
+                }
+            ],
+            "container-title": "Biometrics",
+            "id": "Royle2006",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "keyword": "Animal sampling,Detection probability,Occurrence probability,Site occupancy",
+            "page": "97-102",
+            "title": "Site occupancy models with heterogeneous detection probabilities",
+            "type": "article-journal",
+            "volume": "62"
+        },
+        {
+            "DOI": "10.1890/02-3090",
+            "ISSN": "0012-9658",
+            "URL": "http://www.esajournals.org/doi/abs/10.1890/02-3090",
+            "abstract": "Few species are likely to be so evident that they will always be detected when present. Failing to allow for the possibility that a target species was present, but undetected, at a site will lead to biased estimates of site occupancy, colonization, and local extinction probabilities. These population vital rates are often of interest in long-term monitoring programs and metapopulation studies. We present a model that enables direct estimation of these parameters when the probability of detecting the species is less than 1. The model does not require any assumptions of process stationarity, as do some previous methods, but does require detection/nondetection data to be collected in a manner similar to Pollock’s robust design as used in mark–recapture studies. Via simulation, we show that the model provides good estimates of parameters for most scenarios considered. We illustrate the method with data from monitoring programs of Northern Spotted Owls (Strix occidentalis caurina) in northern California and ti...",
+            "author": [
+                {
+                    "family": "MacKenzie",
+                    "given": "Darryl I."
+                },
+                {
+                    "family": "Nichols",
+                    "given": "James D."
+                },
+                {
+                    "family": "Hines",
+                    "given": "James E."
+                },
+                {
+                    "family": "Knutson",
+                    "given": "Melinda G."
+                },
+                {
+                    "family": "Franklin",
+                    "given": "Alan B."
+                }
+            ],
+            "container-title": "Ecology",
+            "id": "MacKenzie2003",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2003,
+                        8
+                    ]
+                ]
+            },
+            "keyword": "colonization,detection probability,local extinction,metapopulation,monitoring,open population,patch occupancy,robust design,site occupancy",
+            "page": "2200-2207",
+            "title": "Estimating site occupancy, colonization, and local extinction when a species is detected imperfectly",
+            "type": "article-journal",
+            "volume": "84"
+        },
+        {
+            "DOI": "10.1111/j.2041-210X.2010.00017.x",
+            "ISSN": "2041210X",
+            "URL": "http://doi.wiley.com/10.1111/j.2041-210X.2010.00017.x",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Ridout",
+                    "given": "Martin S."
+                },
+                {
+                    "family": "Morgan",
+                    "given": "Byron J. T."
+                }
+            ],
+            "container-title": "Methods in Ecology and Evolution",
+            "id": "Guillera-Arroita2010a",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010,
+                        3
+                    ]
+                ]
+            },
+            "page": "131-139",
+            "title": "Design of occupancy studies with imperfect detection",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "DOI": "10.1111/geb.12268",
+            "ISSN": "1466822X",
+            "URL": "http://onlinelibrary.wiley.com/doi/10.1111/geb.12268/full http://doi.wiley.com/10.1111/geb.12268",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Lahoz-Monfort",
+                    "given": "José J."
+                },
+                {
+                    "family": "Elith",
+                    "given": "Jane"
+                },
+                {
+                    "family": "Gordon",
+                    "given": "Ascelin"
+                },
+                {
+                    "family": "Kujala",
+                    "given": "Heini"
+                },
+                {
+                    "family": "Lentini",
+                    "given": "Pia E."
+                },
+                {
+                    "family": "McCarthy",
+                    "given": "Michael A."
+                },
+                {
+                    "family": "Tingley",
+                    "given": "Reid"
+                },
+                {
+                    "family": "Wintle",
+                    "given": "Brendan A."
+                }
+            ],
+            "container-title": "Global Ecology and Biogeography",
+            "id": "Guillera-Arroita2015",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015,
+                        3
+                    ]
+                ]
+            },
+            "keyword": "Ecological niche model,habitat model,imperfect detection,presence‐background,presence‐only,presence–absence,prevalence,sampling bias",
+            "page": "276-292",
+            "title": "Is my species distribution model fit for purpose? Matching data and models to applications",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "DOI": "10.1111/j.2041-210X.2011.00089.x",
+            "ISSN": "2041210X",
+            "URL": "http://doi.wiley.com/10.1111/j.2041-210X.2011.00089.x",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                }
+            ],
+            "container-title": "Methods in Ecology and Evolution",
+            "id": "Guillera-Arroita2011",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011,
+                        8
+                    ]
+                ]
+            },
+            "page": "401-406",
+            "title": "Impact of sampling with replacement in occupancy studies with spatial replication",
+            "type": "article-journal",
+            "volume": "2"
+        },
+        {
+            "DOI": "10.1111/j.2041-210X.2012.00225.x",
+            "ISSN": "2041210X",
+            "URL": "http://doi.wiley.com/10.1111/j.2041-210X.2012.00225.x",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Lahoz-Monfort",
+                    "given": "José J."
+                }
+            ],
+            "container-title": "Methods in Ecology and Evolution",
+            "id": "Guillera-Arroita2012",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        10
+                    ]
+                ]
+            },
+            "page": "860-869",
+            "title": "Designing studies to detect differences in species occupancy: power analysis under imperfect detection",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "DOI": "10.1007/s13253-014-0171-4",
+            "ISSN": "1085-7117",
+            "URL": "http://dx.doi.org/10.1007/s13253-014-0171-4",
+            "author": [
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Ridout",
+                    "given": "MartinS."
+                },
+                {
+                    "family": "Morgan",
+                    "given": "ByronJ.T."
+                }
+            ],
+            "container-title": "Journal of Agricultural, Biological, and Environmental Statistics",
+            "id": "Guillera-Arroita2014a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "keyword": "Binary data,Imperfect detection,Multistage,Optimal design,Pilot study,Second-order approximation",
+            "page": "1-14",
+            "publisher": "Springer US",
+            "title": "Two-Stage Bayesian Study Design for Species Occupancy Estimation",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.1111/jbi.12087",
+            "ISSN": "03050270",
+            "URL": "http://doi.wiley.com/10.1111/jbi.12087",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Guillera-Arroita",
+                    "given": "Gurutzeta"
+                },
+                {
+                    "family": "Lahoz-Monfort",
+                    "given": "José J."
+                }
+            ],
+            "container-title": "Journal of Biogeography",
+            "editor": [
+                {
+                    "family": "Patten",
+                    "given": "Michael"
+                }
+            ],
+            "id": "Kery2013",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013,
+                        8
+                    ]
+                ]
+            },
+            "page": "1463-1474",
+            "title": "Analysing and mapping species range dynamics using occupancy models",
+            "type": "article-journal",
+            "volume": "40"
+        },
+        {
+            "ISBN": "0123870208",
+            "abstract": "Bayesian statistics has exploded into biology and its sub-disciplines, such as ecology, over the past decade. The free software program WinBUGS and its open-source sister OpenBugs is currently the only flexible and general-purpose program available with which the average ecologist can conduct standard and non-standard Bayesian statistics. Comprehensive and richly-commented examples illustrate a wide range of models that are most relevant to the research of a modern population ecologist. All WinBUGS/OpenBUGS analyses are completely integrated in software R. Includes complete documentation of all R and WinBUGS code required to conduct analyses and shows all the necessary steps from having the data in a text file out of Excel to interpreting and processing the output from WinBUGS in R.",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Schaub",
+                    "given": "Michael"
+                }
+            ],
+            "id": "Kery2011a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "535",
+            "publisher": "Academic Press",
+            "title": "Bayesian population analysis using WinBUGS: A hierarchical perspective",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1016/B978-0-12-378605-0.00020-X",
+            "ISBN": "9780123786050",
+            "URL": "http://dx.doi.org/10.1016/B978-0-12-378605-0.00020-X",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                }
+            ],
+            "id": "Kery2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "Elsevier",
+            "title": "Introduction to WinBUGS for ecologists",
+            "type": "book"
+        },
+        {
+            "URL": "http://www.sciencedirect.com/science/book/9780128013786",
+            "author": [
+                {
+                    "family": "Kéry",
+                    "given": "Marc"
+                },
+                {
+                    "family": "Royle",
+                    "given": "J Andrew"
+                }
+            ],
+            "id": "kery2015applied",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "publisher": "Academic Press",
+            "title": "Applied hierarchical modeling in ecology: Analysis of distribution, abundance and species richness in r and BUGS: Volume 1: Prelude and static models",
+            "title-short": "Applied hierarchical modeling in ecology",
+            "type": "book"
+        },
+        {
+            "URL": "http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2",
+            "abstract": "Full reality cannot be included in a model; thus we seek a good model to approximate the effects or factors supported by the empirical data. The selection of an appropriate approximating model is critical to statistical inference from many types of empirical data. This chapter introduces concepts from information theory (see Guiasu 1977), which has been a discipline only since the mid-1940s and covers a variety of theories and methods that are fundamental to many of the sciences (see Cover and Thomas 1991 for an exciting overview; Figure 2.1 is produced from their book and shows their view of the relationship of information theory to several other fields). In particular, the Kullback—Leibler “distance,” or “information,” between two models (Kull-back and Leibler 1951) is introduced, discussed, and linked to Boltzmann’s entropy in this chapter. Akaike (1973) found a simple relationship between the Kullback—Leibler distance and Fisher’s maximized log-likelihood function (see deLeeuw 1992 for a brief review). This relationship leads to a simple, effective, and very general methodology for selecting a parsimonious model for the analysis of empirical data.",
+            "annote": "10.1007/978-0-387-22456-5_2",
+            "author": [
+                {
+                    "family": "Burnham",
+                    "given": "Kenneth P"
+                },
+                {
+                    "family": "Anderson",
+                    "given": "David R"
+                }
+            ],
+            "container-title": "Model selection and multimodel inference: A practical information-theoretic approach",
+            "editor": [
+                {
+                    "family": "Burnham",
+                    "given": "Kenneth P"
+                },
+                {
+                    "family": "Anderson",
+                    "given": "David R"
+                }
+            ],
+            "id": "Burnham2004",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "keyword": "aic,akaike,model selection",
+            "page": "49-97",
+            "publisher": "Springer New York",
+            "publisher-place": "New York",
+            "title": "Information and likelihood theory: A basis for model selection and inference",
+            "type": "chapter"
+        }
+    ],
+    "project_biblios": [
+        "book.bib",
+        "packages.bib",
+        "refs.bib"
+    ]
+}

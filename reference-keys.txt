@@ -22,7 +22,7 @@ initial-steps-sample-size-and-covariate-values
 simulating-the-ecological-process-and-its-result-the-occurrence-of-the-tapir
 why-bernoulli
 simulating-the-observation-process-and-its-result-the-detection
-uniting-the-two-processes-the-ecological-and-the-observation
+combining-the-two-processes-the-ecological-and-the-observation
 function1
 unmarked
 clearing-r-memory

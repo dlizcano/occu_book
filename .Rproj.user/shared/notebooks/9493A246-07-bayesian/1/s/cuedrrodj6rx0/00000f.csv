@@ -1,0 +1,50 @@
+"0",""
+"0","datos2<-data.fn(M = 60, J = 30, show.plot = FALSE,"
+"0","                mean.occupancy = 0.8, beta1 = -1.5, beta2 = 0, beta3 = 0,  "
+"0","                mean.detection = 0.6, alpha1 = 2, alpha2 = 1, alpha3 = 1.5"
+"0","                )"
+"0","attach(datos2) "
+"2","The following objects are masked from datos2 (pos = 3):
+
+    alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2, beta3, elev, forest, J, M,
+    mean.detection, mean.occupancy, p, psi, psi.fs.obs, psi.fs.true, sumZ, sumZ.obs, temp,
+    y, z
+
+"
+"2","The following objects are masked from datos2 (pos = 5):
+
+    alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2, beta3, elev, forest, J, M,
+    mean.detection, mean.occupancy, p, psi, psi.fs.obs, psi.fs.true, sumZ, sumZ.obs, temp,
+    y, z
+
+"
+"2","The following objects are masked from datos2 (pos = 14):
+
+    alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2, beta3, elev, forest, J, M,
+    mean.detection, mean.occupancy, p, psi, psi.fs.obs, psi.fs.true, sumZ, sumZ.obs, temp,
+    y, z
+
+"
+"2","The following objects are masked from datos2 (pos = 18):
+
+    alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2, beta3, elev, forest, J, M,
+    mean.detection, mean.occupancy, p, psi, psi.fs.obs, psi.fs.true, sumZ, sumZ.obs, temp,
+    y, z
+
+"
+"2","The following objects are masked from datos2 (pos = 19):
+
+    alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2, beta3, elev, forest, J, M,
+    mean.detection, mean.occupancy, p, psi, psi.fs.obs, psi.fs.true, sumZ, sumZ.obs, temp,
+    y, z
+
+"
+"0","library(unmarked)"
+"0","siteCovs <- as.data.frame(cbind(forest,elev))"
+"0","obselev<-matrix(rep(elev,J),ncol = J) #make elevetion per observation"
+"0","obsCovs <- list(temp= temp,elev=obselev)"
+"0","umf <- unmarkedFrameOccu(y = y, siteCovs = siteCovs, obsCovs = obsCovs)"
+"0",""
+"0",""
+"0","fm7 <- occu(~ elev + temp + elev:temp ~ elev, umf)"
+"0",""
